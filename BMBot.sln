@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMBot GUI", "BMBot GUI\BMBot GUI.csproj", "{9F07A94F-EFC7-4E4B-807A-83F884EE0B44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BMBot", "BMBot", "{8148477E-E3F7-425A-B691-29E65FAF82C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "D2MapApi", "D2MapApi", "{2CECDB1B-921A-496F-9179-AE94B1FF0A2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core API", "Core API", "{250D51C9-6E43-47B6-9D5F-0D3EDB3FA8B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2MapApi.Common", "D2MapApi.Common\D2MapApi.Common.csproj", "{E13735FC-412C-4F76-9A11-37D45C029EC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2MapApi.Core", "D2MapApi.Core\D2MapApi.Core.csproj", "{3339D2AC-4506-45B3-9789-AC81C196F746}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2MapApi.DllWrapper", "D2MapApi.DllWrapper\D2MapApi.DllWrapper.vcxproj", "{53DF7774-4B9D-4CB8-B617-0841E3A8E210}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F07A94F-EFC7-4E4B-807A-83F884EE0B44}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F07A94F-EFC7-4E4B-807A-83F884EE0B44}.Release|x86.Build.0 = Release|Any CPU
+		{9F07A94F-EFC7-4E4B-807A-83F884EE0B44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F07A94F-EFC7-4E4B-807A-83F884EE0B44}.Debug|x86.Build.0 = Debug|Any CPU
+		{E13735FC-412C-4F76-9A11-37D45C029EC7}.Release|x86.ActiveCfg = Release|Any CPU
+		{E13735FC-412C-4F76-9A11-37D45C029EC7}.Release|x86.Build.0 = Release|Any CPU
+		{E13735FC-412C-4F76-9A11-37D45C029EC7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E13735FC-412C-4F76-9A11-37D45C029EC7}.Debug|x86.Build.0 = Debug|Any CPU
+		{3339D2AC-4506-45B3-9789-AC81C196F746}.Release|x86.ActiveCfg = Release|Any CPU
+		{3339D2AC-4506-45B3-9789-AC81C196F746}.Release|x86.Build.0 = Release|Any CPU
+		{3339D2AC-4506-45B3-9789-AC81C196F746}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3339D2AC-4506-45B3-9789-AC81C196F746}.Debug|x86.Build.0 = Debug|Any CPU
+		{53DF7774-4B9D-4CB8-B617-0841E3A8E210}.Release|x86.ActiveCfg = Release|Win32
+		{53DF7774-4B9D-4CB8-B617-0841E3A8E210}.Release|x86.Build.0 = Release|Win32
+		{53DF7774-4B9D-4CB8-B617-0841E3A8E210}.Debug|x86.ActiveCfg = Debug|Win32
+		{53DF7774-4B9D-4CB8-B617-0841E3A8E210}.Debug|x86.Build.0 = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC5CF14D-A182-4045-B849-D44BFE870A91}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F07A94F-EFC7-4E4B-807A-83F884EE0B44} = {8148477E-E3F7-425A-B691-29E65FAF82C5}
+		{250D51C9-6E43-47B6-9D5F-0D3EDB3FA8B8} = {2CECDB1B-921A-496F-9179-AE94B1FF0A2F}
+		{E13735FC-412C-4F76-9A11-37D45C029EC7} = {250D51C9-6E43-47B6-9D5F-0D3EDB3FA8B8}
+		{3339D2AC-4506-45B3-9789-AC81C196F746} = {250D51C9-6E43-47B6-9D5F-0D3EDB3FA8B8}
+		{53DF7774-4B9D-4CB8-B617-0841E3A8E210} = {250D51C9-6E43-47B6-9D5F-0D3EDB3FA8B8}
+	EndGlobalSection
+EndGlobal
