@@ -110,6 +110,41 @@ public class PathFinding
         return false;
     }
 
+    public bool MoveToExit(Area[] areas, int AcceptOffset = 4, bool ClearAreaOnMoving = false)
+    {
+        Form1_0.PlayerScan_0.GetPositions();
+        IsMovingToNextArea = false;
+        CheckingForCloseToTargetPos = false;
+       
+        //Form1_0.method_1("ToExit " + Form1_0.Town_0.getAreaName((int)ThisID), Color.Red);
+        foreach (Area area in areas)
+        {
+            try
+            {
+                ThisPlayerAreaID = (int)Form1_0.PlayerScan_0.levelNo;
+                CheckForBadMapData(ThisPlayerAreaID - 1);
+
+                ThisFinalPosition = Form1_0.MapAreaStruc_0.GetPositionOfObject("exit", Form1_0.Town_0.getAreaName((int)area), ThisPlayerAreaID, new List<int>() { });
+                ThisOffsetPosition = new Position { X = Form1_0.MapAreaStruc_0.AllMapData[ThisPlayerAreaID - 1].Offset.X, Y = Form1_0.MapAreaStruc_0.AllMapData[ThisPlayerAreaID - 1].Offset.Y };
+                ThisCollisionGrid = Form1_0.MapAreaStruc_0.CollisionGrid((Enums.Area)Form1_0.PlayerScan_0.levelNo);
+
+                try
+                {
+                    ThisCollisionGrid[ThisFinalPosition.X - ThisOffsetPosition.X, ThisFinalPosition.Y - ThisOffsetPosition.Y] = true; //make sure the exit is walkable
+                }
+                catch { }
+
+                PlayerOffsetInCollisiongrid = new Position { X = 0, Y = 0 };
+                TargetOffsetInCollisiongrid = new Position { X = 0, Y = 0 };
+
+                //Console.WriteLine("Going to Pos: " + ThisFinalPosition.X + ", " + ThisFinalPosition.Y);
+                Form1_0.PathFinding_0.GetPathFinding(AcceptOffset, ClearAreaOnMoving);
+            }
+            catch { return false; }
+        }
+        return true;
+    }
+
     public bool MoveToExit(Area ThisID, int AcceptOffset = 4, bool ClearAreaOnMoving = false)
     {
         Form1_0.PlayerScan_0.GetPositions();

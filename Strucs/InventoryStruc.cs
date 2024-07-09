@@ -683,8 +683,8 @@ public class InventoryStruc
     {
         for (int i = 0; i < 40; i++)
         {
-            if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone && Form1_0.InventoryStruc_0.InventoryItemNames[i] == "Wirt's Leg") continue;
-            if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone && Form1_0.InventoryStruc_0.InventoryItemNames[i] == "Tome of Town Portal") continue;
+        //    if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone && Form1_0.InventoryStruc_0.InventoryItemNames[i] == "Wirt's Leg") continue;
+        //    if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone && Form1_0.InventoryStruc_0.InventoryItemNames[i] == "Tome of Town Portal") continue;
 
             if (CharConfig.InventoryDontCheckItem[i] == 0 && InventoryHasItem[i] >= 1 && InventoryHasStashItem[i] == 0)
             {

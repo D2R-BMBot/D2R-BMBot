@@ -6,12 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class TristramRush
+public class TristramRush : IRushBot
 {
+    public const string scriptName = "Cain - Tristram Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "1";
+    public string ScriptQuest => "3b";
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public Position TristramPos = new Position { X = 0, Y = 0 };
 
 

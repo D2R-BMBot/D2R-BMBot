@@ -6,12 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class RadamentRush
+public class RadamentRush : IRushBot
 {
+    public const string scriptName = "Radament Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "2";
+    public string ScriptQuest => "1";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public Position RadamentPosition = new Position { X = 0, Y = 0 };
 
 

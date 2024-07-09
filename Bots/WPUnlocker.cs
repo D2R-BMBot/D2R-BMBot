@@ -6,12 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class WPTaker
+public class WPUnlocker : IBot
 {
+    public const string scriptName = "WP Unlocker";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
+
+
     public int TriedWPCount = 0;
     public bool HasThisWP = true;
     public Enums.Area DoingThisArea = 0;

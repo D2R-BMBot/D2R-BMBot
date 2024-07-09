@@ -106,8 +106,8 @@ public class Mover
             {
                 Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillfastMoveOutsideTown);
                 if (CharConfig.UseTeleport) AllowFastMove = true;
-                if (CharConfig.RunBaalLeechScript && !Form1_0.BaalLeech_0.ScriptDone) AllowFastMove = false;
-                if (CharConfig.RunLowerKurastScript && !Form1_0.LowerKurast_0.ScriptDone) AllowFastMove = true;
+         //       if (CharConfig.RunBaalLeechScript && !Form1_0.BaalLeech_0.ScriptDone) AllowFastMove = false;
+          //      if (CharConfig.RunLowerKurastScript && !Form1_0.LowerKurast_0.ScriptDone) AllowFastMove = true;
 
                 //Check if we are in close range from target destination, if we are, desactivate fast moving (eles it teleport twice)
                 if (AllowFastMove)

@@ -455,12 +455,12 @@ public class MobsStruc
             }
 
             //Set Fast Chaos Only Super Uniques
-            if ((Form1_0.Chaos_0.FastChaos || Form1_0.Chaos_0.FastChaosPopingSeals)
-                && MobType == "" && MobName == ""
-                && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ChaosSanctuary)
-            {
-                MobType = "getSuperUniqueName";
-            }
+            //if ((Form1_0.Chaos_0.FastChaos || Form1_0.Chaos_0.FastChaosPopingSeals)
+            //    && MobType == "" && MobName == ""
+            //    && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ChaosSanctuary)
+            //{
+            //    MobType = "getSuperUniqueName";
+            //}
 
             foreach (var ThisCurrentPointer in Form1_0.PatternsScan_0.AllNPCPointers)
             {

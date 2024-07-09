@@ -6,15 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class LowerKurast
+public class LowerKurast : IBot
 {
+    public const string scriptName = "Lower Kurast";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
+
     public int WP_X = 0;
     public int WP_Y = 0;
     public List<int> IgnoredChestList = new List<int>();
-    public bool ScriptDone = false;
+
     public bool HasTakenAnyChest = false;
 
     public void SetForm1(Form1 form1_1)

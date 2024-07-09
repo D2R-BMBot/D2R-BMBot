@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Enums;
 using static MapAreaStruc;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 public class Town
 {
@@ -80,7 +84,156 @@ public class Town
 
         }
     }
+    
+    public void DoTownChores()
+    {
+        if (!Form1_0.Town_0.GetInTown()) Form1_0.Town_0.SpawnTP(true);
+        GetCorpse();
+        int currentAct = GetCurrentAct();
+        // CHECK IF IN TOWN MOVEMENT SPEED
+        GoIdentify(currentAct);
+        StashItems();
 
+        GoShopping(); // Heal + Buy pots/etc + By Tomes + Sell shit
+
+        // Repair
+        if (Form1_0.Repair_0.GetShouldRepair() && TriedToRepairCount < CharConfig.MaxRepairTries && !FastTowning)
+        {
+            Form1_0.SetGameStatus("Going to repair.");
+            MoveToRepair();
+        }
+
+        // GAMBLE
+        if (Form1_0.Gamble_0.CanGamble() && CharConfig.GambleGold && !FastTowning) { 
+
+            Form1_0.SetGameStatus("Going to gamble.");
+            MoveToGamble();
+        }
+        // REVIVE MERC
+        if (CharConfig.UsingMerc)
+        {
+            // Check merc alive
+            Form1_0.MercStruc_0.GetMercInfos();
+
+            // If merc is dead and player has gold to revive it
+            if (!Form1_0.MercStruc_0.MercAlive && (Form1_0.PlayerScan_0.PlayerGoldInventory + Form1_0.PlayerScan_0.PlayerGoldInStash) >= 75000)
+            {
+                Form1_0.SetGameStatus("Attempting to revive merc.");
+                MoveToMerc();
+            }
+        }
+
+        // DO CUBING -- is this implemented?
+
+    }
+
+    public void GoShopping()
+    {
+        if (Form1_0.Shop_0.ShouldShop() && TriedToShopCount < CharConfig.MaxShopTries)
+        {
+            string DescTxt = "";
+            if (Form1_0.Shop_0.ShopForSellingitem) DescTxt += " (SELL)";
+            if (Form1_0.Shop_0.ShopForHP) DescTxt += " (HP)";
+            if (Form1_0.Shop_0.ShopForMana) DescTxt += " (MANA)";
+            if (Form1_0.Shop_0.ShopForTP) DescTxt += " (TP)";
+            if (Form1_0.Shop_0.ShopForKey) DescTxt += " (KEYS)";
+            if (Form1_0.Shop_0.ShopForRegainHP) DescTxt += " (REGEN HP)";
+
+            Form1_0.SetGameStatus("TOWN-SHOP" + DescTxt);
+            //Console.WriteLine("town moving to shop");
+            MoveToStore();
+            TriedToShopCount++;
+
+            //if (FastTowning) TriedToShopCount = 6;
+        }
+    }
+    public void StashItems()
+    {
+        string DescTxt = "";
+        if (Form1_0.InventoryStruc_0.ContainStashItemInInventory()) DescTxt += " (ITEM)";
+        if ((Form1_0.PlayerScan_0.PlayerGoldInventory >= 35000)) DescTxt += " (GOLD)";
+        Form1_0.SetGameStatus("TOWN-STASH" + DescTxt + " (" + (TriedToStashCount + 1) + "/" + CharConfig.MaxItemStashTries + ")");
+        MoveToStash(true);
+    }
+    public void GoTownWP(int currentAct)
+    {
+        //select town
+        if (currentAct == 1) Form1_0.KeyMouse_0.MouseClicc(235, 220);
+        if (currentAct == 2) Form1_0.KeyMouse_0.MouseClicc(325, 220);
+        if (currentAct == 3) Form1_0.KeyMouse_0.MouseClicc(415, 220);
+        if (currentAct == 4) Form1_0.KeyMouse_0.MouseClicc(500, 220);
+        if (currentAct == 5) Form1_0.KeyMouse_0.MouseClicc(585, 220);
+        Form1_0.WaitDelay(50);
+
+        Form1_0.KeyMouse_0.MouseClicc(285, 270); //select first wp
+        Form1_0.UIScan_0.WaitTilUIClose("waypointMenu");
+        Form1_0.UIScan_0.WaitTilUIClose("loading");
+        Form1_0.WaitDelay(CharConfig.WaypointEnterDelay);
+    }
+    public void GoIdentify(int currentAct)
+    {
+        CheckForNPCValidPos("DeckardCain");
+        switch (currentAct)
+        {
+            case 1:
+                if (!Form1_0.PathFinding_0.MoveToNPC("DeckardCain"))
+                {
+                    //go to act 2
+                    GoTownWP(2);
+                    // TryCain again
+                    Form1_0.WaitDelay(100);
+                    Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                }
+                break;
+            default: // Act 2-5
+                Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                break;
+
+        }
+
+        Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.NPCStruc_0.xPosFinal, Form1_0.NPCStruc_0.yPosFinal);
+
+        Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y);
+        if (Form1_0.UIScan_0.WaitTilUIOpen("npcInteract"))
+        {
+            //Clic Identify items (get cain pos again) - 227 offset y
+            Form1_0.KeyMouse_0.PressKey(System.Windows.Forms.Keys.Down);
+            Form1_0.KeyMouse_0.PressKey(System.Windows.Forms.Keys.Enter);
+
+            //wait til its done
+            if (!Form1_0.UIScan_0.WaitTilUIClose("npcInteract"))
+            {
+                //Form1_0.method_1("ITEMS DIDN'T IDENTIFIED, RETRYING...", Color.Black);
+                Form1_0.KeyMouse_0.PressKey(System.Windows.Forms.Keys.Enter);
+            }
+            Form1_0.ItemsStruc_0.GetItems(false);
+        }
+    }
+    public void GoHeal(int currentAct)
+    {
+        switch (currentAct)
+        {
+            case 1:
+                Form1_0.PathFinding_0.MoveToNPC("Akara");
+                break;
+            case 2:
+                Form1_0.PathFinding_0.MoveToNPC("Fara");
+                break;
+            case 3:
+                Form1_0.PathFinding_0.MoveToNPC("Ormus");
+                break;
+            case 4:
+                Form1_0.PathFinding_0.MoveToNPC("Jamella");
+                break;
+            case 5:
+                Form1_0.PathFinding_0.MoveToNPC("Malah");
+                break;
+            default:
+                Form1_0.method_1("Could not identify current act. Skipping heal.", Color.Red);
+                break;
+        }
+
+    }
     public void RunTownScript()
     {
         //Console.WriteLine("Fast town: " + FastTowning);
@@ -104,7 +257,7 @@ public class Town
         if (Form1_0.PlayerScan_0.PlayerDead || Form1_0.Potions_0.ForceLeave)
         {
             Form1_0.Potions_0.ForceLeave = true;
-            Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+            //Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
             Form1_0.LeaveGame(false);
             Form1_0.IncreaseDeadCount();
             return;
@@ -142,7 +295,7 @@ public class Town
             //fix for cows script
             if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.MooMooFarm)
             {
-                Form1_0.Cows_0.HadWirtsLeg = true;
+            //    Form1_0.Cows_0.HadWirtsLeg = true;
             }
 
             if (TPSpawned)
@@ -1115,89 +1268,62 @@ public class Town
     public void MoveToStash(bool RunScript)
     {
         bool MovedCorrectly = false;
-        //MISSING TOWN ACT HERE
-        if (TownAct == 1)
-        {
-            Form1_0.PathFinding_0.MoveToObject("Bank");
-            MovedCorrectly = true;
-        }
-        if (TownAct == 2)
-        {
-            Form1_0.PathFinding_0.MoveToObject("Bank");
-            MovedCorrectly = true;
-        }
-        if (TownAct == 3)
-        {
-            Form1_0.PathFinding_0.MoveToObject("Bank");
-            MovedCorrectly = true;
-        }
 
-        if (TownAct == 4)
-        {
-            Form1_0.PathFinding_0.MoveToObject("Bank");
-            MovedCorrectly = true;
-        }
+        Form1_0.PathFinding_0.MoveToObject("Bank");
+        MovedCorrectly = true;
 
+
+        //get stash location
+        Position itemScreenPos = new Position { X = 0, Y = 0 };
+        bool HasPosForStash = false;
         if (TownAct == 5)
         {
-            Form1_0.PathFinding_0.MoveToObject("Bank");
-            MovedCorrectly = true;
-        }
+            itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 5124, 5057);
 
-        if (MovedCorrectly)
+            HasPosForStash = true;
+        }
+        else
         {
-            //get stash location
-            Position itemScreenPos = new Position { X = 0, Y = 0 };
-            bool HasPosForStash = false;
-            if (TownAct == 5)
+            if (Form1_0.ObjectsStruc_0.GetObjects("Bank", true))
             {
-                itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 5124, 5057);
+                Form1_0.method_1("Changed Stash pos to: " + Form1_0.ObjectsStruc_0.itemx + ", " + Form1_0.ObjectsStruc_0.itemy, Color.BlueViolet);
+                itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.ObjectsStruc_0.itemx, Form1_0.ObjectsStruc_0.itemy);
 
                 HasPosForStash = true;
             }
             else
             {
-                if (Form1_0.ObjectsStruc_0.GetObjects("Bank", true))
+                Form1_0.method_1("Stash not found nearby in Town", Color.OrangeRed);
+                if (TownAct == 1)
                 {
-                    Form1_0.method_1("Changed Stash pos to: " + Form1_0.ObjectsStruc_0.itemx + ", " + Form1_0.ObjectsStruc_0.itemy, Color.BlueViolet);
-                    itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.ObjectsStruc_0.itemx, Form1_0.ObjectsStruc_0.itemy);
-
-                    HasPosForStash = true;
+                    Form1_0.PathFinding_0.MoveToNPC("Akara");
                 }
-                else
+                if (TownAct == 2)
                 {
-                    Form1_0.method_1("Stash not found nearby in Town", Color.OrangeRed);
-                    if (TownAct == 1)
-                    {
-                        Form1_0.PathFinding_0.MoveToNPC("Akara");
-                    }
-                    if (TownAct == 2)
-                    {
-                        Form1_0.PathFinding_0.MoveToNPC("Greiz");
-                    }
-                    if (TownAct == 3)
-                    {
-                        Form1_0.PathFinding_0.MoveToNPC("Asheara");
-                    }
-                    if (TownAct == 4)
-                    {
-                        Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5092, Y = 5044 });
-                    }
+                    Form1_0.PathFinding_0.MoveToNPC("Greiz");
                 }
-
+                if (TownAct == 3)
+                {
+                    Form1_0.PathFinding_0.MoveToNPC("Asheara");
+                }
+                if (TownAct == 4)
+                {
+                    Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5092, Y = 5044 });
+                }
             }
-            if (HasPosForStash)
+
+        }
+        if (HasPosForStash)
+        {
+            //Clic stash
+            Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y);
+            if (Form1_0.UIScan_0.WaitTilUIOpen("stash"))
             {
-                //Clic stash
-                Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y);
-                if (Form1_0.UIScan_0.WaitTilUIOpen("stash"))
+                if (RunScript)
                 {
-                    if (RunScript)
-                    {
-                        Form1_0.Stash_0.RunStashScript();
-                    }
-                    Form1_0.UIScan_0.CloseUIMenu("stash");
+                    Form1_0.Stash_0.RunStashScript();
                 }
+                Form1_0.UIScan_0.CloseUIMenu("stash");
             }
         }
     }
@@ -1432,6 +1558,16 @@ public class Town
         {
             SpawnTP(true);
         }
+    }
+
+    public int GetCurrentAct()
+    {
+        if (Form1_0.PlayerScan_0.levelNo >= 1 && Form1_0.PlayerScan_0.levelNo < 40) return 1;
+        else if (Form1_0.PlayerScan_0.levelNo >= 40 && Form1_0.PlayerScan_0.levelNo < 75) return 2;
+        else if (Form1_0.PlayerScan_0.levelNo >= 75 && Form1_0.PlayerScan_0.levelNo < 103) return 3;
+        else if (Form1_0.PlayerScan_0.levelNo >= 103 && Form1_0.PlayerScan_0.levelNo < 109) return 4;
+        else if (Form1_0.PlayerScan_0.levelNo >= 109) return 5;
+        return 0;
     }
 
     public bool GetInTown()

@@ -825,33 +825,33 @@ public class MapAreaStruc
 
     public void DumpMap()
     {
-        string AddedTxt = "";
-        if ((CharConfig.RunSummonerRush && !Form1_0.Summoner_0.ScriptDone)
-            || (CharConfig.RunSummonerScript && !Form1_0.SummonerRush_0.ScriptDone))
-        {
-            AddedTxt = "NoPathSummoner";
+        //string AddedTxt = "";
+        //if ((CharConfig.RunSummonerRush && !Form1_0.Summoner_0.ScriptDone)
+        //    || (CharConfig.RunSummonerScript && !Form1_0.SummonerRush_0.ScriptDone))
+        //{
+        //    AddedTxt = "NoPathSummoner";
 
-            //dump data to txt file
-            string ColisionMapTxt = "";
-            bool[,] cgrid = CollisionGrid(Area.ArcaneSanctuary);
-            for (int i = 0; i < cgrid.GetLength(0); i++)
-            {
-                for (int k = 0; k < cgrid.GetLength(1); k++)
-                {
-                    if (cgrid[k, i]) ColisionMapTxt += "-";
-                    if (!cgrid[k, i]) ColisionMapTxt += "X";
-                }
-                ColisionMapTxt += Environment.NewLine;
-            }
-            File.Create(Form1_0.ThisEndPath + "CollisionMapSummoner.txt").Dispose();
-            File.WriteAllText(Form1_0.ThisEndPath + "CollisionMapSummoner.txt", ColisionMapTxt);
-        }
-        else AddedTxt += Form1_0.PreviousStatus.Replace("(", "").Replace(")", "").Replace("/", "").Replace("\\", "");
+        //    //dump data to txt file
+        //    string ColisionMapTxt = "";
+        //    bool[,] cgrid = CollisionGrid(Area.ArcaneSanctuary);
+        //    for (int i = 0; i < cgrid.GetLength(0); i++)
+        //    {
+        //        for (int k = 0; k < cgrid.GetLength(1); k++)
+        //        {
+        //            if (cgrid[k, i]) ColisionMapTxt += "-";
+        //            if (!cgrid[k, i]) ColisionMapTxt += "X";
+        //        }
+        //        ColisionMapTxt += Environment.NewLine;
+        //    }
+        //    File.Create(Form1_0.ThisEndPath + "CollisionMapSummoner.txt").Dispose();
+        //    File.WriteAllText(Form1_0.ThisEndPath + "CollisionMapSummoner.txt", ColisionMapTxt);
+        //}
+        //else AddedTxt += Form1_0.PreviousStatus.Replace("(", "").Replace(")", "").Replace("/", "").Replace("\\", "");
 
-        string SavePathh = Form1_0.ThisEndPath + "MapTest" + AddedTxt + ".txt";
+        //string SavePathh = Form1_0.ThisEndPath + "MapTest" + AddedTxt + ".txt";
 
-        File.Create(SavePathh).Dispose();
-        File.WriteAllLines(SavePathh, MapDataLines);
+        //File.Create(SavePathh).Dispose();
+        //File.WriteAllLines(SavePathh, MapDataLines);
     }
 
     public Position Origin(Area area)

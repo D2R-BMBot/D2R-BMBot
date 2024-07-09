@@ -517,8 +517,8 @@ public class Battle
 
         if (Form1_0.MobsStruc_0.GetMobs("", "", true, ClearingSize, IgnoredMobsPointer))
         {
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area) Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
+           // if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
+           // if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area) Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
 
             DoingBattle = true;
             SetBattleMoveAcceptOffset();
@@ -650,8 +650,8 @@ public class Battle
     {
         if (Form1_0.MobsStruc_0.GetMobs("", "", true, MaxDistance, new List<long>()))
         {
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
+        //    if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
+        //    if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
             DoingBattle = true;
             SetBattleMoveAcceptOffset();
             Form1_0.Mover_0.MoveAcceptOffset = 2;
@@ -701,8 +701,8 @@ public class Battle
         IgnoredMobsPointer = IgnoredIDList;
         if (Form1_0.MobsStruc_0.GetMobs(LastMobType, LastMobName, false, 200, IgnoredIDList))
         {
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
-            if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
+        //    if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && Form1_0.MobsStruc_0.MobsName == "BaalSubject5") Form1_0.Baal_0.Wave5Detected = true;
+        //    if (CharConfig.RunBaalScript && !Form1_0.Baal_0.ScriptDone && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ThroneOfDestruction) Form1_0.Baal_0.TimeSinceLastWaveDone = DateTime.MaxValue;
             if (Form1_0.MobsStruc_0.MobsHP > 0)
             {
                 DoingBattle = true;
@@ -862,7 +862,7 @@ public class Battle
 
     public void SetSkills()
     {
-        Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAttack);
+        //Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAttack);
         Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAura);
     }
 

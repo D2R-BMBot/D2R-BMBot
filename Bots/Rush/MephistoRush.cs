@@ -6,12 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class MephistoRush
+public class MephistoRush : IRushBot
 {
+    public const string scriptName = "Mephisto Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "3";
+    public string ScriptQuest => "6";
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
 
     public void SetForm1(Form1 form1_1)
     {

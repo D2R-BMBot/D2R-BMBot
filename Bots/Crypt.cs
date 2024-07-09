@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 using static Enums;
 using static MapAreaStruc;
 
-public class Crypt
+public class Crypt : IBot
 {
-    Form1 Form1_0;
+    public const string scriptName = "Crypt";
+    public const string scriptType = "Bot";
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
+    Form1 Form1_0;
 
 
     public void SetForm1(Form1 form1_1)

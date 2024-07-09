@@ -6,13 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class Act3Sewers
+public class Act3Sewers : IBot
 {
+    public const string scriptName = "Act 3 Sewers";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
     public List<int> IgnoredChestList = new List<int>();
-    public bool ScriptDone = false;
     public bool HasTakenAnyChest = false;
     public Position ChestPos = new Position { X = 0, Y = 0 };
 

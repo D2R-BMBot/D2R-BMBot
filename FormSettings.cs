@@ -1,244 +1,213 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 public partial class FormSettings : Form
 {
     Form1 Form1_0;
+    public BotLoader botLoader;
 
     public FormSettings(Form1 form1_1)
     {
         Form1_0 = form1_1;
-
-        //this.Location = new Point(Form1_0.Location.X + Form1_0.Width, Form1_0.Location.Y);
+        botLoader = BotLoader.GetInstance(Form1_0);
         InitializeComponent();
         this.TopMost = true;
 
+        ConfigureComboBoxScriptType();
+        PopulateKeyCombos();
+        InitializeUIComponents();
+
+        botLoader.LoadScripts();
+        PopulateListViews();
+    }
+    private void PopulateKeyCombos()
+    {
         textBoxStartKey.Items.Clear();
         comboBoxPauseResume.Items.Clear();
-        string[] names = Enum.GetNames(typeof(System.Windows.Forms.Keys));
-        for (int i = 0; i < names.Length; i++)
+        string[] names = Enum.GetNames(typeof(Keys));
+        foreach (var name in names)
         {
-            textBoxStartKey.Items.Add(names[i]);
-            comboBoxPauseResume.Items.Add(names[i]);
+            textBoxStartKey.Items.Add(name);
+            comboBoxPauseResume.Items.Add(name);
         }
+    }
+    private void ConfigureComboBoxScriptType()
+    {
+        comboBoxScriptType.Items.Add("Bots");
+        comboBoxScriptType.Items.Add("Leech");
+        comboBoxScriptType.Items.Add("Rush");
 
+        comboBoxScriptType.SelectedIndexChanged += ComboBoxScriptType_SelectedIndexChanged;
+        comboBoxScriptType.SelectedIndex = 0; // Set default selection to "Bots"
+    }
+
+    private void HideAllPanels()
+    {
         groupBoxSearch.Visible = false;
         groupBoxSearch.Location = new Point(groupBox1.Location.X, groupBox1.Location.Y);
 
         listViewRush.Visible = false;
-        listViewRush.Location = new System.Drawing.Point(listViewRunScripts.Location.X, listViewRunScripts.Location.Y);
+        listViewRush.Location = new Point(listViewRunScripts.Location.X, listViewRunScripts.Location.Y);
 
         panelBaalFeature.Visible = false;
-        panelBaalFeature.Location = new System.Drawing.Point(23, 197);
+        panelBaalFeature.Location = new Point(23, 197);
 
         panelOverlay.Visible = false;
-        panelOverlay.Location = new System.Drawing.Point(23, 197);
+        panelOverlay.Location = new Point(23, 197);
 
         panelChaosFeature.Visible = false;
-        panelChaosFeature.Location = new System.Drawing.Point(23, 197);
+        panelChaosFeature.Location = new Point(23, 197);
 
         panelBaalLeech.Visible = false;
-        panelBaalLeech.Location = new System.Drawing.Point(23, 197);
+        panelBaalLeech.Location = new Point(23, 197);
 
         panelShopBot.Visible = false;
-        panelShopBot.Location = new System.Drawing.Point(23, 197);
+        panelShopBot.Location = new Point(23, 197);
+    }
+    private void InitializeUIComponents()
+    {
+        // Additional UI initialization code
+        groupBoxSearch.Visible = false;
+        groupBoxSearch.Location = new Point(groupBox1.Location.X, groupBox1.Location.Y);
 
-        LoadSettings();
+        listViewRush.Visible = false;
+        listViewRush.Location = new Point(listViewRunScripts.Location.X, listViewRunScripts.Location.Y);
+
+        panelBaalFeature.Visible = false;
+        panelBaalFeature.Location = new Point(23, 197);
+
+        panelOverlay.Visible = false;
+        panelOverlay.Location = new Point(23, 197);
+
+        panelChaosFeature.Visible = false;
+        panelChaosFeature.Location = new Point(23, 197);
+
+        panelBaalLeech.Visible = false;
+        panelBaalLeech.Location = new Point(23, 197);
+
+        panelShopBot.Visible = false;
+        panelShopBot.Location = new Point(23, 197);
+
+        listViewRunScripts.ItemChecked += listView_ItemChecked;
+        listViewRush.ItemChecked += listView_ItemChecked;
     }
 
-    public void LoadSettings()
+    private void ComboBoxScriptType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        this.Location = new Point(Form1_0.Location.X + Form1_0.Width, Form1_0.Location.Y);
-        checkBoxShowOverlay.Checked = CharConfig.ShowOverlay;
+        FilterAndDisplayScripts();
+    }
 
-        textBoxD2Path.Text = Form1_0.D2_LOD_113C_Path;
-        numericUpDownMaxTime.Value = CharConfig.MaxGameTime;
-        checkBoxRush.Checked = CharConfig.IsRushing;
-        textBox1LeechName.Text = CharConfig.RushLeecherName;
-
-        checkBoxLogOrangeError.Checked = CharConfig.LogNotUsefulErrors;
-
-        textBoxStartKey.Text = CharConfig.StartStopKey.ToString();
-        comboBoxPauseResume.Text = CharConfig.PauseResumeKey.ToString();
-
-        int CurrI = 0;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunMapHackOnly;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunItemGrabScriptOnly;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunMapHackPickitOnly;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunShopBotScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunMausoleumScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunCryptScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunPitScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunCowsScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunCountessScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunAndarielScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunSummonerScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunDurielScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunArachnidScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunLowerKurastScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunA3SewersScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunUpperKurastScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunTravincalScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunMephistoScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunChaosScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunChaosLeechScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunEldritchScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunShenkScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunFrozensteinScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunPindleskinScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunNihlatakScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunBaalScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunBaalLeechScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunTerrorZonesScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunWPTaker;
-
-        CurrI = 0;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunDarkWoodRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunTristramRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunAndarielRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunRadamentRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunHallOfDeadRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunFarOasisRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunLostCityRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunSummonerRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunDurielRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunKahlimEyeRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunKahlimBrainRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunKahlimHeartRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunTravincalRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunMephistoRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunChaosRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunAnyaRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunAncientsRush;
-        listViewRush.Items[CurrI++].Checked = CharConfig.RunBaalRush;
-
-        if (CharConfig.RunGameMakerScript) comboBoxLobby.SelectedIndex = 0;
-        if (CharConfig.RunChaosSearchGameScript) comboBoxLobby.SelectedIndex = 1;
-        if (CharConfig.RunBaalSearchGameScript) comboBoxLobby.SelectedIndex = 2;
-        if (CharConfig.RunNoLobbyScript) comboBoxLobby.SelectedIndex = 3;
-        if (CharConfig.RunSinglePlayerScript) comboBoxLobby.SelectedIndex = 4;
-
-        textBoxGameName.Text = CharConfig.GameName;
-        textBoxGamePass.Text = CharConfig.GamePass;
-
-        comboBoxDifficulty.SelectedIndex = CharConfig.GameDifficulty;
-
-        if (Form1_0.CurrentGameNumber <= 0) Form1_0.CurrentGameNumber = 1;
-        numericUpDownRunNumber.Value = Form1_0.CurrentGameNumber;
-
-        //###################
-        //SPECIALS BAAL FEATURES
-        checkBoxKillBaal.Checked = Form1_0.Baal_0.KillBaal;
-        checkBoxBaalSafeHealing.Checked = Form1_0.Baal_0.SafeYoloStrat;
-        numericUpDownBaalLeaveMobsCount.Value = Form1_0.Baal_0.LeaveIfMobsCountIsAbove;
-        for (int i = 0; i < Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Count; i++)
+    private void FilterAndDisplayScripts()
+    {
+        if (comboBoxScriptType.SelectedItem == null)
         {
-            string[] arr = new string[2];
-            arr[0] = Form1_0.Baal_0.LeaveIfMobsIsPresent_ID[i].ToString();
-            arr[1] = Form1_0.Baal_0.LeaveIfMobsIsPresent_Count[i].ToString();
-            ListViewItem item = new ListViewItem(arr);
-
-            listViewBaalLeaveOnMobs.Items.Add(item);
+            listViewRunScripts.Items.Clear();
+            listViewRush.Items.Clear();
+            return;
         }
 
-        checkBoxBaalLeechFightMobs.Checked = Form1_0.BaalLeech_0.BaalLeechFight;
+        string selectedType = comboBoxScriptType.SelectedItem.ToString();
+        List<IBot> filteredScripts;
 
-        //###################
-        //SPECIALS CHAOS FEATURES
-        checkBoxFastChaos.Checked = Form1_0.Chaos_0.FastChaos;
-
-        //###################
-        //SPECIALS OVERLAY FEATURES
-        checkBoxOverlayShowMobs.Checked = Form1_0.overlayForm.ShowMobs;
-        checkBoxOverlayShowWP.Checked = Form1_0.overlayForm.ShowWPs;
-        checkBoxOverlayShowGoodChest.Checked = Form1_0.overlayForm.ShowGoodChests;
-        checkBoxOverlayShowLogs.Checked = Form1_0.overlayForm.ShowLogs;
-        checkBoxOverlayShowBotInfos.Checked = Form1_0.overlayForm.ShowBotInfos;
-        checkBoxOverlayShowNPC.Checked = Form1_0.overlayForm.ShowNPC;
-        checkBoxOverlayShowPath.Checked = Form1_0.overlayForm.ShowPathFinding;
-        checkBoxOverlayShowExits.Checked = Form1_0.overlayForm.ShowExits;
-        checkBoxOverlayShowMH.Checked = Form1_0.overlayForm.ShowMapHackShowLines;
-        checkBoxOverlayShowUnitsCount.Checked = Form1_0.overlayForm.ShowUnitsScanCount;
-        //###################
-        //SHOP BOT
-        numericUpDownMaxShopCount.Value = Form1_0.ShopBot_0.MaxShopCount;
-        numericUpDownShopTownAct.Value = Form1_0.ShopBot_0.ShopBotTownAct;
-        //###################
-
-        SetCreateGameGroupbox();
-        SetRushMenu();
+        switch (selectedType)
+        {
+            case "Bots":
+                filteredScripts = botLoader.Scripts.Where(s => s.ScriptType == "Bot").ToList();
+                PopulateListView(listViewRunScripts, filteredScripts);
+                listViewRunScripts.Visible = true;
+                listViewRush.Visible = false;
+                break;
+            case "Leech":
+                filteredScripts = botLoader.Scripts.Where(s => s.ScriptType == "Leech").ToList();
+                PopulateListView(listViewRunScripts, filteredScripts);
+                listViewRunScripts.Visible = true;
+                listViewRush.Visible = false;
+                break;
+            case "Rush":
+                filteredScripts = botLoader.Scripts.OfType<IRushBot>()
+                    .OrderBy(s => s.ScriptAct)
+                    .ThenBy(s => s.ScriptQuest, new AlphanumericComparer())
+                    .ToList<IBot>();
+                PopulateListView(listViewRush, filteredScripts);
+                listViewRunScripts.Visible = false;
+                listViewRush.Visible = true;
+                break;
+        }
     }
 
-    public void SetRushMenu()
+    private void PopulateListViews()
     {
-        if (checkBoxRush.Checked)
+        try
         {
-            groupBox1.Enabled = false;
-            comboBoxLobby.Enabled = false;
-            listViewRunScripts.Visible = false;
+            FilterAndDisplayScripts();
+        }
+        catch (Exception ex)
+        {
+            Form1_0.method_1($"Error loading scripts: {ex.Message}", Color.Red);
+        }
+    }
 
-            label1Run.Text = "Select Rush Scripts";
+    private void PopulateListView(ListView listView, List<IBot> scripts)
+    {
+        listView.Items.Clear(); // Clear existing items before adding new ones
+        foreach (var script in scripts)
+        {
+            ListViewItem item = new ListViewItem(script.ScriptName)
+            {
+                Tag = botLoader.GetFileName(script),
+                Checked = botLoader.ScriptCheckedStates.TryGetValue(botLoader.GetFileName(script), out bool isChecked) && isChecked
+            };
+            listView.Items.Add(item);
+        }
+    }
+    private void listView_ItemChecked(object sender, ItemCheckedEventArgs e)
+    {
+        if (e.Item.Tag is string scriptName)
+        {
+            botLoader.ScriptCheckedStates[scriptName] = e.Item.Checked;
+        }
+    }
 
-            textBox1LeechName.Visible = true;
-            label1LeechName.Visible = true;
+    private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        // Implement any necessary cleanup here
+    }
 
-            label7MaxTime.Visible = false;
-            numericUpDownMaxTime.Visible = false;
+    private void comboBoxLobby_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetCreateGameGroupbox();
+    }
 
-            listViewRush.Visible = true;
+    private void SetCreateGameGroupbox()
+    {
+        if (!checkBoxRush.Checked)
+        {
+            groupBox1.Enabled = (comboBoxLobby.SelectedIndex == 0);
         }
         else
         {
-            groupBox1.Enabled = true;
-            comboBoxLobby.Enabled = true;
-            listViewRunScripts.Visible = true;
-
-            label1Run.Text = "Select Run Scripts";
-
-            textBox1LeechName.Visible = false;
-            label1LeechName.Visible = false;
-
-            label7MaxTime.Visible = true;
-            numericUpDownMaxTime.Visible = true;
-
-            listViewRush.Visible = false;
+            groupBox1.Enabled = false;
         }
-    }
-
-    public void SetCreateGameGroupbox()
-    {
-        if (!checkBoxRush.Checked) groupBox1.Enabled = (comboBoxLobby.SelectedIndex == 0);
-        else groupBox1.Enabled = false;
 
         if (comboBoxLobby.SelectedIndex == 1)
         {
-            textBoxSearchGame.Text = CharConfig.ChaosLeechSearch;
-            textBoxAvoidWords.Text = "";
-            for (int p = 0; p < CharConfig.ChaosSearchAvoidWords.Count; p++)
-            {
-                textBoxAvoidWords.Text += CharConfig.ChaosSearchAvoidWords[p];
-                if (p < CharConfig.ChaosSearchAvoidWords.Count - 2) textBoxAvoidWords.Text += ",";
-            }
+            textBoxSearchGame.Text = ""; // Set according to your logic
+            textBoxAvoidWords.Text = ""; // Set according to your logic
         }
         else if (comboBoxLobby.SelectedIndex == 2)
         {
-            textBoxSearchGame.Text = CharConfig.BaalLeechSearch;
-            textBoxAvoidWords.Text = "";
-            for (int p = 0; p < CharConfig.BaalSearchAvoidWords.Count; p++)
-            {
-                textBoxAvoidWords.Text += CharConfig.BaalSearchAvoidWords[p];
-                if (p < CharConfig.BaalSearchAvoidWords.Count - 2) textBoxAvoidWords.Text += ",";
-            }
+            textBoxSearchGame.Text = ""; // Set according to your logic
+            textBoxAvoidWords.Text = ""; // Set according to your logic
         }
 
         if (comboBoxLobby.SelectedIndex == 1 || comboBoxLobby.SelectedIndex == 2)
         {
             groupBox1.Visible = false;
             groupBoxSearch.Visible = true;
-            textBox2LeechName.Text = CharConfig.SearchLeecherName;
+            textBox2LeechName.Text = ""; // Set according to your logic
         }
         else
         {
@@ -252,7 +221,6 @@ public partial class FormSettings : Form
             groupBoxSearch.Visible = false;
         }
     }
-
     public void SaveSettings()
     {
         CharConfig.ShowOverlay = checkBoxShowOverlay.Checked;
@@ -266,56 +234,11 @@ public partial class FormSettings : Form
 
         CharConfig.LogNotUsefulErrors = checkBoxLogOrangeError.Checked;
 
-        int CurrI = 0;
-        CharConfig.RunMapHackOnly = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunItemGrabScriptOnly = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunMapHackPickitOnly = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunShopBotScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunMausoleumScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunCryptScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunPitScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunCowsScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunCountessScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunAndarielScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunSummonerScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunDurielScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunArachnidScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunLowerKurastScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunA3SewersScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunUpperKurastScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunTravincalScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunMephistoScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunChaosScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunChaosLeechScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunEldritchScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunShenkScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunFrozensteinScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunPindleskinScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunNihlatakScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunBaalScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunBaalLeechScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunTerrorZonesScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunWPTaker = listViewRunScripts.Items[CurrI++].Checked;
-
-        CurrI = 0;
-        CharConfig.RunDarkWoodRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunTristramRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunAndarielRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunRadamentRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunHallOfDeadRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunFarOasisRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunLostCityRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunSummonerRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunDurielRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunKahlimEyeRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunKahlimBrainRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunKahlimHeartRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunTravincalRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunMephistoRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunChaosRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunAnyaRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunAncientsRush = listViewRush.Items[CurrI++].Checked;
-        CharConfig.RunBaalRush = listViewRush.Items[CurrI++].Checked;
+        // Dynamically save script settings from botLoader.ScriptCheckedStates
+        foreach (var kvp in botLoader.ScriptCheckedStates)
+        {
+            CharConfig.ScriptStates[kvp.Key] = kvp.Value;
+        }
 
         CharConfig.RunGameMakerScript = (comboBoxLobby.SelectedIndex == 0);
         CharConfig.RunChaosSearchGameScript = (comboBoxLobby.SelectedIndex == 1);
@@ -330,24 +253,24 @@ public partial class FormSettings : Form
 
         Form1_0.CurrentGameNumber = (int)numericUpDownRunNumber.Value;
 
-        //###################
-        //SPECIALS BAAL FEATURES
-        Form1_0.Baal_0.KillBaal = checkBoxKillBaal.Checked;
-        Form1_0.Baal_0.SafeYoloStrat = checkBoxBaalSafeHealing.Checked;
-        Form1_0.Baal_0.LeaveIfMobsCountIsAbove = (int)numericUpDownBaalLeaveMobsCount.Value;
-        Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Clear();
-        Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Clear();
-        for (int i = 0; i < listViewBaalLeaveOnMobs.Items.Count; i++)
-        {
-            Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Add(uint.Parse(listViewBaalLeaveOnMobs.Items[i].SubItems[0].Text));
-            Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Add(int.Parse(listViewBaalLeaveOnMobs.Items[i].SubItems[1].Text));
-        }
+        ////###################
+        ////SPECIALS BAAL FEATURES
+        //Form1_0.Baal_0.KillBaal = checkBoxKillBaal.Checked;
+        //Form1_0.Baal_0.SafeYoloStrat = checkBoxBaalSafeHealing.Checked;
+        //Form1_0.Baal_0.LeaveIfMobsCountIsAbove = (int)numericUpDownBaalLeaveMobsCount.Value;
+        //Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Clear();
+        //Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Clear();
+        //for (int i = 0; i < listViewBaalLeaveOnMobs.Items.Count; i++)
+        //{
+        //    Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Add(uint.Parse(listViewBaalLeaveOnMobs.Items[i].SubItems[0].Text));
+        //    Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Add(int.Parse(listViewBaalLeaveOnMobs.Items[i].SubItems[1].Text));
+        //}
 
-        Form1_0.BaalLeech_0.BaalLeechFight = checkBoxBaalLeechFightMobs.Checked;
+        //Form1_0.BaalLeech_0.BaalLeechFight = checkBoxBaalLeechFightMobs.Checked;
 
-        //###################
-        //SPECIALS CHAOS FEATURES
-        Form1_0.Chaos_0.FastChaos = checkBoxFastChaos.Checked;
+        ////###################
+        ////SPECIALS CHAOS FEATURES
+        //Form1_0.Chaos_0.FastChaos = checkBoxFastChaos.Checked;
 
         //###################
         //SPECIALS OVERLAY FEATURES
@@ -391,107 +314,25 @@ public partial class FormSettings : Form
 
         //###################
         //SHOP BOT
-        Form1_0.ShopBot_0.MaxShopCount = int.Parse(numericUpDownMaxShopCount.Value.ToString());
-        Form1_0.ShopBot_0.ShopBotTownAct = int.Parse(numericUpDownShopTownAct.Value.ToString());
+        //Form1_0.ShopBot_0.MaxShopCount = int.Parse(numericUpDownMaxShopCount.Value.ToString());
+        //Form1_0.ShopBot_0.ShopBotTownAct = int.Parse(numericUpDownShopTownAct.Value.ToString());
         //###################
-    }
-
-    private void button1_Click(object sender, EventArgs e)
-    {
-        numericUpDownRunNumber.Value = 1;
-    }
-
-    private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
-    {
-        SaveSettings();
-        Form1_0.SettingsLoader_0.SaveCurrentSettings();
-    }
-
-    private void comboBoxLobby_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        SetCreateGameGroupbox();
     }
 
     private void listViewRunScripts_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        // Handle ListView item selection if necessary
     }
 
     private void FormSettings_Load(object sender, EventArgs e)
     {
-
-    }
-
-    private void checkBoxRush_CheckedChanged(object sender, EventArgs e)
-    {
-        SetRushMenu();
+        // Handle form load event if necessary
     }
 
     private void button2_Click(object sender, EventArgs e)
     {
-        //FormCharSettings FormCharSettings_0 = new FormCharSettings(Form1_0);
-        //FormCharSettings_0.ShowDialog();
-
         SaveSettings();
-        Form1_0.SettingsLoader_0.SaveCurrentSettings();
-    }
-
-    private void listViewRunScripts_DoubleClick(object sender, EventArgs e)
-    {
-        if (listViewRunScripts.SelectedItems.Count == 0) return;
-
-        listViewRunScripts.SelectedItems[0].Checked = !listViewRunScripts.SelectedItems[0].Checked;
-        if (listViewRunScripts.SelectedItems[0].Text == "Baal")
-        {
-            checkBoxKillBaal.Checked = Form1_0.Baal_0.KillBaal;
-            panelBaalFeature.Visible = true;
-        }
-        else if (listViewRunScripts.SelectedItems[0].Text == "Baal Leech")
-        {
-            panelBaalLeech.Visible = true;
-        }
-        else if (listViewRunScripts.SelectedItems[0].Text == "Chaos")
-        {
-            panelChaosFeature.Visible = true;
-        }
-        else if (listViewRunScripts.SelectedItems[0].Text == "ShopBot")
-        {
-            panelShopBot.Visible = true;
-        }
-        else if (listViewRunScripts.SelectedItems[0].Text == "Maphack ONLY (no script running)")
-        {
-            panelOverlay.Visible = true;
-        }
-        else
-        {
-            MessageBox.Show("No specials features exist for this run!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-    }
-
-    private void buttonBaalApply_Click(object sender, EventArgs e)
-    {
-        Form1_0.Baal_0.KillBaal = checkBoxKillBaal.Checked;
-        panelBaalFeature.Visible = false;
-    }
-
-    private void label10_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private void buttonBaalAddMob_Click(object sender, EventArgs e)
-    {
-        string[] arr = new string[2];
-        arr[0] = numericUpDownBaalMobID.Value.ToString();
-        arr[1] = numericUpDownBaalMobCount.Value.ToString();
-        ListViewItem item = new ListViewItem(arr);
-
-        listViewBaalLeaveOnMobs.Items.Add(item);
-    }
-
-    private void buttonBaalClearMob_Click(object sender, EventArgs e)
-    {
-        listViewBaalLeaveOnMobs.Items.Clear();
+        Form1_0.SettingsLoader_0.SaveBotSettings();
     }
 
     private void buttonReload_Click(object sender, EventArgs e)
@@ -500,7 +341,8 @@ public partial class FormSettings : Form
         if (result == DialogResult.OK)
         {
             Form1_0.SettingsLoader_0.LoadThisFileSettings(openFileDialog1.FileName);
-            LoadSettings();
+            LoadScriptStates();
+            //LoadSettings();
             Application.DoEvents();
         }
     }
@@ -536,5 +378,70 @@ public partial class FormSettings : Form
     private void buttonApplyShopBot_Click(object sender, EventArgs e)
     {
         panelShopBot.Visible = false;
+    }
+
+    public void LoadScriptStates()
+    {
+        foreach (ListViewItem item in listViewRunScripts.Items)
+        {
+            string scriptName = item.Tag as string;
+            if (scriptName != null && botLoader.ScriptCheckedStates.TryGetValue(scriptName, out bool isChecked))
+            {
+                item.Checked = isChecked;
+            }
+        }
+
+        foreach (ListViewItem item in listViewRush.Items)
+        {
+            string scriptName = item.Tag as string;
+            if (scriptName != null && botLoader.ScriptCheckedStates.TryGetValue(scriptName, out bool isChecked))
+            {
+                item.Checked = isChecked;
+            }
+        }
+    }
+}
+
+public class AlphanumericComparer : IComparer<string>
+{
+    public int Compare(string x, string y)
+    {
+        if (x == y) return 0;
+        if (string.IsNullOrEmpty(x)) return -1;
+        if (string.IsNullOrEmpty(y)) return 1;
+
+        int ix = 0, iy = 0;
+
+        while (ix < x.Length && iy < y.Length)
+        {
+            if (char.IsDigit(x[ix]) && char.IsDigit(y[iy]))
+            {
+                int startX = ix, startY = iy;
+
+                while (ix < x.Length && char.IsDigit(x[ix])) ix++;
+                while (iy < y.Length && char.IsDigit(y[iy])) iy++;
+
+                int lengthX = ix - startX, lengthY = iy - startY;
+
+                string numX = x.Substring(startX, lengthX);
+                string numY = y.Substring(startY, lengthY);
+
+                int compareNumbers = lengthX == lengthY ? string.Compare(numX, numY, StringComparison.Ordinal) : lengthX.CompareTo(lengthY);
+
+                if (compareNumbers != 0)
+                    return compareNumbers;
+            }
+            else
+            {
+                int compareChars = x[ix].CompareTo(y[iy]);
+                if (compareChars != 0)
+                    return compareChars;
+
+                ix++;
+                iy++;
+            }
+        }
+
+        return x.Length.CompareTo(y.Length);
     }
 }

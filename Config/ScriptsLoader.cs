@@ -101,28 +101,7 @@ public class ScriptsLoader
                 Type myClassType = assembly.GetType(className);
                 //dynamic myClassInstance = Activator.CreateInstance(myClassType);
 
-                // Check if the type was found
-                if (myClassType == null || !typeof(Andariel).IsAssignableFrom(myClassType))
-                {
-                    Console.WriteLine("Invalid or incompatible type.");
-                    return;
-                }
-
-                //Form1_0.AllClassInstances.Add(myClassInstance);
-
-                // Load Andariel dynamically
-                //Andariel newAndarielInstance = LoadAndarielDynamically();
-
-                //Assembly assembly = Assembly.LoadFrom("DynamicallyDefinedAssembly.dll");
-
-                // Replace the existing instance with the new one
-                //Form1_0.Andariel_0 = newAndarielInstance;
-                Andariel andarielInstance = Activator.CreateInstance(myClassType) as Andariel;
-                //myClassInstance.RunScript();
-                //Form1_0.Andariel_0 = andarielInstance;
-                //Form1_0.Andariel_0 = new Andariel();
-                //Form1_0.Andariel_0.SetForm1(Form1_0);
-                //Form1_0.Andariel_0.RunScript();
+             
 
 
                 // Use MethodInfo to get the method information
@@ -188,19 +167,6 @@ public class ScriptsLoader
         ExecuteScript(scriptCode2, className2, "MyMethod");*/
     }
 
-    Andariel LoadAndarielDynamically()
-    {
-        // Load the assembly containing Andariel dynamically
-        Assembly assembly = Form1_0.AllClassInstances[0] as Assembly;
-
-        // Get the type of Andariel
-        Type andarielType = assembly.GetType("Andariel"); // Replace "Namespace" with the namespace of Andariel
-
-        // Create an instance of Andariel dynamically
-        Andariel andarielInstance = (Andariel)Activator.CreateInstance(andarielType);
-
-        return andarielInstance;
-    }
 
     public void ExecuteScript(string scriptCode, string className, string methodName)
     {

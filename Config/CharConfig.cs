@@ -8,6 +8,12 @@ using System.Windows.Forms;
 public static class CharConfig
 {
 
+    // Dynamic list of scripts
+    public static Dictionary<string, bool> ScriptStates { get; set; } = new Dictionary<string, bool>();
+    public static Dictionary<string, bool> RushScriptStates { get; set; } = new Dictionary<string, bool>();
+
+
+
     //#######################################
     //SHORTCUT KEY TO START/STOP BOT
     //#######################################

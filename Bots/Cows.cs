@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class Cows
+public class Cows : IBot
 {
+
+    //Bot = go kill shit
+    // Leech = go leech shit
+    //Rush = go rush shit
+
+    public const string scriptName = "Cows";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public Position TristramPos = new Position { X = 0, Y = 0 };
 
     public bool HasWirtsLeg = false;
     public bool HadWirtsLeg = false;
-
     public bool HadTomeOfPortal = false;
 
     public void SetForm1(Form1 form1_1)

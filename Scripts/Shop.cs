@@ -601,10 +601,10 @@ public class Shop
         }
 
         //ShopBot
-        if (CharConfig.RunShopBotScript && !Form1_0.ShopBot_0.ScriptDone && Form1_0.ShopBot_0.CurrentStep > 0)
-        {
-            Form1_0.ItemsStruc_0.ShopBotGetPurchaseItems();
-        }
+        //if (CharConfig.RunShopBotScript && !Form1_0.ShopBot_0.ScriptDone && Form1_0.ShopBot_0.CurrentStep > 0)
+        //{
+        //    Form1_0.ItemsStruc_0.ShopBotGetPurchaseItems();
+        //}
         //Form1_0.ItemsStruc_0.ShopBotGetPurchaseItems();
     }
 }

@@ -35,14 +35,11 @@ public class SettingsLoader
     public void LoadSettings()
     {
         LoadThisFileSettings(File_CharSettings);
-        //###################
         ReloadCharSettings();
-        //###################
-        //#####
         LoadThisFileSettings(File_BotSettings);
         LoadThisFileSettings(File_ItemsSettings);
         LoadThisFileSettings(File_CubingSettings);
-        //#####
+
         if (File.Exists(File_Settings))
         {
             AllLines = File.ReadAllLines(File_Settings);
@@ -51,6 +48,28 @@ public class SettingsLoader
         else
         {
             SaveOthersSettings();
+        }
+
+
+
+        // Dynamically load script settings
+        foreach (var scriptState in CharConfig.ScriptStates)
+        {
+            var listViewItem = Form1_0.FormSettings_0.listViewRunScripts.Items.Cast<ListViewItem>().FirstOrDefault(item => item.Text.Replace(" ", "") + "Script" == scriptState.Key);
+            if (listViewItem != null)
+            {
+                listViewItem.Checked = scriptState.Value;
+            }
+        }
+
+        // Dynamically load rush script settings
+        foreach (var scriptState in CharConfig.RushScriptStates)
+        {
+            var listViewItem = Form1_0.FormSettings_0.listViewRush.Items.Cast<ListViewItem>().FirstOrDefault(item => item.Text.Replace(" ", "") + "Rush" == scriptState.Key);
+            if (listViewItem != null)
+            {
+                listViewItem.Checked = scriptState.Value;
+            }
         }
     }
 
@@ -74,6 +93,7 @@ public class SettingsLoader
             if (Path.GetFileName(ThisFilePath).Contains("Necromancer")) LoadCurrentCharSettings();
 
             if (Path.GetFileName(ThisFilePath) == "Settings.txt") LoadOthersSettings();
+
         }
         else
         {
@@ -81,6 +101,17 @@ public class SettingsLoader
         }
     }
 
+    public void SaveOthersSettings()
+    {
+        string SaveTxtt = "";
+        SaveTxtt += "RunNumber=" + Form1_0.CurrentGameNumber + Environment.NewLine;
+        SaveTxtt += "D2_LOD_113C_Path=" + Form1_0.D2_LOD_113C_Path + Environment.NewLine;
+
+        File.Create(File_Settings).Dispose();
+        File.WriteAllText(File_Settings, SaveTxtt);
+
+        Form1_0.method_1("Saved '" + Path.GetFileName(File_Settings) + "' file!", Color.DarkGreen);
+    }
     public void LoadOthersSettings()
     {
         try
@@ -165,19 +196,11 @@ public class SettingsLoader
 
                 if (Splitted[0] == "BeltPotTypeToHave") AllLines[i] = "BeltPotTypeToHave=" + CharConfig.BeltPotTypeToHave[0] + "," + CharConfig.BeltPotTypeToHave[1] + "," + CharConfig.BeltPotTypeToHave[2] + "," + CharConfig.BeltPotTypeToHave[3];
 
-                /*InventoryDontCheckItem=
-                {
-                0,0,0,1,1,1,1,1,1,1,
-                0,0,0,1,1,1,1,1,1,1,
-                0,0,0,1,1,1,1,1,1,1,
-                0,0,0,1,1,1,1,1,1,1
-                }*/
                 if (Splitted[0] == "InventoryDontCheckItem")
                 {
                     string InventoryTxtt = "";
                     for (int w = 0; w < 10; w++)
                     {
-                        //if (w == 10) InventoryTxtt += Environment.NewLine;
                         InventoryTxtt += CharConfig.InventoryDontCheckItem[w];
                         if (w < 10 - 1) InventoryTxtt += ",";
                     }
@@ -193,7 +216,6 @@ public class SettingsLoader
                     i++;
                     AllLines[i] = InventoryTxtt;
 
-
                     InventoryTxtt = "";
                     for (int w = 20; w < 30; w++)
                     {
@@ -203,7 +225,6 @@ public class SettingsLoader
                     i++;
                     AllLines[i] = InventoryTxtt;
 
-
                     InventoryTxtt = "";
                     for (int w = 30; w < 40; w++)
                     {
@@ -212,7 +233,6 @@ public class SettingsLoader
                     }
                     i++;
                     AllLines[i] = InventoryTxtt;
-
                 }
 
                 if (Splitted[0] == "PlayerCharName") AllLines[i] = "PlayerCharName=" + CharConfig.PlayerCharName;
@@ -264,206 +284,270 @@ public class SettingsLoader
         SaveCurrentCharSettings();
     }
 
-    public void SaveCurrentSettings()
+    public void SaveCurrentCharSettings()
     {
-        string[] AllLines = File.ReadAllLines(File_BotSettings);
+        string[] AllLines = File.ReadAllLines(File_CharSettings);
 
         for (int i = 0; i < AllLines.Length; i++)
         {
             if (AllLines[i].Contains("="))
             {
                 string[] Splitted = AllLines[i].Split('=');
-                if (Splitted[0] == "MaxGameTime") AllLines[i] = "MaxGameTime=" + CharConfig.MaxGameTime;
-                if (Splitted[0] == "LogNotUsefulErrors") AllLines[i] = "LogNotUsefulErrors=" + CharConfig.LogNotUsefulErrors;
-
-                if (Splitted[0] == "IsRushing") AllLines[i] = "IsRushing=" + CharConfig.IsRushing;
-                if (Splitted[0] == "RushLeecherName") AllLines[i] = "RushLeecherName=" + CharConfig.RushLeecherName;
-                if (Splitted[0] == "SearchLeecherName") AllLines[i] = "SearchLeecherName=" + CharConfig.SearchLeecherName;
-
-                //#########
-                //SPECIAL BAAL FEATURES
-                if (Splitted[0] == "KillBaal") AllLines[i] = "KillBaal=" + Form1_0.Baal_0.KillBaal;
-                if (Splitted[0] == "LeaveIfMobsIsPresent_ID")
-                {
-                    AllLines[i] = "LeaveIfMobsIsPresent_ID=";
-                    for (int j = 0; j < Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Count; j++)
-                    {
-                        if (j > 0) AllLines[i] += ",";
-                        AllLines[i] += Form1_0.Baal_0.LeaveIfMobsIsPresent_ID[j];
-                    }
-                }
-                if (Splitted[0] == "LeaveIfMobsIsPresent_Count")
-                {
-                    AllLines[i] = "LeaveIfMobsIsPresent_Count=";
-                    for (int j = 0; j < Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Count; j++)
-                    {
-                        if (j > 0) AllLines[i] += ",";
-                        AllLines[i] += Form1_0.Baal_0.LeaveIfMobsIsPresent_Count[j];
-                    }
-                }
-                if (Splitted[0] == "LeaveIfMobsCountIsAbove") AllLines[i] = "LeaveIfMobsCountIsAbove=" + Form1_0.Baal_0.LeaveIfMobsCountIsAbove;
-                if (Splitted[0] == "SafeHealingStrat") AllLines[i] = "SafeHealingStrat=" + Form1_0.Baal_0.SafeYoloStrat;
-
-                //#########
-                //SPECIAL CHAOS FEATURES
-                if (Splitted[0] == "FastChaos") AllLines[i] = "FastChaos=" + Form1_0.Chaos_0.FastChaos;
-
-                //#########
-                //SPECIAL OVERLAY FEATURES
-                if (Splitted[0] == "ShowMobs") AllLines[i] = "ShowMobs=" + Form1_0.overlayForm.ShowMobs;
-                if (Splitted[0] == "ShowWPs") AllLines[i] = "ShowWPs=" + Form1_0.overlayForm.ShowWPs;
-                if (Splitted[0] == "ShowGoodChests") AllLines[i] = "ShowGoodChests=" + Form1_0.overlayForm.ShowGoodChests;
-                if (Splitted[0] == "ShowLogs") AllLines[i] = "ShowLogs=" + Form1_0.overlayForm.ShowLogs;
-                if (Splitted[0] == "ShowBotInfos") AllLines[i] = "ShowBotInfos=" + Form1_0.overlayForm.ShowBotInfos;
-                if (Splitted[0] == "ShowNPC") AllLines[i] = "ShowNPC=" + Form1_0.overlayForm.ShowNPC;
-                if (Splitted[0] == "ShowPathFinding") AllLines[i] = "ShowPathFinding=" + Form1_0.overlayForm.ShowPathFinding;
-                if (Splitted[0] == "ShowExits") AllLines[i] = "ShowExits=" + Form1_0.overlayForm.ShowExits;
-                if (Splitted[0] == "ShowMapHackShowLines") AllLines[i] = "ShowMapHackShowLines=" + Form1_0.overlayForm.ShowMapHackShowLines;
-                if (Splitted[0] == "ShowUnitsScanCount") AllLines[i] = "ShowUnitsScanCount=" + Form1_0.overlayForm.ShowUnitsScanCount;
-                //#########
-
-                if (Splitted[0] == "RunMapHackOnly") AllLines[i] = "RunMapHackOnly=" + CharConfig.RunMapHackOnly;
-                if (Splitted[0] == "RunMapHackPickitOnly") AllLines[i] = "RunMapHackPickitOnly=" + CharConfig.RunMapHackPickitOnly;
-                if (Splitted[0] == "RunAnyaRush") AllLines[i] = "RunAnyaRush=" + CharConfig.RunAnyaRush;
-                if (Splitted[0] == "RunDarkWoodRush") AllLines[i] = "RunDarkWoodRush=" + CharConfig.RunDarkWoodRush;
-                if (Splitted[0] == "RunTristramRush") AllLines[i] = "RunTristramRush=" + CharConfig.RunTristramRush;
-                if (Splitted[0] == "RunAndarielRush") AllLines[i] = "RunAndarielRush=" + CharConfig.RunAndarielRush;
-                if (Splitted[0] == "RunRadamentRush") AllLines[i] = "RunRadamentRush=" + CharConfig.RunRadamentRush;
-                if (Splitted[0] == "RunHallOfDeadRush") AllLines[i] = "RunHallOfDeadRush=" + CharConfig.RunHallOfDeadRush;
-                if (Splitted[0] == "RunFarOasisRush") AllLines[i] = "RunFarOasisRush=" + CharConfig.RunFarOasisRush;
-                if (Splitted[0] == "RunLostCityRush") AllLines[i] = "RunLostCityRush=" + CharConfig.RunLostCityRush;
-                if (Splitted[0] == "RunSummonerRush") AllLines[i] = "RunSummonerRush=" + CharConfig.RunSummonerRush;
-                if (Splitted[0] == "RunDurielRush") AllLines[i] = "RunDurielRush=" + CharConfig.RunDurielRush;
-                if (Splitted[0] == "RunKahlimEyeRush") AllLines[i] = "RunKahlimEyeRush=" + CharConfig.RunKahlimEyeRush;
-                if (Splitted[0] == "RunKahlimBrainRush") AllLines[i] = "RunKahlimBrainRush=" + CharConfig.RunKahlimBrainRush;
-                if (Splitted[0] == "RunKahlimHeartRush") AllLines[i] = "RunKahlimHeartRush=" + CharConfig.RunKahlimHeartRush;
-                if (Splitted[0] == "RunTravincalRush") AllLines[i] = "RunTravincalRush=" + CharConfig.RunTravincalRush;
-                if (Splitted[0] == "RunMephistoRush") AllLines[i] = "RunMephistoRush=" + CharConfig.RunMephistoRush;
-                if (Splitted[0] == "RunChaosRush") AllLines[i] = "RunChaosRush=" + CharConfig.RunChaosRush;
-                if (Splitted[0] == "RunAncientsRush") AllLines[i] = "RunAncientsRush=" + CharConfig.RunAncientsRush;
-                if (Splitted[0] == "RunBaalRush") AllLines[i] = "RunBaalRush=" + CharConfig.RunBaalRush;
-
-                if (Splitted[0] == "ShowOverlay") AllLines[i] = "ShowOverlay=" + CharConfig.ShowOverlay;
-
-                if (Splitted[0] == "RunWPTaker") AllLines[i] = "RunWPTaker=" + CharConfig.RunWPTaker;
-                if (Splitted[0] == "RunTravincalScript") AllLines[i] = "RunTravincalScript=" + CharConfig.RunTravincalScript;
-                if (Splitted[0] == "RunPindleskinScript") AllLines[i] = "RunPindleskinScript=" + CharConfig.RunPindleskinScript;
-                if (Splitted[0] == "RunDurielScript") AllLines[i] = "RunDurielScript=" + CharConfig.RunDurielScript;
-                if (Splitted[0] == "RunSummonerScript") AllLines[i] = "RunSummonerScript=" + CharConfig.RunSummonerScript;
-                if (Splitted[0] == "RunMephistoScript") AllLines[i] = "RunMephistoScript=" + CharConfig.RunMephistoScript;
-                if (Splitted[0] == "RunAndarielScript") AllLines[i] = "RunAndarielScript=" + CharConfig.RunAndarielScript;
-                if (Splitted[0] == "RunCountessScript") AllLines[i] = "RunCountessScript=" + CharConfig.RunCountessScript;
-                if (Splitted[0] == "RunChaosScript") AllLines[i] = "RunChaosScript=" + CharConfig.RunChaosScript;
-                if (Splitted[0] == "RunChaosLeechScript") AllLines[i] = "RunChaosLeechScript=" + CharConfig.RunChaosLeechScript;
-                if (Splitted[0] == "RunLowerKurastScript") AllLines[i] = "RunLowerKurastScript=" + CharConfig.RunLowerKurastScript;
-                if (Splitted[0] == "RunUpperKurastScript") AllLines[i] = "RunUpperKurastScript=" + CharConfig.RunUpperKurastScript;
-                if (Splitted[0] == "RunA3SewersScript") AllLines[i] = "RunA3SewersScript=" + CharConfig.RunA3SewersScript;
-                if (Splitted[0] == "RunBaalScript") AllLines[i] = "RunBaalScript=" + CharConfig.RunBaalScript;
-                if (Splitted[0] == "RunBaalLeechScript") AllLines[i] = "RunBaalLeechScript=" + CharConfig.RunBaalLeechScript;
-                if (Splitted[0] == "RunItemGrabScriptOnly") AllLines[i] = "RunItemGrabScriptOnly=" + CharConfig.RunItemGrabScriptOnly;
-                if (Splitted[0] == "RunCowsScript") AllLines[i] = "RunCowsScript=" + CharConfig.RunCowsScript;
-                if (Splitted[0] == "RunEldritchScript") AllLines[i] = "RunEldritchScript=" + CharConfig.RunEldritchScript;
-                if (Splitted[0] == "RunShenkScript") AllLines[i] = "RunShenkScript=" + CharConfig.RunShenkScript;
-                if (Splitted[0] == "RunNihlatakScript") AllLines[i] = "RunNihlatakScript=" + CharConfig.RunNihlatakScript;
-                if (Splitted[0] == "RunFrozensteinScript") AllLines[i] = "RunFrozensteinScript=" + CharConfig.RunFrozensteinScript;
-                if (Splitted[0] == "RunTerrorZonesScript") AllLines[i] = "RunTerrorZonesScript=" + CharConfig.RunTerrorZonesScript;
-                if (Splitted[0] == "RunShopBotScript") AllLines[i] = "RunShopBotScript=" + CharConfig.RunShopBotScript;
-                if (Splitted[0] == "RunMausoleumScript") AllLines[i] = "RunMausoleumScript=" + CharConfig.RunMausoleumScript;
-                if (Splitted[0] == "RunCryptScript") AllLines[i] = "RunCryptScript=" + CharConfig.RunCryptScript;
-                if (Splitted[0] == "RunArachnidScript") AllLines[i] = "RunArachnidScript=" + CharConfig.RunArachnidScript;
-                if (Splitted[0] == "RunPitScript") AllLines[i] = "RunPitScript=" + CharConfig.RunPitScript;
-
-                if (Splitted[0] == "RunChaosSearchGameScript") AllLines[i] = "RunChaosSearchGameScript=" + CharConfig.RunChaosSearchGameScript;
-                if (Splitted[0] == "RunBaalSearchGameScript") AllLines[i] = "RunBaalSearchGameScript=" + CharConfig.RunBaalSearchGameScript;
-                if (Splitted[0] == "RunGameMakerScript") AllLines[i] = "RunGameMakerScript=" + CharConfig.RunGameMakerScript;
-                if (Splitted[0] == "RunNoLobbyScript") AllLines[i] = "RunNoLobbyScript=" + CharConfig.RunNoLobbyScript;
-                if (Splitted[0] == "RunSinglePlayerScript") AllLines[i] = "RunSinglePlayerScript=" + CharConfig.RunSinglePlayerScript;
-                if (Splitted[0] == "KillOnlySuperUnique") AllLines[i] = "KillOnlySuperUnique=" + CharConfig.KillOnlySuperUnique;
-
-                if (Splitted[0] == "ClearAfterBoss") AllLines[i] = "ClearAfterBoss=" + CharConfig.ClearAfterBoss;
-
-                if (Splitted[0] == "GameName") AllLines[i] = "GameName=" + CharConfig.GameName;
-                if (Splitted[0] == "GameDifficulty") AllLines[i] = "GameDifficulty=" + CharConfig.GameDifficulty;
-                if (Splitted[0] == "GamePass") AllLines[i] = "GamePass=" + CharConfig.GamePass;
-
-                if (Splitted[0] == "ChaosLeechSearch") AllLines[i] = "ChaosLeechSearch=" + CharConfig.ChaosLeechSearch;
-                if (Splitted[0] == "BaalLeechSearch") AllLines[i] = "BaalLeechSearch=" + CharConfig.BaalLeechSearch;
-
-
-                if (Splitted[0] == "BaalSearchAvoidWords")
-                {
-                    AllLines[i] = "BaalSearchAvoidWords=";
-                    for (int p = 0; p < CharConfig.BaalSearchAvoidWords.Count; p++)
-                    {
-                        AllLines[i] += CharConfig.BaalSearchAvoidWords[p];
-                        if (p < CharConfig.BaalSearchAvoidWords.Count - 2) AllLines[i] += ",";
-                    }
-                }
-                if (Splitted[0] == "ChaosSearchAvoidWords")
-                {
-                    AllLines[i] = "ChaosSearchAvoidWords=";
-                    for (int p = 0; p < CharConfig.ChaosSearchAvoidWords.Count; p++)
-                    {
-                        AllLines[i] += CharConfig.ChaosSearchAvoidWords[p];
-                        if (p < CharConfig.ChaosSearchAvoidWords.Count - 2) AllLines[i] += ",";
-                    }
-                }
-
-                if (Splitted[0] == "StartStopKey") AllLines[i] = "StartStopKey=" + CharConfig.StartStopKey;
-                if (Splitted[0] == "PauseResumeKey") AllLines[i] = "PauseResumeKey=" + CharConfig.PauseResumeKey;
-                if (Splitted[0] == "KeyOpenInventory") AllLines[i] = "KeyOpenInventory=" + CharConfig.KeyOpenInventory;
-                if (Splitted[0] == "KeyForceMovement") AllLines[i] = "KeyForceMovement=" + CharConfig.KeyForceMovement;
-                if (Splitted[0] == "KeySwapWeapon") AllLines[i] = "KeySwapWeapon=" + CharConfig.KeySwapWeapon;
-
-                //###########################################
-                //Advanced Bot Settings
-                if (Splitted[0] == "MaxDelayNewGame") AllLines[i] = "MaxDelayNewGame=" + CharConfig.MaxDelayNewGame;
-                if (Splitted[0] == "WaypointEnterDelay") AllLines[i] = "WaypointEnterDelay=" + CharConfig.WaypointEnterDelay;
-                if (Splitted[0] == "MaxMercReliveTries") AllLines[i] = "MaxMercReliveTries=" + CharConfig.MaxMercReliveTries;
-                if (Splitted[0] == "MaxItemIDTries") AllLines[i] = "MaxItemIDTries=" + CharConfig.MaxItemIDTries;
-                if (Splitted[0] == "MaxItemGrabTries") AllLines[i] = "MaxItemGrabTries=" + CharConfig.MaxItemGrabTries;
-                if (Splitted[0] == "MaxItemStashTries") AllLines[i] = "MaxItemStashTries=" + CharConfig.MaxItemStashTries;
-                if (Splitted[0] == "StashFullTries") AllLines[i] = "StashFullTries=" + CharConfig.StashFullTries;
-                if (Splitted[0] == "MaxShopTries") AllLines[i] = "MaxShopTries=" + CharConfig.MaxShopTries;
-                if (Splitted[0] == "MaxRepairTries") AllLines[i] = "MaxRepairTries=" + CharConfig.MaxRepairTries;
-                if (Splitted[0] == "MaxGambleTries") AllLines[i] = "MaxGambleTries=" + CharConfig.MaxGambleTries;
-                if (Splitted[0] == "MaxBattleAttackTries") AllLines[i] = "MaxBattleAttackTries=" + CharConfig.MaxBattleAttackTries;
-                if (Splitted[0] == "TakeHPPotionDelay") AllLines[i] = "TakeHPPotionDelay=" + CharConfig.TakeHPPotionDelay;
-                if (Splitted[0] == "TakeManaPotionDelay") AllLines[i] = "TakeManaPotionDelay=" + CharConfig.TakeManaPotionDelay;
-                if (Splitted[0] == "EndBattleGrabDelay") AllLines[i] = "EndBattleGrabDelay=" + CharConfig.EndBattleGrabDelay;
-                if (Splitted[0] == "MaxTimeEnterGame") AllLines[i] = "MaxTimeEnterGame=" + CharConfig.MaxTimeEnterGame;
-                if (Splitted[0] == "BaalWavesCastDelay") AllLines[i] = "BaalWavesCastDelay=" + CharConfig.BaalWavesCastDelay;
-                if (Splitted[0] == "ChaosWaitingSealBossDelay") AllLines[i] = "ChaosWaitingSealBossDelay=" + CharConfig.ChaosWaitingSealBossDelay;
-                if (Splitted[0] == "RecastBODelay") AllLines[i] = "RecastBODelay=" + CharConfig.RecastBODelay;
-                if (Splitted[0] == "TownSwitchAreaDelay") AllLines[i] = "TownSwitchAreaDelay=" + CharConfig.TownSwitchAreaDelay;
-                if (Splitted[0] == "PublicGameTPRespawnDelay") AllLines[i] = "PublicGameTPRespawnDelay=" + CharConfig.PublicGameTPRespawnDelay;
-                if (Splitted[0] == "TPRespawnDelay") AllLines[i] = "TPRespawnDelay=" + CharConfig.TPRespawnDelay;
-                if (Splitted[0] == "PlayerMaxHPCheckDelay") AllLines[i] = "PlayerMaxHPCheckDelay=" + CharConfig.PlayerMaxHPCheckDelay;
-                if (Splitted[0] == "LeechEnterTPDelay") AllLines[i] = "LeechEnterTPDelay=" + CharConfig.LeechEnterTPDelay;
-                if (Splitted[0] == "MephistoRedPortalEnterDelay") AllLines[i] = "MephistoRedPortalEnterDelay=" + CharConfig.MephistoRedPortalEnterDelay;
-                if (Splitted[0] == "CubeItemPlaceDelay") AllLines[i] = "CubeItemPlaceDelay=" + CharConfig.CubeItemPlaceDelay;
-                if (Splitted[0] == "OverallDelaysMultiplyer") AllLines[i] = "OverallDelaysMultiplyer=" + CharConfig.OverallDelaysMultiplyer;
-                if (Splitted[0] == "CreateGameWaitDelay") AllLines[i] = "CreateGameWaitDelay=" + CharConfig.CreateGameWaitDelay;
+                if (Splitted[0] == "RunOnChar") AllLines[i] = "RunOnChar=" + CharConfig.RunningOnChar;
             }
         }
 
-        File.Create(File_BotSettings).Dispose();
-        File.WriteAllLines(File_BotSettings, AllLines);
+        File.Create(File_CharSettings).Dispose();
+        File.WriteAllLines(File_CharSettings, AllLines);
 
-        Form1_0.method_1("Saved '" + Path.GetFileName(File_BotSettings) + "' file!", Color.DarkGreen);
+        Form1_0.method_1("Saved '" + Path.GetFileName(File_CharSettings) + "' file!", Color.DarkGreen);
     }
 
-    public void SaveOthersSettings()
+    public void SaveCubingSettings()
     {
-        string SaveTxtt = "";
-        SaveTxtt += "RunNumber=" + Form1_0.CurrentGameNumber + Environment.NewLine;
-        SaveTxtt += "D2_LOD_113C_Path=" + Form1_0.D2_LOD_113C_Path + Environment.NewLine;
+        try
+        {
+            AllLines = File.ReadAllLines(File_CubingSettings);
+            for (int i = 0; i < AllLines.Length; i++)
+            {
+                if (AllLines[i].Length > 0)
+                {
+                    if (AllLines[i][2] != '#')
+                    {
+                        string ThisItem = AllLines[i];
+                        bool PickItem = true;
+                        if (AllLines[i][0] == '/')
+                        {
+                            PickItem = false;
+                            ThisItem = AllLines[i].Substring(2);
+                        }
 
-        File.Create(File_Settings).Dispose();
-        File.WriteAllText(File_Settings, SaveTxtt);
+                        for (int k = 0; k < Form1_0.Cubing_0.CubingRecipes.Count; k++)
+                        {
+                            if (Form1_0.Cubing_0.CubingRecipes[k] == ThisItem)
+                            {
+                                if (!PickItem && Form1_0.Cubing_0.CubingRecipesEnabled[k]) AllLines[i] = ThisItem;
+                                if (PickItem && !Form1_0.Cubing_0.CubingRecipesEnabled[k]) AllLines[i] = "//" + ThisItem;
+                            }
+                        }
+                    }
+                }
+            }
 
-        Form1_0.method_1("Saved '" + Path.GetFileName(File_Settings) + "' file!", Color.DarkGreen);
+            File.WriteAllLines(File_CubingSettings, AllLines);
+            Form1_0.method_1("Saved 'CubingRecipes.txt' file!", Color.DarkGreen);
+        }
+        catch
+        {
+            Form1_0.method_1("Unable to save 'CubingRecipes.txt' file!", Color.Red);
+        }
     }
+
+    public void SaveItemsSettings()
+    {
+        try
+        {
+            bool DoingKeysRune = false;
+            bool DoingNormal = false;
+
+            bool DoingName = true;
+            int NormalStartAt = 0;
+
+            List<string> AllNormalByNamePickit = new List<string>();
+            List<string> AllNormalByTypePickit = new List<string>();
+
+            AllLines = File.ReadAllLines(File_ItemsSettings);
+            for (int i = 0; i < AllLines.Length; i++)
+            {
+                if (AllLines[i].Length > 0)
+                {
+                    if (AllLines[i][2] != '#')
+                    {
+                        string ThisItem = AllLines[i];
+                        bool PickItem = true;
+                        string ThisDesc = "";
+                        if (AllLines[i][0] == '/')
+                        {
+                            PickItem = false;
+                            ThisItem = ThisItem.Substring(2);
+                        }
+
+                        if (ThisItem.Contains("/"))
+                        {
+                            ThisDesc = ThisItem.Substring(ThisItem.IndexOf('/'));
+                            ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('/'));    //remove description '//'
+                        }
+
+                        string FullLine = ThisItem;
+                        //##########
+                        if (DoingNormal)
+                        {
+                            if (ThisItem.Replace(" ", "").ToLower().Contains("[type]=="))
+                            {
+                                DoingName = false;
+                                ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1, ThisItem.IndexOf('&'));
+                                ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('&'));
+
+                                //Get the index count
+                                int Count = 1;
+                                for (int k = NormalStartAt; k < i; k++)
+                                {
+                                    if (AllLines[k].Length > 0)
+                                    {
+                                        if (AllLines[k][3] == '#') continue;
+                                        string ThisItemBuf = AllLines[k];
+                                        if (AllLines[k][0] == '/') ThisItemBuf = AllLines[k].Substring(2);
+
+                                        if (ThisItemBuf.Contains('&')) ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2, ThisItemBuf.IndexOf('&'));
+                                        else ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2);
+                                        if (ThisItemBuf == ThisItem) Count++;
+                                    }
+                                }
+                                if (Count > 1) ThisItem += Count;
+                            }
+                            if (ThisItem.Replace(" ", "").ToLower().Contains("[name]=="))
+                            {
+                                DoingName = true;
+
+                                if (ThisItem.Contains('&'))
+                                {
+                                    ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1, ThisItem.IndexOf('&'));
+                                    ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('&'));
+
+                                    //Get the index count
+                                    int Count = 1;
+                                    for (int k = NormalStartAt; k < i; k++)
+                                    {
+                                        if (AllLines[k].Length > 0)
+                                        {
+                                            if (AllLines[k][3] == '#') continue;
+                                            string ThisItemBuf = AllLines[k];
+                                            if (AllLines[k][0] == '/') ThisItemBuf = AllLines[k].Substring(2);
+
+                                            if (ThisItemBuf.Contains('&')) ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2, ThisItemBuf.IndexOf('&'));
+                                            else ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2);
+                                            if (ThisItemBuf == ThisItem) Count++;
+                                        }
+                                    }
+                                    if (Count > 1) ThisItem += Count;
+                                }
+                                else
+                                {
+                                    ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1);
+                                    if (ThisItem.Contains('/')) ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('/'));
+                                }
+                            }
+                        }
+                        //##########
+
+                        if (ThisItem == "" || ThisItem == " " || ThisItem == "  ") continue;
+                        if (((byte)ThisItem[0]) == 0xff) continue;
+
+                        if (DoingKeysRune)
+                        {
+                            string ModifiedNsameNoQty = ThisItem;
+                            if (ThisItem.Replace(" ", "").Contains("&&[Quantity]==")) ModifiedNsameNoQty = ThisItem.Substring(0, ThisItem.IndexOf('&') - 1);
+
+                            foreach (var ThisDir in Form1_0.ItemsAlert_0.PickItemsRunesKeyGems)
+                            {
+                                if (ThisDir.Key == ModifiedNsameNoQty.Replace(" ", ""))
+                                {
+                                    int ThisQty = Form1_0.ItemsAlert_0.PickItemsRunesKeyGems_Quantity[ThisDir.Key];
+                                    string QtyTxt = "";
+                                    if (ThisQty > 0) QtyTxt = " && [Quantity] == " + ThisQty;
+
+                                    if (!PickItem && ThisDir.Value) AllLines[i] = ModifiedNsameNoQty + QtyTxt + ThisDesc;
+                                    else if (PickItem && !ThisDir.Value) AllLines[i] = "//" + ModifiedNsameNoQty + QtyTxt + ThisDesc;
+                                    else
+                                    {
+                                        AllLines[i] = "";
+                                        if (!PickItem) AllLines[i] += "//";
+                                        AllLines[i] += ModifiedNsameNoQty + QtyTxt + ThisDesc;
+                                    }
+                                }
+                            }
+                        }
+                        if (DoingNormal)
+                        {
+                            if (DoingName)
+                            {
+                                AllNormalByNamePickit.Add(ThisItem);
+                                int ItemIndex = 1;
+                                for (int k = 0; k < AllNormalByNamePickit.Count - 1; k++)
+                                {
+                                    if (AllNormalByNamePickit[k] == ThisItem) ItemIndex++;
+                                }
+                                if (ItemIndex > 1) ThisItem = ThisItem + ItemIndex;
+                                if (Form1_0.ItemsAlert_0.PickItemsNormal_ByName.ContainsKey(ThisItem))
+                                {
+                                    if (!PickItem && Form1_0.ItemsAlert_0.PickItemsNormal_ByName[ThisItem]) AllLines[i] = FullLine + ThisDesc;
+                                    if (PickItem && !Form1_0.ItemsAlert_0.PickItemsNormal_ByName[ThisItem]) AllLines[i] = "//" + FullLine + ThisDesc;
+                                }
+                                else
+                                {
+                                    if (ThisItem.Contains("Potion"))
+                                    {
+                                        foreach (var ThisDir in Form1_0.ItemsAlert_0.PickItemsPotions)
+                                        {
+                                            if (ThisDir.Key == ThisItem.Replace(" ", ""))
+                                            {
+                                                if (!PickItem && ThisDir.Value) AllLines[i] = "[Name] == " + ThisItem + ThisDesc;
+                                                if (PickItem && !ThisDir.Value) AllLines[i] = "//[Name] == " + ThisItem + ThisDesc;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Form1_0.method_1("Error saving item (by name): " + ThisItem, Color.Red);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                AllNormalByTypePickit.Add(ThisItem);
+                                int ItemIndex = 1;
+                                for (int k = 0; k < AllNormalByTypePickit.Count - 1; k++)
+                                {
+                                    if (AllNormalByTypePickit[k] == ThisItem) ItemIndex++;
+                                }
+                                if (ItemIndex > 1) ThisItem = ThisItem + ItemIndex;
+                                if (Form1_0.ItemsAlert_0.PickItemsNormal_ByType.ContainsKey(ThisItem))
+                                {
+                                    if (!PickItem && Form1_0.ItemsAlert_0.PickItemsNormal_ByType[ThisItem]) AllLines[i] = FullLine + ThisDesc;
+                                    if (PickItem && !Form1_0.ItemsAlert_0.PickItemsNormal_ByType[ThisItem]) AllLines[i] = "//" + FullLine + ThisDesc;
+                                }
+                                else
+                                {
+                                    Form1_0.method_1("Error saving item (by type): " + ThisItem, Color.Red);
+                                }
+                            }
+                        }
+                    }
+
+                    if (AllLines[i].Contains("KEYS/GEMS/RUNES ITEMS"))
+                    {
+                        DoingKeysRune = true;
+                        DoingNormal = false;
+                    }
+                    if (AllLines[i].Contains("NORMAL ITEMS"))
+                    {
+                        DoingKeysRune = false;
+                        DoingNormal = true;
+                        NormalStartAt = i;
+                    }
+                }
+            }
+
+            File.WriteAllLines(File_ItemsSettings, AllLines);
+            Form1_0.method_1("Saved 'ItemsSettings.txt' file!", Color.DarkGreen);
+        }
+        catch
+        {
+            Form1_0.method_1("Unable to save 'ItemsSettings.txt' file!", Color.Red);
+        }
+    }
+
 
     public void LoadItemsSettings()
     {
@@ -847,683 +931,6 @@ public class SettingsLoader
         }
     }
 
-    public void SaveCubingSettings()
-    {
-        try
-        {
-            AllLines = File.ReadAllLines(File_CubingSettings);
-            for (int i = 0; i < AllLines.Length; i++)
-            {
-                if (AllLines[i].Length > 0)
-                {
-                    if (AllLines[i][2] != '#')
-                    {
-                        string ThisItem = AllLines[i];
-                        bool PickItem = true;
-                        if (AllLines[i][0] == '/')
-                        {
-                            PickItem = false;
-                            ThisItem = AllLines[i].Substring(2);
-                        }
-
-                        for (int k = 0; k < Form1_0.Cubing_0.CubingRecipes.Count; k++)
-                        {
-                            if (Form1_0.Cubing_0.CubingRecipes[k] == ThisItem)
-                            {
-                                if (!PickItem && Form1_0.Cubing_0.CubingRecipesEnabled[k]) AllLines[i] = ThisItem;
-                                if (PickItem && !Form1_0.Cubing_0.CubingRecipesEnabled[k]) AllLines[i] = "//" + ThisItem;
-                            }
-                        }
-                    }
-                }
-            }
-
-            File.WriteAllLines(File_CubingSettings, AllLines);
-            Form1_0.method_1("Saved 'CubingRecipes.txt' file!", Color.DarkGreen);
-        }
-        catch
-        {
-            Form1_0.method_1("Unable to save 'CubingRecipes.txt' file!", Color.Red);
-        }
-    }
-
-    public void SaveItemsSettings()
-    {
-        try
-        {
-            bool DoingKeysRune = false;
-            bool DoingNormal = false;
-
-            bool DoingName = true;
-            int NormalStartAt = 0;
-
-            List<string> AllNormalByNamePickit = new List<string>();
-            List<string> AllNormalByTypePickit = new List<string>();
-
-            AllLines = File.ReadAllLines(File_ItemsSettings);
-            for (int i = 0; i < AllLines.Length; i++)
-            {
-                if (AllLines[i].Length > 0)
-                {
-                    if (AllLines[i][2] != '#')
-                    {
-                        string ThisItem = AllLines[i];
-                        bool PickItem = true;
-                        string ThisDesc = "";
-                        if (AllLines[i][0] == '/')
-                        {
-                            PickItem = false;
-                            ThisItem = AllLines[i].Substring(2);
-                        }
-
-                        if (ThisItem.Contains("/"))
-                        {
-                            ThisDesc = ThisItem.Substring(ThisItem.IndexOf('/'));
-                            ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('/'));    //remove description '//'
-                        }
-
-                        string FullLine = ThisItem;
-                        //##########
-                        if (DoingNormal)
-                        {
-                            if (ThisItem.Replace(" ", "").ToLower().Contains("[type]=="))
-                            {
-                                DoingName = false;
-                                ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1, ThisItem.IndexOf('&'));
-                                ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('&'));
-
-                                //Get the index count
-                                int Count = 1;
-                                for (int k = NormalStartAt; k < i; k++)
-                                {
-                                    if (AllLines[k].Length > 0)
-                                    {
-                                        if (AllLines[k][3] == '#') continue;
-                                        string ThisItemBuf = AllLines[k];
-                                        if (AllLines[k][0] == '/') ThisItemBuf = AllLines[k].Substring(2);
-
-                                        if (ThisItemBuf.Contains('&')) ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2, ThisItemBuf.IndexOf('&'));
-                                        else ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2);
-                                        if (ThisItemBuf == ThisItem) Count++;
-                                    }
-                                }
-                                if (Count > 1) ThisItem += Count;
-                            }
-                            if (ThisItem.Replace(" ", "").ToLower().Contains("[name]=="))
-                            {
-                                DoingName = true;
-
-                                //Console.WriteLine("doing: " + ThisItem);
-
-                                if (ThisItem.Contains('&'))
-                                {
-                                    ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1, ThisItem.IndexOf('&'));
-                                    ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('&'));
-
-                                    //Get the index count
-                                    int Count = 1;
-                                    for (int k = NormalStartAt; k < i; k++)
-                                    {
-                                        if (AllLines[k].Length > 0)
-                                        {
-                                            if (AllLines[k][3] == '#') continue;
-                                            string ThisItemBuf = AllLines[k];
-                                            if (AllLines[k][0] == '/') ThisItemBuf = AllLines[k].Substring(2);
-
-                                            if (ThisItemBuf.Contains('&')) ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2, ThisItemBuf.IndexOf('&'));
-                                            else ThisItemBuf = ThisItemBuf.Replace(" ", "").Substring(ThisItemBuf.IndexOf('=') + 2);
-                                            if (ThisItemBuf == ThisItem) Count++;
-                                        }
-                                    }
-                                    if (Count > 1) ThisItem += Count;
-                                }
-                                else
-                                {
-                                    ThisItem = ThisItem.Replace(" ", "").Substring(ThisItem.IndexOf('=') + 1);
-                                    if (ThisItem.Contains('/')) ThisItem = ThisItem.Substring(0, ThisItem.IndexOf('/'));
-                                }
-
-
-                                //Console.WriteLine("end: " + ThisItem);
-                            }
-                        }
-                        //##########
-
-                        if (ThisItem == "" || ThisItem == " " || ThisItem == "  ") continue;
-                        if (((byte)ThisItem[0]) == 0xff) continue;
-
-                        if (DoingKeysRune)
-                        {
-                            string ModifiedNsameNoQty = ThisItem;
-                            if (ThisItem.Replace(" ", "").Contains("&&[Quantity]==")) ModifiedNsameNoQty = ThisItem.Substring(0, ThisItem.IndexOf('&') - 1);
-
-
-                            foreach (var ThisDir in Form1_0.ItemsAlert_0.PickItemsRunesKeyGems)
-                            {
-                                if (ThisDir.Key == ModifiedNsameNoQty.Replace(" ", ""))
-                                {
-                                    int ThisQty = Form1_0.ItemsAlert_0.PickItemsRunesKeyGems_Quantity[ThisDir.Key];
-                                    string QtyTxt = "";
-                                    if (ThisQty > 0) QtyTxt = " && [Quantity] == " + ThisQty;
-
-                                    if (!PickItem && ThisDir.Value) AllLines[i] = ModifiedNsameNoQty + QtyTxt + ThisDesc;
-                                    else if (PickItem && !ThisDir.Value) AllLines[i] = "//" + ModifiedNsameNoQty + QtyTxt + ThisDesc;
-                                    else
-                                    {
-                                        AllLines[i] = "";
-                                        if (!PickItem) AllLines[i] += "//";
-                                        AllLines[i] += ModifiedNsameNoQty + QtyTxt + ThisDesc;
-                                    }
-                                }
-                            }
-                        }
-                        if (DoingNormal)
-                        {
-                            if (DoingName)
-                            {
-                                AllNormalByNamePickit.Add(ThisItem);
-                                int ItemIndex = 1;
-                                for (int k = 0; k < AllNormalByNamePickit.Count - 1; k++)
-                                {
-                                    if (AllNormalByNamePickit[k] == ThisItem) ItemIndex++;
-                                }
-                                if (ItemIndex > 1) ThisItem = ThisItem + ItemIndex;
-                                if (Form1_0.ItemsAlert_0.PickItemsNormal_ByName.ContainsKey(ThisItem))
-                                {
-                                    if (!PickItem && Form1_0.ItemsAlert_0.PickItemsNormal_ByName[ThisItem]) AllLines[i] = FullLine + ThisDesc;
-                                    if (PickItem && !Form1_0.ItemsAlert_0.PickItemsNormal_ByName[ThisItem]) AllLines[i] = "//" + FullLine + ThisDesc;
-                                }
-                                else
-                                {
-                                    if (ThisItem.Contains("Potion"))
-                                    {
-                                        //Console.WriteLine("Doing: " + ThisItem);
-                                        foreach (var ThisDir in Form1_0.ItemsAlert_0.PickItemsPotions)
-                                        {
-                                            if (ThisDir.Key == ThisItem.Replace(" ", ""))
-                                            {
-                                                //Console.WriteLine("Doing: " + ThisItem);
-                                                if (!PickItem && ThisDir.Value) AllLines[i] = "[Name] == " + ThisItem + ThisDesc;
-                                                if (PickItem && !ThisDir.Value) AllLines[i] = "//[Name] == " + ThisItem + ThisDesc;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Form1_0.method_1("Error saving item (by name): " + ThisItem, Color.Red);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                AllNormalByTypePickit.Add(ThisItem);
-                                int ItemIndex = 1;
-                                for (int k = 0; k < AllNormalByTypePickit.Count - 1; k++)
-                                {
-                                    if (AllNormalByTypePickit[k] == ThisItem) ItemIndex++;
-                                }
-                                if (ItemIndex > 1) ThisItem = ThisItem + ItemIndex;
-                                if (Form1_0.ItemsAlert_0.PickItemsNormal_ByType.ContainsKey(ThisItem))
-                                {
-                                    if (!PickItem && Form1_0.ItemsAlert_0.PickItemsNormal_ByType[ThisItem]) AllLines[i] = FullLine + ThisDesc;
-                                    if (PickItem && !Form1_0.ItemsAlert_0.PickItemsNormal_ByType[ThisItem]) AllLines[i] = "//" + FullLine + ThisDesc;
-                                }
-                                else
-                                {
-                                    Form1_0.method_1("Error saving item (by type): " + ThisItem, Color.Red);
-                                }
-                            }
-                        }
-                    }
-
-                    if (AllLines[i].Contains("KEYS/GEMS/RUNES ITEMS"))
-                    {
-                        DoingKeysRune = true;
-                        DoingNormal = false;
-                    }
-                    if (AllLines[i].Contains("NORMAL ITEMS"))
-                    {
-                        DoingKeysRune = false;
-                        DoingNormal = true;
-                        NormalStartAt = i;
-                    }
-                }
-            }
-
-            File.WriteAllLines(File_ItemsSettings, AllLines);
-            Form1_0.method_1("Saved 'ItemsSettings.txt' file!", Color.DarkGreen);
-        }
-        catch
-        {
-            Form1_0.method_1("Unable to save 'ItemsSettings.txt' file!", Color.Red);
-        }
-    }
-
-    public void LoadBotSettings()
-    {
-        try
-        {
-            for (int i = 0; i < AllLines.Length; i++)
-            {
-                if (AllLines[i].Length > 0)
-                {
-                    if (AllLines[i][0] != '/' && AllLines[i][0] != '#')
-                    {
-                        if (AllLines[i].Contains("="))
-                        {
-                            string[] Params = AllLines[i].Split('=');
-
-                            if (Params[0].Contains("MaxGameTime"))
-                            {
-                                CharConfig.MaxGameTime = int.Parse(Params[1]);
-                            }
-                            if (Params[0].Contains("LogNotUsefulErrors"))
-                            {
-                                CharConfig.LogNotUsefulErrors = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("IsRushing"))
-                            {
-                                CharConfig.IsRushing = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RushLeecherName"))
-                            {
-                                CharConfig.RushLeecherName = Params[1];
-                            }
-                            if (Params[0].Contains("SearchLeecherName"))
-                            {
-                                CharConfig.SearchLeecherName = Params[1];
-                            }
-                            if (Params[0].Contains("BaalSearchAvoidWords"))
-                            {
-                                CharConfig.BaalSearchAvoidWords.Clear();
-                                if (Params[1].Contains(","))
-                                {
-                                    string[] AllNames = Params[1].Split(',');
-                                    for (int p = 0; p < AllNames.Length; p++) CharConfig.BaalSearchAvoidWords.Add(AllNames[p]);
-                                }
-                                else if (Params[1] != "") CharConfig.BaalSearchAvoidWords.Add(Params[1]);
-                            }
-                            if (Params[0].Contains("ChaosSearchAvoidWords"))
-                            {
-                                CharConfig.ChaosSearchAvoidWords.Clear();
-                                if (Params[1].Contains(","))
-                                {
-                                    string[] AllNames = Params[1].Split(',');
-                                    for (int p = 0; p < AllNames.Length; p++) CharConfig.ChaosSearchAvoidWords.Add(AllNames[p]);
-                                }
-                                else if (Params[1] != "") CharConfig.ChaosSearchAvoidWords.Add(Params[1]);
-                            }
-
-                            //#########
-                            if (Params[0].Contains("KillBaal"))
-                            {
-                                Form1_0.Baal_0.KillBaal = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("LeaveIfMobsIsPresent_ID"))
-                            {
-                                Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Clear();
-                                if (Params[1].Contains(","))
-                                {
-                                    string[] Splitted = Params[1].Split(',');
-                                    Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Add(uint.Parse(Splitted[i]));
-                                }
-                                else if (Params[1] != "")
-                                {
-                                    Form1_0.Baal_0.LeaveIfMobsIsPresent_ID.Add(uint.Parse(Params[1]));
-                                }
-                            }
-                            if (Params[0].Contains("LeaveIfMobsIsPresent_Count"))
-                            {
-                                Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Clear();
-                                if (Params[1].Contains(","))
-                                {
-                                    string[] Splitted = Params[1].Split(',');
-                                    Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Add(int.Parse(Splitted[i]));
-                                }
-                                else if (Params[1] != "")
-                                {
-                                    Form1_0.Baal_0.LeaveIfMobsIsPresent_Count.Add(int.Parse(Params[1]));
-                                }
-                            }
-                            if (Params[0].Contains("LeaveIfMobsCountIsAbove"))
-                            {
-                                Form1_0.Baal_0.LeaveIfMobsCountIsAbove = int.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("SafeHealingStrat"))
-                            {
-                                Form1_0.Baal_0.SafeYoloStrat = bool.Parse(Params[1].ToLower());
-                            }
-
-                            //#########
-                            //SPECIAL CHAOS FEATURES
-                            if (Params[0].Contains("FastChaos"))
-                            {
-                                Form1_0.Chaos_0.FastChaos = bool.Parse(Params[1].ToLower());
-                            }
-
-                            //#########
-                            //SPECIAL OVERLAY FEATURES
-                            if (Params[0].Contains("ShowMobs")) Form1_0.overlayForm.ShowMobs = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowWPs")) Form1_0.overlayForm.ShowWPs = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowGoodChests")) Form1_0.overlayForm.ShowGoodChests = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowLogs")) Form1_0.overlayForm.ShowLogs = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowBotInfos")) Form1_0.overlayForm.ShowBotInfos = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowNPC")) Form1_0.overlayForm.ShowNPC = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowPathFinding")) Form1_0.overlayForm.ShowPathFinding = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowExits")) Form1_0.overlayForm.ShowExits = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowMapHackShowLines")) Form1_0.overlayForm.ShowMapHackShowLines = bool.Parse(Params[1].ToLower());
-                            if (Params[0].Contains("ShowUnitsScanCount")) Form1_0.overlayForm.ShowUnitsScanCount = bool.Parse(Params[1].ToLower());
-                            //#########
-
-                            if (Params[0].Contains("RunMapHackOnly"))
-                            {
-                                CharConfig.RunMapHackOnly = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunMapHackPickitOnly"))
-                            {
-                                CharConfig.RunMapHackPickitOnly = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunAnyaRush"))
-                            {
-                                CharConfig.RunAnyaRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunDarkWoodRush"))
-                            {
-                                CharConfig.RunDarkWoodRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunTristramRush"))
-                            {
-                                CharConfig.RunTristramRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunAndarielRush"))
-                            {
-                                CharConfig.RunAndarielRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunRadamentRush"))
-                            {
-                                CharConfig.RunRadamentRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunHallOfDeadRush"))
-                            {
-                                CharConfig.RunHallOfDeadRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunFarOasisRush"))
-                            {
-                                CharConfig.RunFarOasisRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunLostCityRush"))
-                            {
-                                CharConfig.RunLostCityRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunSummonerRush"))
-                            {
-                                CharConfig.RunSummonerRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunDurielRush"))
-                            {
-                                CharConfig.RunDurielRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunKahlimEyeRush"))
-                            {
-                                CharConfig.RunKahlimEyeRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunKahlimBrainRush"))
-                            {
-                                CharConfig.RunKahlimBrainRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunKahlimHeartRush"))
-                            {
-                                CharConfig.RunKahlimHeartRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunTravincalRush"))
-                            {
-                                CharConfig.RunTravincalRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunMephistoRush"))
-                            {
-                                CharConfig.RunMephistoRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunChaosRush"))
-                            {
-                                CharConfig.RunChaosRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunAncientsRush"))
-                            {
-                                CharConfig.RunAncientsRush = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunBaalRush"))
-                            {
-                                CharConfig.RunBaalRush = bool.Parse(Params[1].ToLower());
-                            }
-
-                            //##########
-                            if (Params[0].Contains("ShowOverlay"))
-                            {
-                                CharConfig.ShowOverlay = bool.Parse(Params[1].ToLower());
-                            }
-                            //##########
-
-                            if (Params[0].Contains("RunWPTaker"))
-                            {
-                                CharConfig.RunWPTaker = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunPindleskinScript"))
-                            {
-                                CharConfig.RunPindleskinScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunDurielScript"))
-                            {
-                                CharConfig.RunDurielScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunSummonerScript"))
-                            {
-                                CharConfig.RunSummonerScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunMephistoScript"))
-                            {
-                                CharConfig.RunMephistoScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunAndarielScript"))
-                            {
-                                CharConfig.RunAndarielScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunChaosScript"))
-                            {
-                                CharConfig.RunChaosScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunChaosLeechScript"))
-                            {
-                                CharConfig.RunChaosLeechScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunCountessScript"))
-                            {
-                                CharConfig.RunCountessScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunLowerKurastScript"))
-                            {
-                                CharConfig.RunLowerKurastScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunUpperKurastScript"))
-                            {
-                                CharConfig.RunUpperKurastScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunA3SewersScript"))
-                            {
-                                CharConfig.RunA3SewersScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunTravincalScript"))
-                            {
-                                CharConfig.RunTravincalScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunBaalScript"))
-                            {
-                                CharConfig.RunBaalScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunBaalLeechScript"))
-                            {
-                                CharConfig.RunBaalLeechScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunCowsScript"))
-                            {
-                                CharConfig.RunCowsScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunEldritchScript"))
-                            {
-                                CharConfig.RunEldritchScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunShenkScript"))
-                            {
-                                CharConfig.RunShenkScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunNihlatakScript"))
-                            {
-                                CharConfig.RunNihlatakScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunFrozensteinScript"))
-                            {
-                                CharConfig.RunFrozensteinScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunTerrorZonesScript"))
-                            {
-                                CharConfig.RunTerrorZonesScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunShopBotScript"))
-                            {
-                                CharConfig.RunShopBotScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunMausoleumScript"))
-                            {
-                                CharConfig.RunMausoleumScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunCryptScript"))
-                            {
-                                CharConfig.RunCryptScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunArachnidScript"))
-                            {
-                                CharConfig.RunArachnidScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunPitScript"))
-                            {
-                                CharConfig.RunPitScript = bool.Parse(Params[1].ToLower());
-                            }
-                            //########
-
-                            if (Params[0].Contains("RunItemGrabScriptOnly"))
-                            {
-                                CharConfig.RunItemGrabScriptOnly = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunChaosSearchGameScript"))
-                            {
-                                CharConfig.RunChaosSearchGameScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunBaalSearchGameScript"))
-                            {
-                                CharConfig.RunBaalSearchGameScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunGameMakerScript"))
-                            {
-                                CharConfig.RunGameMakerScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunNoLobbyScript"))
-                            {
-                                CharConfig.RunNoLobbyScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("RunSinglePlayerScript"))
-                            {
-                                CharConfig.RunSinglePlayerScript = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("KillOnlySuperUnique"))
-                            {
-                                CharConfig.KillOnlySuperUnique = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("ClearAfterBoss"))
-                            {
-                                CharConfig.ClearAfterBoss = bool.Parse(Params[1].ToLower());
-                            }
-                            if (Params[0].Contains("GameName"))
-                            {
-                                CharConfig.GameName = Params[1];
-                            }
-                            if (Params[0].Contains("GamePass"))
-                            {
-                                CharConfig.GamePass = Params[1];
-                            }
-                            if (Params[0].Contains("GameDifficulty"))
-                            {
-                                CharConfig.GameDifficulty = int.Parse(Params[1]);
-                            }
-                            if (Params[0].Contains("ChaosLeechSearch"))
-                            {
-                                CharConfig.ChaosLeechSearch = Params[1];
-                            }
-                            if (Params[0].Contains("BaalLeechSearch"))
-                            {
-                                CharConfig.BaalLeechSearch = Params[1];
-                            }
-                            //#####
-                            if (Params[0].Contains("StartStopKey"))
-                            {
-                                Enum.TryParse(Params[1], out CharConfig.StartStopKey);
-                            }
-                            if (Params[0].Contains("PauseResumeKey"))
-                            {
-                                Enum.TryParse(Params[1], out CharConfig.PauseResumeKey);
-                            }
-                            if (Params[0].Contains("KeyOpenInventory"))
-                            {
-                                Enum.TryParse(Params[1], out CharConfig.KeyOpenInventory);
-                            }
-                            if (Params[0].Contains("KeyForceMovement"))
-                            {
-                                Enum.TryParse(Params[1], out CharConfig.KeyForceMovement);
-                            }
-                            if (Params[0].Contains("KeySwapWeapon"))
-                            {
-                                Enum.TryParse(Params[1], out CharConfig.KeySwapWeapon);
-                            }
-
-                            //###########################################
-                            //Advanced Bot Settings
-                            if (Params[0].Contains("MaxDelayNewGame")) CharConfig.MaxDelayNewGame = int.Parse(Params[1]);
-                            if (Params[0].Contains("WaypointEnterDelay")) CharConfig.WaypointEnterDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxMercReliveTries")) CharConfig.MaxMercReliveTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxItemIDTries")) CharConfig.MaxItemIDTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxItemGrabTries")) CharConfig.MaxItemGrabTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxItemStashTries")) CharConfig.MaxItemStashTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("StashFullTries")) CharConfig.StashFullTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxShopTries")) CharConfig.MaxShopTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxRepairTries")) CharConfig.MaxRepairTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxGambleTries")) CharConfig.MaxGambleTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxBattleAttackTries")) CharConfig.MaxBattleAttackTries = int.Parse(Params[1]);
-                            if (Params[0].Contains("TakeHPPotionDelay")) CharConfig.TakeHPPotionDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("TakeManaPotionDelay")) CharConfig.TakeManaPotionDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("EndBattleGrabDelay")) CharConfig.EndBattleGrabDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("MaxTimeEnterGame")) CharConfig.MaxTimeEnterGame = int.Parse(Params[1]);
-                            if (Params[0].Contains("BaalWavesCastDelay")) CharConfig.BaalWavesCastDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("ChaosWaitingSealBossDelay")) CharConfig.ChaosWaitingSealBossDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("RecastBODelay")) CharConfig.RecastBODelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("TownSwitchAreaDelay")) CharConfig.TownSwitchAreaDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("PublicGameTPRespawnDelay")) CharConfig.PublicGameTPRespawnDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("TPRespawnDelay")) CharConfig.TPRespawnDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("PlayerMaxHPCheckDelay")) CharConfig.PlayerMaxHPCheckDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("LeechEnterTPDelay")) CharConfig.LeechEnterTPDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("MephistoRedPortalEnterDelay")) CharConfig.MephistoRedPortalEnterDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("CubeItemPlaceDelay")) CharConfig.CubeItemPlaceDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("CreateGameWaitDelay")) CharConfig.CreateGameWaitDelay = int.Parse(Params[1]);
-                            if (Params[0].Contains("OverallDelaysMultiplyer")) CharConfig.OverallDelaysMultiplyer = double.Parse(Params[1], System.Globalization.CultureInfo.InvariantCulture);
-                        }
-                    }
-                }
-            }
-        }
-        catch
-        {
-            Form1_0.method_1("Unable to load 'BotSettings.txt' file!", Color.Red);
-        }
-    }
-
     public void LoadCubingSettings()
     {
         try
@@ -1561,25 +968,6 @@ public class SettingsLoader
         }
     }
 
-    public void SaveCurrentCharSettings()
-    {
-        string[] AllLines = File.ReadAllLines(File_CharSettings);
-
-        for (int i = 0; i < AllLines.Length; i++)
-        {
-            if (AllLines[i].Contains("="))
-            {
-                string[] Splitted = AllLines[i].Split('=');
-                if (Splitted[0] == "RunOnChar") AllLines[i] = "RunOnChar=" + CharConfig.RunningOnChar;
-            }
-        }
-
-        File.Create(File_CharSettings).Dispose();
-        File.WriteAllLines(File_CharSettings, AllLines);
-
-        Form1_0.method_1("Saved '" + Path.GetFileName(File_CharSettings) + "' file!", Color.DarkGreen);
-    }
-
     public void LoadCharSettings()
     {
         try
@@ -1608,7 +996,6 @@ public class SettingsLoader
             Form1_0.method_1("Unable to load 'CharSettings.txt' file!", Color.Red);
         }
     }
-
     public void LoadCurrentCharSettings()
     {
         try
@@ -1845,5 +1232,299 @@ public class SettingsLoader
         {
             Form1_0.method_1("Unable to load the settings file for the Current Char!", Color.Red);
         }
+    }
+
+    public void LoadBotSettings()
+    {
+        if (File.Exists(File_BotSettings))
+        {
+            AllLines = File.ReadAllLines(File_BotSettings);
+
+            foreach (var line in AllLines)
+            {
+                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && line.Contains("="))
+                {
+                    var split = line.Split('=');
+                    if (split.Length == 2)
+                    {
+                        var key = split[0].Trim();
+                        var value = split[1].Trim();
+
+                        switch (key)
+                        {
+                            case "MaxGameTime":
+                                CharConfig.MaxGameTime = int.Parse(value);
+                                break;
+                            case "LogNotUsefulErrors":
+                                CharConfig.LogNotUsefulErrors = bool.Parse(value);
+                                break;
+                            case "IsRushing":
+                                CharConfig.IsRushing = bool.Parse(value);
+                                break;
+                            case "RushLeecherName":
+                                CharConfig.RushLeecherName = value;
+                                break;
+                            case "SearchLeecherName":
+                                CharConfig.SearchLeecherName = value;
+                                break;
+                            case "ShowMobs":
+                                Form1_0.overlayForm.ShowMobs = bool.Parse(value);
+                                break;
+                            case "ShowWPs":
+                                Form1_0.overlayForm.ShowWPs = bool.Parse(value);
+                                break;
+                            case "ShowGoodChests":
+                                Form1_0.overlayForm.ShowGoodChests = bool.Parse(value);
+                                break;
+                            case "ShowLogs":
+                                Form1_0.overlayForm.ShowLogs = bool.Parse(value);
+                                break;
+                            case "ShowBotInfos":
+                                Form1_0.overlayForm.ShowBotInfos = bool.Parse(value);
+                                break;
+                            case "ShowNPC":
+                                Form1_0.overlayForm.ShowNPC = bool.Parse(value);
+                                break;
+                            case "ShowPathFinding":
+                                Form1_0.overlayForm.ShowPathFinding = bool.Parse(value);
+                                break;
+                            case "ShowExits":
+                                Form1_0.overlayForm.ShowExits = bool.Parse(value);
+                                break;
+                            case "ShowMapHackShowLines":
+                                Form1_0.overlayForm.ShowMapHackShowLines = bool.Parse(value);
+                                break;
+                            case "ShowUnitsScanCount":
+                                Form1_0.overlayForm.ShowUnitsScanCount = bool.Parse(value);
+                                break;
+                            case "ShowOverlay":
+                                CharConfig.ShowOverlay = bool.Parse(value);
+                                break;
+                            case "RunGameMakerScript":
+                                CharConfig.RunGameMakerScript = bool.Parse(value);
+                                break;
+                            case "RunNoLobbyScript":
+                                CharConfig.RunNoLobbyScript = bool.Parse(value);
+                                break;
+                            case "RunSinglePlayerScript":
+                                CharConfig.RunSinglePlayerScript = bool.Parse(value);
+                                break;
+                            case "KillOnlySuperUnique":
+                                CharConfig.KillOnlySuperUnique = bool.Parse(value);
+                                break;
+                            case "ClearAfterBoss":
+                                CharConfig.ClearAfterBoss = bool.Parse(value);
+                                break;
+                            case "GameName":
+                                CharConfig.GameName = value;
+                                break;
+                            case "GameDifficulty":
+                                CharConfig.GameDifficulty = int.Parse(value);
+                                break;
+                            case "GamePass":
+                                CharConfig.GamePass = value;
+                                break;
+                            case "ChaosLeechSearch":
+                                CharConfig.ChaosLeechSearch = value;
+                                break;
+                            case "BaalLeechSearch":
+                                CharConfig.BaalLeechSearch = value;
+                                break;
+                            case "StartStopKey":
+                                Enum.TryParse(value, out CharConfig.StartStopKey);
+                                break;
+                            case "PauseResumeKey":
+                                Enum.TryParse(value, out CharConfig.PauseResumeKey);
+                                break;
+                            case "KeyOpenInventory":
+                                Enum.TryParse(value, out CharConfig.KeyOpenInventory);
+                                break;
+                            case "KeyForceMovement":
+                                Enum.TryParse(value, out CharConfig.KeyForceMovement);
+                                break;
+                            case "KeySwapWeapon":
+                                Enum.TryParse(value, out CharConfig.KeySwapWeapon);
+                                break;
+                            case "MaxDelayNewGame":
+                                CharConfig.MaxDelayNewGame = int.Parse(value);
+                                break;
+                            case "WaypointEnterDelay":
+                                CharConfig.WaypointEnterDelay = int.Parse(value);
+                                break;
+                            case "MaxMercReliveTries":
+                                CharConfig.MaxMercReliveTries = int.Parse(value);
+                                break;
+                            case "MaxItemIDTries":
+                                CharConfig.MaxItemIDTries = int.Parse(value);
+                                break;
+                            case "MaxItemGrabTries":
+                                CharConfig.MaxItemGrabTries = int.Parse(value);
+                                break;
+                            case "MaxItemStashTries":
+                                CharConfig.MaxItemStashTries = int.Parse(value);
+                                break;
+                            case "StashFullTries":
+                                CharConfig.StashFullTries = int.Parse(value);
+                                break;
+                            case "MaxShopTries":
+                                CharConfig.MaxShopTries = int.Parse(value);
+                                break;
+                            case "MaxRepairTries":
+                                CharConfig.MaxRepairTries = int.Parse(value);
+                                break;
+                            case "MaxGambleTries":
+                                CharConfig.MaxGambleTries = int.Parse(value);
+                                break;
+                            case "MaxBattleAttackTries":
+                                CharConfig.MaxBattleAttackTries = int.Parse(value);
+                                break;
+                            case "TakeHPPotionDelay":
+                                CharConfig.TakeHPPotionDelay = int.Parse(value);
+                                break;
+                            case "TakeManaPotionDelay":
+                                CharConfig.TakeManaPotionDelay = int.Parse(value);
+                                break;
+                            case "EndBattleGrabDelay":
+                                CharConfig.EndBattleGrabDelay = int.Parse(value);
+                                break;
+                            case "MaxTimeEnterGame":
+                                CharConfig.MaxTimeEnterGame = int.Parse(value);
+                                break;
+                            case "BaalWavesCastDelay":
+                                CharConfig.BaalWavesCastDelay = int.Parse(value);
+                                break;
+                            case "ChaosWaitingSealBossDelay":
+                                CharConfig.ChaosWaitingSealBossDelay = int.Parse(value);
+                                break;
+                            case "RecastBODelay":
+                                CharConfig.RecastBODelay = int.Parse(value);
+                                break;
+                            case "TownSwitchAreaDelay":
+                                CharConfig.TownSwitchAreaDelay = int.Parse(value);
+                                break;
+                            case "PublicGameTPRespawnDelay":
+                                CharConfig.PublicGameTPRespawnDelay = int.Parse(value);
+                                break;
+                            case "TPRespawnDelay":
+                                CharConfig.TPRespawnDelay = int.Parse(value);
+                                break;
+                            case "PlayerMaxHPCheckDelay":
+                                CharConfig.PlayerMaxHPCheckDelay = int.Parse(value);
+                                break;
+                            case "LeechEnterTPDelay":
+                                CharConfig.LeechEnterTPDelay = int.Parse(value);
+                                break;
+                            case "MephistoRedPortalEnterDelay":
+                                CharConfig.MephistoRedPortalEnterDelay = int.Parse(value);
+                                break;
+                            case "CubeItemPlaceDelay":
+                                CharConfig.CubeItemPlaceDelay = int.Parse(value);
+                                break;
+                            case "OverallDelaysMultiplyer":
+                                CharConfig.OverallDelaysMultiplyer = int.Parse(value);
+                                break;
+                            case "CreateGameWaitDelay":
+                                CharConfig.CreateGameWaitDelay = int.Parse(value);
+                                break;
+                            default:
+                                // Handle dynamic script checked states
+                                if (bool.TryParse(value, out bool isChecked))
+                                {
+                                    var botLoader = BotLoader.GetInstance(Form1_0);
+                                    if (botLoader.ScriptCheckedStates.ContainsKey(key))
+                                    {
+                                        botLoader.ScriptCheckedStates[key] = isChecked;
+                                    }
+                                    else
+                                    {
+                                        botLoader.ScriptCheckedStates.Add(key, isChecked);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void SaveBotSettings()
+    {
+        List<string> lines = new List<string>();
+        lines.Add($"MaxGameTime={CharConfig.MaxGameTime}");
+        lines.Add($"LogNotUsefulErrors={CharConfig.LogNotUsefulErrors}");
+        lines.Add($"IsRushing={CharConfig.IsRushing}");
+        lines.Add($"RushLeecherName={CharConfig.RushLeecherName}");
+        lines.Add($"SearchLeecherName={CharConfig.SearchLeecherName}");
+        lines.Add($"ShowMobs={Form1_0.overlayForm.ShowMobs}");
+        lines.Add($"ShowWPs={Form1_0.overlayForm.ShowWPs}");
+        lines.Add($"ShowGoodChests={Form1_0.overlayForm.ShowGoodChests}");
+        lines.Add($"ShowLogs={Form1_0.overlayForm.ShowLogs}");
+        lines.Add($"ShowBotInfos={Form1_0.overlayForm.ShowBotInfos}");
+        lines.Add($"ShowNPC={Form1_0.overlayForm.ShowNPC}");
+        lines.Add($"ShowPathFinding={Form1_0.overlayForm.ShowPathFinding}");
+        lines.Add($"ShowExits={Form1_0.overlayForm.ShowExits}");
+        lines.Add($"ShowMapHackShowLines={Form1_0.overlayForm.ShowMapHackShowLines}");
+        lines.Add($"ShowUnitsScanCount={Form1_0.overlayForm.ShowUnitsScanCount}");
+        lines.Add($"ShowOverlay={CharConfig.ShowOverlay}");
+        lines.Add($"RunGameMakerScript={CharConfig.RunGameMakerScript}");
+        lines.Add($"RunNoLobbyScript={CharConfig.RunNoLobbyScript}");
+        lines.Add($"RunSinglePlayerScript={CharConfig.RunSinglePlayerScript}");
+        lines.Add($"KillOnlySuperUnique={CharConfig.KillOnlySuperUnique}");
+        lines.Add($"ClearAfterBoss={CharConfig.ClearAfterBoss}");
+
+        // Game settings
+        lines.Add($"GameName={CharConfig.GameName}");
+        lines.Add($"GameDifficulty={CharConfig.GameDifficulty}");
+        lines.Add($"GamePass={CharConfig.GamePass}");
+        lines.Add($"ChaosLeechSearch={CharConfig.ChaosLeechSearch}");
+        lines.Add($"BaalLeechSearch={CharConfig.BaalLeechSearch}");
+
+        lines.Add($"StartStopKey={CharConfig.StartStopKey}");
+        lines.Add($"PauseResumeKey={CharConfig.PauseResumeKey}");
+        lines.Add($"KeyOpenInventory={CharConfig.KeyOpenInventory}");
+        lines.Add($"KeyForceMovement={CharConfig.KeyForceMovement}");
+        lines.Add($"KeySwapWeapon={CharConfig.KeySwapWeapon}");
+
+        lines.Add($"MaxDelayNewGame={CharConfig.MaxDelayNewGame}");
+        lines.Add($"WaypointEnterDelay={CharConfig.WaypointEnterDelay}");
+        lines.Add($"MaxMercReliveTries={CharConfig.MaxMercReliveTries}");
+        lines.Add($"MaxItemIDTries={CharConfig.MaxItemIDTries}");
+        lines.Add($"MaxItemGrabTries={CharConfig.MaxItemGrabTries}");
+        lines.Add($"MaxItemStashTries={CharConfig.MaxItemStashTries}");
+        lines.Add($"StashFullTries={CharConfig.StashFullTries}");
+        lines.Add($"MaxShopTries={CharConfig.MaxShopTries}");
+        lines.Add($"MaxRepairTries={CharConfig.MaxRepairTries}");
+        lines.Add($"MaxGambleTries={CharConfig.MaxGambleTries}");
+        lines.Add($"MaxBattleAttackTries={CharConfig.MaxBattleAttackTries}");
+        lines.Add($"TakeHPPotionDelay={CharConfig.TakeHPPotionDelay}");
+        lines.Add($"TakeManaPotionDelay={CharConfig.TakeManaPotionDelay}");
+        lines.Add($"EndBattleGrabDelay={CharConfig.EndBattleGrabDelay}");
+        lines.Add($"MaxTimeEnterGame={CharConfig.MaxTimeEnterGame}");
+        lines.Add($"BaalWavesCastDelay={CharConfig.BaalWavesCastDelay}");
+        lines.Add($"ChaosWaitingSealBossDelay={CharConfig.ChaosWaitingSealBossDelay}");
+        lines.Add($"RecastBODelay={CharConfig.RecastBODelay}");
+        lines.Add($"TownSwitchAreaDelay={CharConfig.TownSwitchAreaDelay}");
+        lines.Add($"PublicGameTPRespawnDelay={CharConfig.PublicGameTPRespawnDelay}");
+        lines.Add($"TPRespawnDelay={CharConfig.TPRespawnDelay}");
+        lines.Add($"PlayerMaxHPCheckDelay={CharConfig.PlayerMaxHPCheckDelay}");
+        lines.Add($"LeechEnterTPDelay={CharConfig.LeechEnterTPDelay}");
+        lines.Add($"MephistoRedPortalEnterDelay={CharConfig.MephistoRedPortalEnterDelay}");
+        lines.Add($"CubeItemPlaceDelay={CharConfig.CubeItemPlaceDelay}");
+        lines.Add($"OverallDelaysMultiplyer={CharConfig.OverallDelaysMultiplyer}");
+        lines.Add($"CreateGameWaitDelay={CharConfig.CreateGameWaitDelay}");
+
+        // Save dynamic script settings from botLoader dictionary
+        var botLoader = BotLoader.GetInstance(Form1_0);
+        foreach (var script in botLoader.ScriptCheckedStates)
+        {
+            lines.Add($"{script.Key}={script.Value}");
+        }
+        // Save to file
+        File.Create(File_BotSettings).Dispose();
+        File.WriteAllLines(File_BotSettings, lines);
+
+        Form1_0.method_1("Saved '" + Path.GetFileName(File_BotSettings) + "' file!", Color.DarkGreen);
     }
 }

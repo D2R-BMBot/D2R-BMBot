@@ -35,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -247,51 +248,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bots\Act3Sewers.cs" />
-    <Compile Include="Bots\ArachnidLair.cs" />
-    <Compile Include="Bots\Pit.cs" />
-    <Compile Include="Bots\Crypt.cs" />
-    <Compile Include="Bots\Mausoleum.cs" />
-    <Compile Include="Bots\ShopBot.cs" />
-    <Compile Include="Bots\Frozenstein.cs" />
-    <Compile Include="Bots\Rush\AnyaRush.cs" />
-    <Compile Include="Bots\TerrorZones.cs" />
-    <Compile Include="Bots\UpperKurast.cs" />
-    <Compile Include="Bots\Rush\ChaosRush.cs" />
-    <Compile Include="Bots\Rush\BaalRush.cs" />
-    <Compile Include="Bots\Baal.cs" />
-    <Compile Include="Bots\Chaos.cs" />
-    <Compile Include="Bots\Nihlatak.cs" />
-    <Compile Include="Bots\Cows.cs" />
-    <Compile Include="Bots\Rush\AncienstRush.cs" />
-    <Compile Include="Bots\Shenk.cs" />
-    <Compile Include="Bots\Eldritch.cs" />
-    <Compile Include="Bots\WPTaker.cs" />
-    <Compile Include="Bots\Rush\MephistoRush.cs" />
-    <Compile Include="Bots\Rush\AndarielRush.cs" />
-    <Compile Include="Bots\Rush\DurielRush.cs" />
-    <Compile Include="Bots\Rush\KahlimHeartRush.cs" />
-    <Compile Include="Bots\Rush\KahlimBrainRush.cs" />
-    <Compile Include="Bots\Rush\KahlimEyeRush.cs" />
-    <Compile Include="Bots\Rush\LostCityRush.cs" />
-    <Compile Include="Bots\Rush\FarOasisRush.cs" />
-    <Compile Include="Bots\Rush\HallOfDeadRushCube.cs" />
-    <Compile Include="Bots\Rush\RadamentRush.cs" />
-    <Compile Include="Bots\Rush\SummonerRush.cs" />
-    <Compile Include="Bots\Rush\TristramRush.cs" />
-    <Compile Include="Bots\Rush\DarkWoodRush.cs" />
-    <Compile Include="Bots\Duriel.cs" />
-    <Compile Include="Bots\Pindleskin.cs" />
-    <Compile Include="Bots\Rush\TravincalRush.cs" />
-    <Compile Include="Bots\Travincal.cs" />
-    <Compile Include="Bots\Summoner.cs" />
-    <Compile Include="Bots\Mephisto.cs" />
-    <Compile Include="Bots\BaalLeech.cs" />
-    <Compile Include="Bots\ChaosLeech.cs" />
+    <Compile Include="Bots\**\*.cs" />
     <Compile Include="Config\CharConfig.cs" />
-    <Compile Include="Bots\Andariel.cs" />
-    <Compile Include="Bots\Countess.cs" />
-    <Compile Include="Bots\LowerKurast.cs" />
     <Compile Include="Config\ScriptsLoader - Copier.cs" />
     <Compile Include="Config\ScriptsLoader.cs" />
     <Compile Include="Config\SettingsLoader.cs" />
@@ -325,6 +283,8 @@
     <Compile Include="FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IBot.cs" />
+    <Compile Include="Scripts\BotLoader.cs" />
     <Compile Include="Strucs\ItemsViewer.cs" />
     <Compile Include="OverlayForm.cs">
       <SubType>Form</SubType>

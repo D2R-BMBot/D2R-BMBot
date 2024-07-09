@@ -140,18 +140,18 @@ public class Cubing
             }
         }
 
-        if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone)
-        {
-            for (int i = 0; i < 40; i++)
-            {
-                if (Form1_0.InventoryStruc_0.InventoryItemNames[i] == ItemName)
-                {
-                    CurrentRecipeItemLocations.Add(i);
-                    CurrentRecipeItemInStashNumber.Add(5);
-                    return true;
-                }
-            }
-        }
+        //if (CharConfig.RunCowsScript && !Form1_0.Cows_0.ScriptDone)
+        //{
+        //    for (int i = 0; i < 40; i++)
+        //    {
+        //        if (Form1_0.InventoryStruc_0.InventoryItemNames[i] == ItemName)
+        //        {
+        //            CurrentRecipeItemLocations.Add(i);
+        //            CurrentRecipeItemInStashNumber.Add(5);
+        //            return true;
+        //        }
+        //    }
+        //}
 
         return false;
     }

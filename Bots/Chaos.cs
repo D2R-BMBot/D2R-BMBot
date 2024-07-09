@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MapAreaStruc;
 
-public class Chaos
+public class Chaos : IBot
 {
+    public const string scriptName = "Chaos";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
     //#####################################################
@@ -18,8 +26,6 @@ public class Chaos
     //#####################################################
     //#####################################################
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public bool DetectedBoss = false;
 
     public Position EntrancePos = new Position { X = 7796, Y = 5561 };

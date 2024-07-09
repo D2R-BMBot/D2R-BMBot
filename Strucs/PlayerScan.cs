@@ -366,6 +366,11 @@ public class PlayerScan
     private const int MapHashDivisor = 1 << 16;
 
     // Logic stolen from MapAssist, credits to them
+
+    public void UpdateLocation()
+    {
+        levelNo = Form1_0.Mem_0.ReadUInt32Raw((IntPtr)(pLevelAddress + 0x1F8));
+    }
     public static (uint, bool) GetMapSeed(uint initHashSeed, uint endHashSeed)
     {
         uint gameSeedXor = 0;

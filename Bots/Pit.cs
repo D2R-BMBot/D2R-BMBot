@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 using static Enums;
 using static MapAreaStruc;
 
-public class Pit
+public class Pit : IBot
 {
+    public const string scriptName = "Pit";
+    public const string scriptType = "Bot";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public List<int> IgnoredChestList = new List<int>();
     public bool HasTakenAnyChest = false;
 

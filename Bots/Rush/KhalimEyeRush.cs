@@ -6,12 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using static MapAreaStruc;
 
-public class KahlimEyeRush
+public class KhalimEyeRush : IRushBot
 {
+    public const string scriptName = "Khalim Eye Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "3";
+    public string ScriptQuest => "3a";
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public Position ChestPos = new Position { X = 0, Y = 0 };
 
 

@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MapAreaStruc;
 
-public class ChaosRush
+public class ChaosRush : IBot
 {
+    public const string scriptName = "Chaos Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "4";
+    public string ScriptQuest => "3";
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public bool DetectedBoss = false;
 
     public Position EntrancePos = new Position { X = 7796, Y = 5561 };

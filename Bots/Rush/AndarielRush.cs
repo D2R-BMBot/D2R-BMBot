@@ -5,12 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class AndarielRush
+public class AndarielRush : IRushBot
 {
+    public const string scriptName = "Andariel Rush";
+    public const string scriptType = "Rush";
+    public string ScriptAct => "1";
+    public string ScriptQuest => "6";
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
-    public bool ScriptDone = false;
     public bool DetectedBoss = false;
 
     public void SetForm1(Form1 form1_1)

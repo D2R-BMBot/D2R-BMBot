@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MapAreaStruc;
 
-public class BaalLeech
+public class BaalLeech : IBot
 {
+    public const string scriptName = "Baal Leech";
+    public const string scriptType = "Leech";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
 
     Form1 Form1_0;
 
@@ -18,7 +25,6 @@ public class BaalLeech
     public bool BaalLeechFight = false;
     //##############
 
-    public int CurrentStep = 0;
     public int MaxGameTimeToEnter = CharConfig.MaxTimeEnterGame; //3mins
     public int MaxTimeWaitedForTP = (2 * 60); //2mins
     public int TimeWaitedForTP = 0;
@@ -27,7 +33,6 @@ public class BaalLeech
     public bool SearchSameGamesAsLastOne = false;
     public bool KillingManually = false;
     public bool DetectedBaal = false;
-    public bool ScriptDone = false;
 
     public long LastWave4Pointer = 0;
     public long LastWave5Pointer = 0;
@@ -49,6 +54,13 @@ public class BaalLeech
     public void SetForm1(Form1 form1_1)
     {
         Form1_0 = form1_1;
+    }
+
+    //UPDATEME
+    public void ResetVars()
+    {
+        CurrentStep = 0;
+        ScriptDone = false;
     }
 
     public void RunScriptNOTInGame()

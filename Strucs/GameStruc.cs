@@ -441,7 +441,6 @@ public class GameStruc
         //string MonthTime = ThisTimee.Day + "-" + ThisTimee.Month + "-" + ThisTimee.Year;
         //return HourTime + " (" + MonthTime + ")";
     }
-
     public void SetNewGame()
     {
         //Form1_0.method_1("------------------------------------------", Color.DarkBlue);

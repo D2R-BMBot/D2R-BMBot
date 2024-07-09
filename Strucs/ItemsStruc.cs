@@ -386,7 +386,7 @@ public class ItemsStruc
             if (Form1_0.PlayerScan_0.PlayerDead || Form1_0.Potions_0.ForceLeave)
             {
                 Form1_0.Potions_0.ForceLeave = true;
-                Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+         //       Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
                 Form1_0.LeaveGame(false);
                 Form1_0.IncreaseDeadCount();
                 return false;
@@ -778,7 +778,7 @@ public class ItemsStruc
             if (Form1_0.PlayerScan_0.PlayerDead || Form1_0.Potions_0.ForceLeave)
             {
                 Form1_0.Potions_0.ForceLeave = true;
-                Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+            //    Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
                 Form1_0.LeaveGame(false);
                 Form1_0.IncreaseDeadCount();
                 return false;
@@ -848,7 +848,7 @@ public class ItemsStruc
             if (Form1_0.PlayerScan_0.PlayerDead || Form1_0.Potions_0.ForceLeave)
             {
                 Form1_0.Potions_0.ForceLeave = true;
-                Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+         //       Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
                 Form1_0.LeaveGame(false);
                 Form1_0.IncreaseDeadCount();
                 return false;
@@ -955,7 +955,7 @@ public class ItemsStruc
             if (Form1_0.PlayerScan_0.PlayerDead || Form1_0.Potions_0.ForceLeave)
             {
                 Form1_0.Potions_0.ForceLeave = true;
-                Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+          //      Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
                 Form1_0.LeaveGame(false);
                 Form1_0.IncreaseDeadCount();
                 return false;

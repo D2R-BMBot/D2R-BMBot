@@ -57,7 +57,7 @@ public class Potions
         if (Form1_0.PlayerScan_0.PlayerDead || ForceLeave || Form1_0.PlayerScan_0.PlayerHP == 0)
         {
             ForceLeave = true;
-            Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+            //Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
             Form1_0.LeaveGame(false);
             Form1_0.IncreaseDeadCount();
             return;
@@ -88,7 +88,7 @@ public class Potions
         if (Form1_0.PlayerScan_0.PlayerDead || ForceLeave)
         {
             ForceLeave = true;
-            Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
+        //    Form1_0.BaalLeech_0.SearchSameGamesAsLastOne = false;
             Form1_0.LeaveGame(false);
             Form1_0.IncreaseDeadCount();
             return;

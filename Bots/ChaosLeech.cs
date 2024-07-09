@@ -7,16 +7,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MapAreaStruc;
 
-public class ChaosLeech
+public class ChaosLeech : IBot
 {
+    public const string scriptName = "Chaos Leech";
+    public const string scriptType = "Leech";
+
+    public string ScriptName => scriptName;
+    public string ScriptType => scriptType;
+    public int CurrentStep { get; set; } = 0;
+    public bool ScriptDone { get; set; } = false;
+
     Form1 Form1_0;
 
-    public int CurrentStep = 0;
     public int MaxGameTimeToEnter = CharConfig.MaxTimeEnterGame; //6mins
     public int MaxTimeWaitedForTP = (2 * 60) * 2; //2mins
     public int TimeWaitedForTP = 0;
     public bool PrintedInfos = false;
-    public bool ScriptDone = false;
 
     public bool SearchSameGamesAsLastOne = false;
     public int SameGameRetry = 0;
@@ -43,6 +49,12 @@ public class ChaosLeech
         Form1_0 = form1_1;
     }
 
+    //UPDATEME
+    public void ResetVars()
+    {
+        CurrentStep = 0;
+        ScriptDone = false;
+    }
     public void RunScriptNOTInGame()
     {
         TimeWaitedForTP = 0;
