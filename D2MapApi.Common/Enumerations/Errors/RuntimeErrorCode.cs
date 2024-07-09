@@ -1,0 +1,11 @@
+﻿namespace D2MapApi.Server.Grpc.Enumerations.Errors;
+
+public enum RuntimeErrorCode
+{
+    DIRECTORY_NOT_CONFIGURED = 1,
+    DIRECTORY_DOES_NOT_EXIST = 2,
+    ARGUMENT_VALIDATION = 3,
+    GAME_EDITION_NOT_DETECTED = 4,
+    GAME_VERSION_NOT_DETECTED = 5,
+    API_INTEROP_INITIALIZATION = 6
+}
