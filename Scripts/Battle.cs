@@ -309,10 +309,10 @@ public class Battle
             Form1_0.Potions_0.CheckIfWeUsePotion();
 
             Form1_0.KeyMouse_0.PressKey(CharConfig.KeySwapWeapon);
-            Form1_0.WaitDelay(15);
+            Form1_0.WaitDelay(90);
             //Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleOrder);
             Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleCommand);
-            Form1_0.WaitDelay(10);
+            Form1_0.WaitDelay(90);
             /*Form1_0.KeyMouse_0.MouseClicc(1025, 1025);
             Form1_0.WaitDelay(5);
             Form1_0.KeyMouse_0.MouseClicc(1095, 610);
@@ -324,10 +324,10 @@ public class Battle
             if (Form1_0.PlayerScan_0.RightSkill != Enums.Skill.BattleCommand)
             {
                 Form1_0.KeyMouse_0.PressKey(CharConfig.KeySwapWeapon);
-                Form1_0.WaitDelay(15);
+                Form1_0.WaitDelay(90);
                 //Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleOrder);
                 Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleCommand);
-                Form1_0.WaitDelay(10);
+                Form1_0.WaitDelay(90);
                 /*Form1_0.KeyMouse_0.MouseClicc(1025, 1025);
                 Form1_0.WaitDelay(5);
                 Form1_0.KeyMouse_0.MouseClicc(1095, 610);
@@ -336,12 +336,12 @@ public class Battle
             }
 
             Form1_0.KeyMouse_0.MouseCliccRight_RealPos(Form1_0.CenterX, Form1_0.CenterY);
-            Form1_0.WaitDelay(35);
+            Form1_0.WaitDelay(50);
 
             //select battle command
             //Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleCommand);
             Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillBattleOrder);
-            Form1_0.WaitDelay(10);
+            Form1_0.WaitDelay(90);
             /*Form1_0.KeyMouse_0.MouseClicc(1025, 1025);
             Form1_0.WaitDelay(5);
             Form1_0.KeyMouse_0.MouseClicc(1025, 610);
@@ -426,8 +426,8 @@ public class Battle
 
     public void SetBattleMoveAcceptOffset()
     {
-        //if (CharConfig.RunningOnChar.ToLower().Contains("sorc")) Form1_0.Mover_0.MoveAcceptOffset = 10;
-        //else Form1_0.Mover_0.MoveAcceptOffset = 4; //default
+        if (CharConfig.RunningOnChar.ToLower().Contains("sorc")) Form1_0.Mover_0.MoveAcceptOffset = 10;
+        else Form1_0.Mover_0.MoveAcceptOffset = 4; //default
     }
 
     public void ResetBattleMoveAcceptOffset()

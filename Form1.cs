@@ -41,7 +41,7 @@ using System.Linq.Expressions;
 public partial class Form1 : Form
 {
 
-    public string BotVersion = "V3.05R2";
+    public string BotVersion = "V3.05R3";
 
     public string D2_LOD_113C_Path = "";
 
@@ -185,6 +185,7 @@ public partial class Form1 : Form
     public Frozenstein Frozenstein_0;
     public ShopBot ShopBot_0;
     public Mausoleum Mausoleum_0;
+    public AncientTunnels AncientTunnels_0;
     public Crypt Crypt_0;
     public ArachnidLair ArachnidLair_0;
     public Pit Pit_0;
@@ -380,6 +381,7 @@ public partial class Form1 : Form
         AreaScript_0 = new AreaScript();
         ShopBot_0 = new ShopBot();
         Mausoleum_0 = new Mausoleum();
+        AncientTunnels_0 = new AncientTunnels();
         Crypt_0 = new Crypt();
         ArachnidLair_0 = new ArachnidLair();
         Pit_0 = new Pit();
@@ -463,6 +465,7 @@ public partial class Form1 : Form
         AreaScript_0.SetForm1(Form1_0);
         ShopBot_0.SetForm1(Form1_0);
         Mausoleum_0.SetForm1(Form1_0);
+        AncientTunnels_0.SetForm1(Form1_0);
         Crypt_0.SetForm1(Form1_0);
         ArachnidLair_0.SetForm1(Form1_0);
         Pit_0.SetForm1(Form1_0);
@@ -1118,6 +1121,7 @@ public partial class Form1 : Form
         TerrorZones_0.ResetVars();
         ShopBot_0.ResetVars();
         Mausoleum_0.ResetVars();
+        AncientTunnels_0.ResetVars();
         Crypt_0.ResetVars();
         ArachnidLair_0.ResetVars();
         Pit_0.ResetVars();
@@ -1415,7 +1419,13 @@ public partial class Form1 : Form
                                                         }
                                                         else
                                                         {
-                                                            if (CharConfig.RunCryptScript && !Crypt_0.ScriptDone)
+                                                            if (CharConfig.RunAncientTunnelsScript && !AncientTunnels_0.ScriptDone)
+                                                            {
+                                                                AncientTunnels_0.RunScript();
+                                                            }
+                                                            else
+                                                            {
+                                                                if (CharConfig.RunCryptScript && !Crypt_0.ScriptDone)
                                                             {
                                                                 Crypt_0.RunScript();
                                                             }
@@ -1582,6 +1592,8 @@ public partial class Form1 : Form
                                                 }
                                             }
                                         }
+                                        }
+
                                         else
                                         {
                                             if (Battle_0.ClearingArea)
@@ -1873,6 +1885,7 @@ public partial class Form1 : Form
                 if (CharConfig.RunWPTaker && !WPTaker_0.ScriptDone) WPTaker_0.ScriptDone = true;
                 else if (CharConfig.RunShopBotScript && !ShopBot_0.ScriptDone) ShopBot_0.ScriptDone = true;
                 else if (CharConfig.RunMausoleumScript && !Mausoleum_0.ScriptDone) Mausoleum_0.ScriptDone = true;
+                else if (CharConfig.RunAncientTunnelsScript && !AncientTunnels_0.ScriptDone) AncientTunnels_0.ScriptDone = true;
                 else if (CharConfig.RunCryptScript && !Crypt_0.ScriptDone) Crypt_0.ScriptDone = true;
                 else if (CharConfig.RunCowsScript && !Cows_0.ScriptDone) Cows_0.ScriptDone = true;
                 else if (CharConfig.RunAndarielScript && !Andariel_0.ScriptDone) Andariel_0.ScriptDone = true;

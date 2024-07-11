@@ -38,13 +38,14 @@ partial class FormSettings
             //System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Cows");
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Countess");
             System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Andariel");
+            System.Windows.Forms.ListViewItem listViewItem48 = new System.Windows.Forms.ListViewItem("Ancient Tunnels (Beta,Bugs)");
             System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("Summoner");
             System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("Duriel");
             //System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("Arachnid Lair");
             System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("Lower Kurast (Chests)");
             //System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("Act3 Sewers (Chests)");
             System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("Upper Kurast (Chests)");
-            //System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("Travincal");
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("Travincal");
             System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("Mephisto");
             System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("Chaos");
             System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("Chaos Leech");
@@ -202,13 +203,14 @@ partial class FormSettings
             listViewItem9.Checked = true;
             listViewItem9.StateImageIndex = 1;
             listViewItem10.StateImageIndex = 0;
+            listViewItem48.StateImageIndex = 0;
             listViewItem11.StateImageIndex = 0;
             listViewItem12.StateImageIndex = 0;
             //listViewItem13.StateImageIndex = 0;
             listViewItem14.StateImageIndex = 0;
             //listViewItem15.StateImageIndex = 0;
             listViewItem16.StateImageIndex = 0;
-            //listViewItem17.StateImageIndex = 0;
+            listViewItem17.StateImageIndex = 0;
             listViewItem18.StateImageIndex = 0;
             listViewItem19.StateImageIndex = 0;
             listViewItem20.StateImageIndex = 0;
@@ -232,13 +234,14 @@ partial class FormSettings
             //listViewItem8,
             listViewItem9,
             listViewItem10,
+            listViewItem48,
             listViewItem11,
             listViewItem12,
             //listViewItem13,
             listViewItem14,
             //listViewItem15,
             listViewItem16,
-            //listViewItem17,
+            listViewItem17,
             listViewItem18,
             listViewItem19,
             listViewItem20,
