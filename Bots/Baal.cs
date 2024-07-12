@@ -489,6 +489,7 @@ public class Baal
                     }
                 }
             }
+        }
 
             if (CurrentStep == 7)
             {
@@ -586,4 +587,3 @@ public class Baal
         }
     }
 
-}

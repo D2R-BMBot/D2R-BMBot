@@ -24,6 +24,16 @@ public class MapAreaStruc
     public bool[,] CurrentAreaCollisionGrid = new bool[0, 0];
     public string[] MapDataLines = new string[0];
     public List<int> AllExitsIDs = new List<int>();
+    List<string> avoidObjects = new List<string>
+        {
+            "shrine",
+            //"Dummy",
+            "fire",
+            "ArmorStand",
+            "WeaponRack",
+            "Crate",
+            "Barrel",
+        };
 
     public void SetForm1(Form1 form1_1)
     {
@@ -652,6 +662,50 @@ public class MapAreaStruc
             }
         }
 
+        //Objects (Avoid)
+        //if (area == (Enums.Area)Form1_0.PlayerScan_0.levelNo)
+        /*{
+            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
+            {
+                foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
+                {
+
+                    if (avoidObjects.Contains(item.Name))
+                        cg[item.X, item.Y] = false;
+
+                }
+
+            }
+        }*/
+
+        if (area == Enums.Area.ChaosSanctuary)
+                {
+            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
+            {
+                foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
+                {
+
+                    if (avoidObjects.Contains(item.Name))
+                        cg[item.X, item.Y] = false;
+
+                }
+
+            }
+        }
+        if (area == Enums.Area.TowerCellarLevel1 || area == Enums.Area.TowerCellarLevel2 || area == Enums.Area.TowerCellarLevel3 || area == Enums.Area.TowerCellarLevel4 || area == Enums.Area.TowerCellarLevel5)
+        {
+            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
+            {
+                foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
+                {
+
+                    if (avoidObjects.Contains(item.Name))
+                        cg[item.X, item.Y] = false;
+                }
+
+            }
+        }
+
         // Lut Gholein map is a bit bugged, we should close this fake path to avoid pathing issues
         if (area == Enums.Area.LutGholein) cg[13, 210] = false;
 
@@ -680,10 +734,8 @@ public class MapAreaStruc
             cg[92, 29] = false;
             cg[93, 29] = false;
             cg[94, 29] = false;
-
             cg[94, 28] = false;
         }
-
 
         // Frigid
         if (area == Enums.Area.FrigidHighlands)
@@ -768,6 +820,111 @@ public class MapAreaStruc
         //Forgotten Tower (Countess)
         if (area == Enums.Area.TowerCellarLevel1 || area == Enums.Area.TowerCellarLevel2 || area == Enums.Area.TowerCellarLevel3 || area == Enums.Area.TowerCellarLevel4)
         {
+            //map id 21 TC Lvl 1
+            cg[256, 142] = false;
+            cg[257, 142] = false;
+            cg[258, 142] = false;
+            cg[259, 142] = false;
+            cg[260, 142] = false;
+            cg[261, 142] = false;
+            cg[261, 142] = false;
+            cg[261, 142] = false;
+
+            cg[256, 143] = false;
+            cg[257, 143] = false;
+            cg[258, 143] = false;
+            cg[259, 143] = false;
+            cg[260, 143] = false;
+            cg[261, 143] = false;
+            cg[261, 143] = false;
+            cg[261, 143] = false;
+
+            cg[216, 222] = false;
+            cg[217, 222] = false;
+            cg[218, 222] = false;
+            cg[219, 222] = false;
+            cg[220, 222] = false;
+            cg[221, 222] = false;
+            cg[222, 222] = false;
+            cg[223, 222] = false;
+
+            cg[216, 223] = false;
+            cg[217, 223] = false;
+            cg[218, 223] = false;
+            cg[219, 223] = false;
+            cg[220, 223] = false;
+            cg[221, 223] = false;
+            cg[222, 223] = false;
+            cg[223, 223] = false;
+
+            //map id 21 TC Lvl 2
+            cg[135, 182] = false;
+            cg[136, 182] = false;
+            cg[137, 182] = false;
+            cg[138, 182] = false;
+            cg[139, 182] = false;
+            cg[140, 182] = false;
+            cg[141, 182] = false;
+            cg[142, 182] = false;
+            cg[143, 182] = false;
+
+            cg[135, 183] = false;
+            cg[136, 183] = false;
+            cg[137, 183] = false;
+            cg[138, 183] = false;
+            cg[139, 183] = false;
+            cg[140, 183] = false;
+            cg[141, 183] = false;
+            cg[142, 183] = false;
+            cg[143, 183] = false;
+
+            cg[135, 184] = false;
+            cg[136, 184] = false;
+            cg[137, 184] = false;
+            cg[138, 184] = false;
+            cg[139, 184] = false;
+            cg[140, 184] = false;
+            cg[141, 184] = false;
+            cg[142, 184] = false;
+            cg[143, 184] = false;
+
+            cg[96, 142] = false;
+            cg[97, 142] = false;
+            cg[98, 142] = false;
+            cg[99, 142] = false;
+            cg[100, 142] = false;
+            cg[101, 142] = false;
+            cg[102, 142] = false;
+            cg[103, 142] = false;
+
+            cg[96, 143] = false;
+            cg[97, 143] = false;
+            cg[98, 143] = false;
+            cg[99, 143] = false;
+            cg[100, 143] = false;
+            cg[101, 143] = false;
+            cg[102, 143] = false;
+            cg[103, 143] = false;
+
+            //map id 21 TC Lvl 3
+            cg[176, 62] = false;
+            cg[177, 62] = false;
+            cg[178, 62] = false;
+            cg[179, 62] = false;
+            cg[180, 62] = false;
+            cg[181, 62] = false;
+            cg[182, 62] = false;
+            cg[183, 62] = false;
+
+            cg[176, 63] = false;
+            cg[177, 63] = false;
+            cg[178, 63] = false;
+            cg[179, 63] = false;
+            cg[180, 63] = false;
+            cg[181, 63] = false;
+            cg[182, 63] = false;
+            cg[183, 63] = false;
+
             cg[179, 143] = false;
             cg[180, 143] = false;
             cg[181, 143] = false;
@@ -781,12 +938,86 @@ public class MapAreaStruc
             cg[181, 142] = false;
             cg[182, 142] = false;
             cg[183, 142] = false;
+
+            cg[136, 222] = false;
+            cg[137, 222] = false;
+            cg[138, 222] = false;
+            cg[139, 222] = false;
+            cg[140, 222] = false;
+            cg[141, 222] = false;
+            cg[142, 222] = false;
+            cg[143, 222] = false;
+
+            cg[136, 223] = false;
+            cg[137, 223] = false;
+            cg[138, 223] = false;
+            cg[139, 223] = false;
+            cg[140, 223] = false;
+            cg[141, 223] = false;
+            cg[142, 223] = false;
+            cg[143, 223] = false;
+
+            //map id 24 FT Lvl 4
+            cg[176, 222] = false;
+            cg[177, 222] = false;
+            cg[178, 222] = false;
+            cg[179, 222] = false;
+            cg[180, 222] = false;
+            cg[181, 222] = false;
+            cg[182, 222] = false;
+            cg[183, 222] = false;
+
+            cg[176, 223] = false;
+            cg[177, 223] = false;
+            cg[178, 223] = false;
+            cg[179, 223] = false;
+            cg[180, 223] = false;
+            cg[181, 223] = false;
+            cg[182, 223] = false;
+            cg[183, 223] = false;
+
+            cg[216, 144] = false;
+            cg[217, 144] = false;
+            cg[218, 144] = false;
+            cg[219, 144] = false;
+            cg[220, 144] = false;
+            cg[221, 144] = false;
+            cg[222, 144] = false;
+            cg[223, 144] = false;
+
+            cg[216, 145] = false;
+            cg[217, 145] = false;
+            cg[218, 145] = false;
+            cg[219, 145] = false;
+            cg[220, 145] = false;
+            cg[221, 145] = false;
+            cg[222, 145] = false;
+            cg[223, 145] = false;
+
+            cg[176, 102] = false;
+            cg[177, 102] = false;
+            cg[178, 102] = false;
+            cg[179, 102] = false;
+            cg[180, 102] = false;
+            cg[181, 102] = false;
+            cg[182, 102] = false;
+            cg[183, 102] = false;
+
+            cg[176, 103] = false;
+            cg[177, 103] = false;
+            cg[178, 103] = false;
+            cg[179, 103] = false;
+            cg[180, 103] = false;
+            cg[181, 103] = false;
+            cg[182, 103] = false;
+            cg[183, 103] = false;
+
         }
 
         //Burial Ground (Crypt Door)
         if (area == Enums.Area.BurialGrounds)
         {
-            Position ThisDoorPosition = Form1_0.MapAreaStruc_0.GetPositionOfObject("exit", Form1_0.Town_0.getAreaName((int)Enums.Area.Crypt), (int) Enums.Area.BurialGrounds, new List<int>() { });
+            Position ThisDoorPosition = Form1_0.MapAreaStruc_0.GetPositionOfObject("exit", Form1_0.Town_0.getAreaName((int)Enums.Area.Crypt), (int)Enums.Area.BurialGrounds, new List<int>() { });
             if (ThisDoorPosition.X > 0 && ThisDoorPosition.Y > 0)
             {
                 ThisDoorPosition.X -= Form1_0.MapAreaStruc_0.AllMapData[((int)(Enums.Area.BurialGrounds) - 1)].Offset.X;

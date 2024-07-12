@@ -369,6 +369,7 @@ public class SettingsLoader
                 if (Splitted[0] == "RunTerrorZonesScript") AllLines[i] = "RunTerrorZonesScript=" + CharConfig.RunTerrorZonesScript;
                 if (Splitted[0] == "RunShopBotScript") AllLines[i] = "RunShopBotScript=" + CharConfig.RunShopBotScript;
                 if (Splitted[0] == "RunMausoleumScript") AllLines[i] = "RunMausoleumScript=" + CharConfig.RunMausoleumScript;
+                if (Splitted[0] == "RunAncientTunnelsScript") AllLines[i] = "RunAncientTunnelsScript=" + CharConfig.RunAncientTunnelsScript;
                 if (Splitted[0] == "RunCryptScript") AllLines[i] = "RunCryptScript=" + CharConfig.RunCryptScript;
                 if (Splitted[0] == "RunArachnidScript") AllLines[i] = "RunArachnidScript=" + CharConfig.RunArachnidScript;
                 if (Splitted[0] == "RunPitScript") AllLines[i] = "RunPitScript=" + CharConfig.RunPitScript;
@@ -1395,6 +1396,10 @@ public class SettingsLoader
                             if (Params[0].Contains("RunMausoleumScript"))
                             {
                                 CharConfig.RunMausoleumScript = bool.Parse(Params[1].ToLower());
+                            }
+                            if (Params[0].Contains("RunAncientTunnelsScript"))
+                            {
+                                CharConfig.RunAncientTunnelsScript = bool.Parse(Params[1].ToLower());
                             }
                             if (Params[0].Contains("RunCryptScript"))
                             {

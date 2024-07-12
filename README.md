@@ -18,7 +18,7 @@ I accept no responsibility for any outcomes for the usage of this tool.
 ![alt tag](https://raw.githubusercontent.com/bouletmarc/D2R-BMBot/main/BMBot10.png)
 
 
-[JOIN THE DISCORD GROUP][2]
+JOIN THE DISCORD GROUP - https://discord.gg/QfT9HQH9QV
 
 
 # REQUIREMENTS
@@ -44,7 +44,7 @@ I accept no responsibility for any outcomes for the usage of this tool.
 
  Start D2R, then start the bot.
  
-    - Use the application App.exe (available in '/bin/x64/Debug/' folder if not downloaded from release)
+    - DL complete Source = Use the application App.exe (available in '/bin/x64/Debug/' folder if not downloaded from release)
     - Press Numpad5 to Start or Stop the bot alternativly
     
 # CONFIGURE

@@ -138,7 +138,7 @@ public class BaalLeech
                     {
                         Form1_0.GameStruc_0.SelectGame(PossibleGamesIndex[i], true);
                         Form1_0.SetGameStatus("LOADING GAME");
-                        //Form1_0.WaitDelay(300);
+                        Form1_0.WaitDelay(300);
                         EnteredGammme = true;
                         break;
                     }
@@ -170,6 +170,10 @@ public class BaalLeech
         {
             ScriptDone = true;
             return;
+        }
+        if (Form1_0.ItemsStruc_0.ItemsEquiped <= 2)
+        {
+            Form1_0.Town_0.GetCorpse();
         }
 
         GetLeechInfo();
@@ -326,10 +330,12 @@ public class BaalLeech
                 if (Form1_0.PlayerScan_0.xPosFinal < 15110 - 8
                     || Form1_0.PlayerScan_0.xPosFinal > 15110 + 8
                     || Form1_0.PlayerScan_0.yPosFinal < 5030 - 8
-                    || Form1_0.PlayerScan_0.yPosFinal > 5030 + 8)
+                    || Form1_0.PlayerScan_0.yPosFinal > 5030 + 8
+                    || Form1_0.PlayerScan_0.yPosFinal > 5045 + 8
+                    || Form1_0.PlayerScan_0.yPosFinal > 5045 - 8)
                 {
                     //Form1_0.Town_0.GetCorpse();
-                    Form1_0.Mover_0.MoveToLocation(15110, 5030); //move to safe spot
+                    Form1_0.Mover_0.MoveToLocation(15110, 5043); //move to safe spot
                 }
                 else
                 {
@@ -410,6 +416,7 @@ public class BaalLeech
                 {
                     if (Form1_0.MobsStruc_0.MobsHP > 0)
                     {
+                        Form1_0.WaitDelay(900);
                         LastWave5Pointer = Form1_0.MobsStruc_0.MobsPointerLocation;
                     }
                 }

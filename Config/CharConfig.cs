@@ -141,6 +141,7 @@ public static class CharConfig
     public static bool RunItemGrabScriptOnly = false;
     public static bool RunShopBotScript = false;
     public static bool RunMausoleumScript = false;
+    public static bool RunAncientTunnelsScript = false;
     public static bool RunCryptScript = false;
     public static bool RunArachnidScript = false;
     public static bool RunPitScript = false;
@@ -194,7 +195,7 @@ public static class CharConfig
     public static int PublicGameTPRespawnDelay = 180;
     public static int TPRespawnDelay = 20;
     public static int PlayerMaxHPCheckDelay = 2000;
-    public static int LeechEnterTPDelay = 600;
+    public static int LeechEnterTPDelay = 400;
     public static int MephistoRedPortalEnterDelay = 800;
     public static int CubeItemPlaceDelay = 16;
     public static int CreateGameWaitDelay = 1;

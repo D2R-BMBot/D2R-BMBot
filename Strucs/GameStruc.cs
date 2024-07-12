@@ -101,37 +101,39 @@ public class GameStruc
 
         Form1_0.KeyMouse_0.MouseClicc(1550, 170);  //clic 'gamename'
                                                    //type game name
+        Thread.Sleep(200);
         for (int i = 0; i < 16; i++)
         {
             Form1_0.KeyMouse_0.PressKey(Keys.Back);
             Thread.Sleep(3);
         }
-        Thread.Sleep(3);
-        string GameName = CharConfig.GameName + ThisGameNumber.ToString("000");
+        Thread.Sleep(20);
+        string GameName = CharConfig.GameName + ThisGameNumber.ToString("0");
         Form1_0.method_1("Creating Game: " + GameName, Color.Black);
         for (int i = 0; i < GameName.Length; i++)
         {
             var helper = new Helper { Value = VkKeyScan(GameName[i]) };
             byte virtualKeyCode = helper.Low;
             Form1_0.KeyMouse_0.PressKey2((Keys)virtualKeyCode);
-            Thread.Sleep(5);
+            Thread.Sleep(15);
         }
 
-
+        Thread.Sleep(200);
         Form1_0.KeyMouse_0.MouseClicc(1550, 240);  //clic 'gamepass'
                                                    //type game pass
+        Thread.Sleep(200);
         for (int i = 0; i < 16; i++)
         {
             Form1_0.KeyMouse_0.PressKey(Keys.Back);
             Thread.Sleep(3);
         }
-        Thread.Sleep(3);
+        Thread.Sleep(15);
         for (int i = 0; i < CharConfig.GamePass.Length; i++)
         {
             var helper = new Helper { Value = VkKeyScan(CharConfig.GamePass[i]) };
             byte virtualKeyCode = helper.Low;
             Form1_0.KeyMouse_0.PressKey2((Keys)virtualKeyCode);
-            Thread.Sleep(5);
+            Thread.Sleep(20);
         }
 
         //select difficulty
