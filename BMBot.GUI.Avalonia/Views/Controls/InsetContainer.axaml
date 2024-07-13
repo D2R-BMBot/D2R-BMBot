@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.Controls.InsetContainer"
+             x:Name="Root">
+    <UserControl.Template>
+        <ControlTemplate TargetType="controls:InsetContainer">
+            <Grid>
+                <Border CornerRadius="{Binding CornerRadius, ElementName=Root}"
+                        ClipToBounds="True"
+                        IsHitTestVisible="False"
+                        ZIndex="1">
+                    <Border Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="2, 2, 2, 2"
+                            Margin="-2">
+                        <Border.Effect>
+                            <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                        </Border.Effect>
+                    </Border>
+                </Border>
+                <ContentControl Content="{TemplateBinding Content}"/>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

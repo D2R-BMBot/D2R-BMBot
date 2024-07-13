@@ -1,0 +1,211 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:accountData="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData"
+             xmlns:converters="clr-namespace:BMBot.GUI.Avalonia.Models.Converters"
+             xmlns:login="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="accountData:Account"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.AccountSettingsView">
+
+    <UserControl.Resources>
+        <converters:LoginModeToIndexConverter x:Key="LoginModeToIndexConverter" />
+    </UserControl.Resources>
+
+    <Grid Background="#c8cfd6"
+          RowDefinitions="Auto, *"
+          IsEnabled="{Binding !AccountIsBusy}">
+        <Grid Grid.Row="0"
+              Background="LightSlateGray">
+            <TextBlock Text="Account Settings"
+                       Margin="0, 5"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontWeight="DemiBold" />
+        </Grid>
+        <controls:InsetContainer Grid.Row="1"
+                                 CornerRadius="0, 0, 2, 2">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                <DockPanel LastChildFill="False"
+                           Margin="4">
+                    <DockPanel.Styles>
+                        <Style Selector="DockPanel.container">
+                            <Setter Property="Margin" Value="0, 0, 0, 4" />
+                        </Style>
+                    </DockPanel.Styles>
+                    <DockPanel DockPanel.Dock="Top"
+                               Classes="container"
+                               LastChildFill="False"
+                               HorizontalAlignment="Stretch">
+                        <Grid DockPanel.Dock="Top"
+                              Background="LightSlateGray">
+                            <TextBlock Text="Account Name"
+                                       Margin="0, 2"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="DemiBold" />
+                        </Grid>
+                        <Border DockPanel.Dock="Top"
+                                Padding="4"
+                                BorderBrush="DimGray"
+                                BorderThickness="2, 0, 2, 2"
+                                CornerRadius="0, 0, 2, 2">
+                            <DockPanel>
+                                <TextBlock Margin="0, 0, 4, 0" Text="Display Name:"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center" />
+                                <avalonia:MaterialIcon Margin="0, 0, 4, 0"
+                                                       Kind="HelpCircle"
+                                                       Foreground="RoyalBlue"
+                                                       ToolTip.Tip="This is the name that will be displayed in the tree for this account" />
+                                <TextBox Text="{Binding DisplayName}" />
+                            </DockPanel>
+                        </Border>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top"
+                               Classes="container"
+                               LastChildFill="False"
+                               HorizontalAlignment="Stretch">
+                        <Grid DockPanel.Dock="Top"
+                              Background="LightSlateGray">
+                            <TextBlock Text="Authorization"
+                                       Margin="0, 2"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="DemiBold" />
+                        </Grid>
+                        <Border DockPanel.Dock="Top"
+                                Padding="4"
+                                BorderBrush="DimGray"
+                                BorderThickness="2, 0, 2, 2"
+                                CornerRadius="0, 0, 2, 2">
+                            <DockPanel LastChildFill="False"
+                                       Grid.IsSharedSizeScope="True">
+                                <DockPanel.Styles>
+                                    <Style Selector="Grid.input">
+                                        <Setter Property="Margin" Value="0, 0, 0, 2" />
+                                    </Style>
+                                </DockPanel.Styles>
+                                <Grid DockPanel.Dock="Top"
+                                      Classes="input">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"
+                                                Orientation="Horizontal">
+                                        <TextBlock Margin="0, 0, 4, 0"
+                                                   Text="Authorization Mode:"
+                                                   FontWeight="SemiBold"
+                                                   VerticalAlignment="Center" />
+                                        <avalonia:MaterialIcon Margin="0, 0, 4, 0"
+                                                               Kind="HelpCircle"
+                                                               Foreground="RoyalBlue"
+                                                               ToolTip.Tip="This is the name that will be displayed in the tree for this account" />
+
+                                    </StackPanel>
+                                    <ComboBox Grid.Column="1"
+                                              x:Name="AuthorizationModeComboBox"
+                                              SelectedIndex="{Binding LoginMode, Mode=OneWay, Converter={StaticResource LoginModeToIndexConverter}}">
+                                        <Interaction.Behaviors>
+                                            <EventTriggerBehavior EventName="SelectionChanged">
+                                                <InvokeCommandAction Command="{Binding OnLoginModeChanged}"
+                                                                     PassEventArgsToCommand="True" />
+                                            </EventTriggerBehavior>
+                                        </Interaction.Behaviors>
+                                        <ComboBoxItem Content="Credentials" />
+                                        <ComboBoxItem Content="Token" />
+                                    </ComboBox>
+                                </Grid>
+                                <ContentControl DockPanel.Dock="Top"
+                                                Content="{Binding LoginMode}">
+                                    <ContentControl.DataTemplates>
+                                        <DataTemplate DataType="login:CredentialLogin">
+                                            <DockPanel DockPanel.Dock="Top"
+                                                       LastChildFill="False"
+                                                       IsVisible="{Binding !SelectedIndex, ElementName=AuthorizationModeComboBox}">
+                                                <Grid DockPanel.Dock="Top"
+                                                      Classes="input">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0"
+                                                                Orientation="Horizontal">
+                                                        <TextBlock Margin="0, 0, 4, 0"
+                                                                   Text="User Name:"
+                                                                   FontWeight="SemiBold"
+                                                                   VerticalAlignment="Center" />
+                                                        <avalonia:MaterialIcon Margin="0, 0, 4, 0"
+                                                                               Kind="HelpCircle"
+                                                                               Foreground="RoyalBlue"
+                                                                               ToolTip.Tip="This is the name that will be displayed in the tree for this account" />
+                                                    </StackPanel>
+                                                    <TextBox Grid.Column="1"
+                                                             Text="{Binding UserName}" />
+                                                </Grid>
+                                                <Grid DockPanel.Dock="Top">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0"
+                                                                Orientation="Horizontal">
+                                                        <TextBlock Margin="0, 0, 4, 0"
+                                                                   Text="Password:"
+                                                                   FontWeight="SemiBold"
+                                                                   VerticalAlignment="Center" />
+                                                        <avalonia:MaterialIcon Margin="0, 0, 4, 0"
+                                                                               Kind="HelpCircle"
+                                                                               Foreground="RoyalBlue"
+                                                                               ToolTip.Tip="This is the name that will be displayed in the tree for this account" />
+                                                    </StackPanel>
+                                                    <TextBox Classes="revealPasswordButton"
+                                                             PasswordChar="•"
+                                                             Grid.Column="1"
+                                                             Text="{Binding Password}" />
+                                                </Grid>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                        <DataTemplate DataType="login:TokenLogin">
+                                            <Grid DockPanel.Dock="Top"
+                                                  Classes="input">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Margin="0, 0, 4, 0"
+                                                               Text="Token:"
+                                                               FontWeight="SemiBold"
+                                                               VerticalAlignment="Center" />
+                                                    <avalonia:MaterialIcon Margin="0, 0, 4, 0"
+                                                                           Kind="HelpCircle"
+                                                                           Foreground="RoyalBlue"
+                                                                           ToolTip.Tip="The authorization token for this account" />
+
+                                                </StackPanel>
+                                                <TextBox Grid.Column="1"
+                                                         Classes="revealPasswordButton"
+                                                         PasswordChar="•"
+                                                         Text="{Binding Token}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ContentControl.DataTemplates>
+                                </ContentControl>
+                            </DockPanel>
+                        </Border>
+                    </DockPanel>
+                </DockPanel>
+            </ScrollViewer>
+        </controls:InsetContainer>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,261 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:inventory="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory.EquipmentView">
+
+    <Viewbox>
+        <Grid Margin="8"
+              ColumnDefinitions="Auto, Auto, Auto, Auto, Auto">
+            <DockPanel Grid.Column="0"
+                       Margin="0, 18, 0, 0"
+                       LastChildFill="False">
+                <StackPanel DockPanel.Dock="Top"
+                            Orientation="Horizontal">
+                    <ToggleButton Width="42"
+                                  HorizontalContentAlignment="Center"
+                                  FontFamily="{StaticResource Exocet}"
+                                  FontWeight="Bold"
+                                  Content="I" />
+                    <ToggleButton Width="42"
+                                  FontFamily="{StaticResource Exocet}"
+                                  FontWeight="Bold"
+                                  HorizontalContentAlignment="Center"
+                                  Content="II" />
+                </StackPanel>
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="MainHandSlot"
+                                         Width="84"
+                                         Height="126"
+                                         Margin="0, 0, 0, 4">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="SwordCross"
+                                                   Foreground="White"
+                                                   Opacity=".1"
+                                                   Width="100"
+                                                   Height="100">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX=".65" ScaleY="1.1" />
+                                    </TransformGroup>
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="GloveSlot"
+                                         Width="84"
+                                         Height="84">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="HandBackLeft"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="56"
+                                                   Height="56">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+            </DockPanel>
+            <DockPanel Grid.Column="1"
+                       LastChildFill="False"
+                       Margin="4, 0, 0, 0">
+                <inventory:EquipmentSlot DockPanel.Dock="Bottom"
+                                         x:Name="Ring1Slot"
+                                         Width="42"
+                                         Height="42">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="Ring"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="32"
+                                                   Height="32">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+            </DockPanel>
+            <DockPanel Grid.Column="2"
+                       LastChildFill="False"
+                       Margin="4, 0, 0, 0">
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="HelmSlot"
+                                         Margin="0, 0, 0, 4"
+                                         Width="84"
+                                         Height="84">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="Skull"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="56"
+                                                   Height="56">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="ChestSlot"
+                                         Margin="0, 0, 0, 4"
+                                         Width="84"
+                                         Height="126">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="TshirtCrew"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="90"
+                                                   Height="80">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <ScaleTransform ScaleX=".95" ScaleY="1" />
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+                <inventory:EquipmentSlot DockPanel.Dock="Bottom"
+                                         x:Name="BeltSlot"
+                                         Width="84"
+                                         Height="42">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="MinusThick"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="100"
+                                                   Height="100">
+                            </avalonia:MaterialIcon>
+                            <avalonia:MaterialIcon Kind="MinusBox"
+                                                   Foreground="White"
+                                                   Opacity=".1"
+                                                   Width="32"
+                                                   Height="32">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+            </DockPanel>
+            <DockPanel Grid.Column="3"
+                       LastChildFill="False"
+                       Margin="4, 0, 0, 0">
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="AmuletSlot"
+                                         Margin="0, 64, 0, 0"
+                                         Width="42"
+                                         Height="42">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="Necklace"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="32"
+                                                   Height="32">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+                <inventory:EquipmentSlot DockPanel.Dock="Bottom"
+                                         x:Name="Ring2Slot"
+                                         Width="42"
+                                         Height="42">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="Ring"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="32"
+                                                   Height="32">
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+            </DockPanel>
+            <DockPanel Grid.Column="4"
+                       Margin="4, 18, 0, 0"
+                       LastChildFill="False">
+                <StackPanel DockPanel.Dock="Top"
+                            Orientation="Horizontal">
+                    <ToggleButton Width="42"
+                                  FontFamily="{StaticResource Exocet}"
+                                  FontWeight="Bold"
+                                  HorizontalContentAlignment="Center"
+                                  Content="I" />
+                    <ToggleButton Width="42"
+                                  FontFamily="{StaticResource Exocet}"
+                                  FontWeight="Bold"
+                                  HorizontalContentAlignment="Center"
+                                  Content="II" />
+                </StackPanel>
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="OffHandSlot"
+                                         Width="84"
+                                         Height="126"
+                                         Margin="0, 0, 0, 4">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="Shield"
+                                                   Foreground="White"
+                                                   Opacity=".075"
+                                                   Width="100"
+                                                   Height="100">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <ScaleTransform ScaleX="0.7"></ScaleTransform>
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+                <inventory:EquipmentSlot DockPanel.Dock="Top"
+                                         x:Name="BootSlot"
+                                         Width="84"
+                                         Height="84">
+                    <Grid>
+                        <Grid>
+                            <avalonia:MaterialIcon Kind="ShoeFormal"
+                                                   Foreground="#606b76"
+                                                   Width="56"
+                                                   Height="56">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <TranslateTransform Y="20" />
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                            <avalonia:MaterialIcon Kind="MinusThick"
+                                                   Foreground="#606b76"
+                                                   Width="72"
+                                                   Height="72">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90" />
+                                        <SkewTransform AngleX="2" />
+                                        <TranslateTransform X="8" />
+                                    </TransformGroup>
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                            <avalonia:MaterialIcon Kind="MinusThick"
+                                                   Foreground="#606b76"
+                                                   Width="72"
+                                                   Height="72">
+                                <avalonia:MaterialIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90" />
+                                        <SkewTransform AngleX="-5" />
+                                        <TranslateTransform X="17" />
+                                    </TransformGroup>
+                                </avalonia:MaterialIcon.RenderTransform>
+                            </avalonia:MaterialIcon>
+                        </Grid>
+                    </Grid>
+                </inventory:EquipmentSlot>
+            </DockPanel>
+        </Grid>
+    </Viewbox>
+
+</UserControl>

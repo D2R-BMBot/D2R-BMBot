@@ -1,0 +1,522 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BMBot.GUI.Avalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BMBot.GUI.Avalonia"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:converters="clr-namespace:BMBot.GUI.Avalonia.Models.Converters"
+        xmlns:mainWindow="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="BMBot.GUI.Avalonia.Views.MainWindowView"
+        x:DataType="vm:MainWindowViewModel"
+        Width="1280"
+        Height="720"
+        CanResize="False"
+        Icon="/Assets/d2r-lod-regred.ico"
+        Title="D2R BMBot"
+        DataContext="{ReflectionBinding MainWindowViewModel, Source={x:Static local:BotApp.Locator}}">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Resources>
+        <converters:ConsoleLogMessageToMaterialIconKindConverter x:Key="ConsoleLogMessageToMaterialIconKindConverter" />
+        <converters:ConsoleLogMessageToMaterialIconColorConverter x:Key="ConsoleLogMessageToMaterialIconColorConverter" />
+        <converters:LogLevelToIndicatorVisibilityConverter x:Key="LogLevelToErrorIndicatorVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="7" />
+            <RowDefinition Height="156"
+                           MinHeight="156"
+                           MaxHeight="250" />
+        </Grid.RowDefinitions>
+        <Carousel Grid.Row="0"
+                  SelectedIndex="{Binding SelectedPageIndex}">
+            <Carousel.PageTransition>
+                <CrossFade Duration="0.25" />
+            </Carousel.PageTransition>
+            <mainWindow:MainWorkspaceView />
+        </Carousel>
+        <Grid Grid.Row="1" Background="LightSlateGray" />
+        <GridSplitter Grid.Row="1"
+                      Classes="horizontal" />
+        <Grid Grid.Row="2"
+              Background="LightSlateGray">
+            <Grid Margin="4, 0, 8, 8">
+                <TabControl TabStripPlacement="Left"
+                            Padding="0">
+                    <TabControl.Styles>
+                        <Style Selector="TabItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="8, 0, 0, 0" />
+                            <Setter Property="MinHeight" Value="28" />
+                            <Setter Property="MinWidth" Value="28" />
+                        </Style>
+                        <Style Selector="ListBox">
+                            <Setter Property="AutoScrollToSelectedItem" Value="True" />
+                            <Setter Property="SelectionMode" Value="Multiple" />
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </TabControl.Styles>
+                    <TabItem x:Name="AggregateLogTab">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.Styles>
+                                    <Style Selector="Border.isSelected">
+                                        <Setter Property="Background" Value="#c8cfd6"></Setter>
+                                    </Style>
+                                    <Style Selector="Border">
+                                        <Setter Property="Background" Value="#adb7c1"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <Border Classes.isSelected="{Binding IsSelected, ElementName=AggregateLogTab}"
+                                        BorderBrush="#6b7a89"
+                                        BorderThickness="2,2, 0, 2"
+                                        CornerRadius="5, 0, 0,0">
+                                    <Grid>
+                                        <avalonia:MaterialIcon Height="24"
+                                                               Width="24"
+                                                               Kind="FileDocument"
+                                                               Foreground="DimGray" />
+                                        <Rectangle Fill="Transparent"
+                                                   ToolTip.Tip="Aggregate Log" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid>
+                            <Border Background="#c8cfd6"
+                                    CornerRadius="2"
+                                    ClipToBounds="True">
+                                <Border Background="Transparent"
+                                        BorderBrush="Black"
+                                        BorderThickness="2, 2, 2, 2"
+                                        Margin="-2">
+                                    <Border.Effect>
+                                        <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItems="{Binding SelectedLogMessages}"
+                                     ItemsSource="{Binding LogMessages}">
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"></Setter>
+                                    </Style>
+                                </ListBox.Styles>
+                                <!-- <ListBox.ContextFlyout> -->
+                                <!--     <MenuFlyout> -->
+                                <!--         <MenuItem Header="Copy Message..." -->
+                                <!--                   Command="{Binding CopyMessages}" /> -->
+                                <!--     </MenuFlyout> -->
+                                <!-- </ListBox.ContextFlyout> -->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel LastChildFill="False">
+                                            <Grid Margin="0, 0, 5, 0">
+                                                <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                       Width="20"
+                                                                       Height="{Binding $self.Bounds.Width}"
+                                                                       Kind="{Binding Converter={StaticResource ConsoleLogMessageToMaterialIconKindConverter}}"
+                                                                       Foreground="{Binding Converter={StaticResource ConsoleLogMessageToMaterialIconColorConverter}}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="IndianRed"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=ERROR}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="DarkMagenta"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=DEBUG}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="HotPink"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=CRITICAL}" />
+                                            </Grid>
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding Message}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="ItemLogTab">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.Styles>
+                                    <Style Selector="Border.isSelected">
+                                        <Setter Property="Background" Value="#c8cfd6"></Setter>
+                                    </Style>
+                                    <Style Selector="Border">
+                                        <Setter Property="Background" Value="#adb7c1"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <Border Classes.isSelected="{Binding IsSelected, ElementName=ItemLogTab}"
+                                        BorderBrush="#6b7a89"
+                                        BorderThickness="2,2, 0, 2"
+                                        CornerRadius="5, 0, 0,0">
+                                    <Grid>
+                                        <avalonia:MaterialIcon Height="24"
+                                                               Width="24"
+                                                               Kind="Shield"
+                                                               Foreground="DodgerBlue" />
+                                        <Rectangle Fill="Transparent"
+                                                   ToolTip.Tip="Item Log" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid>
+                            <Border Background="#c8cfd6"
+                                    CornerRadius="2"
+                                    ClipToBounds="True">
+                                <Border Background="Transparent"
+                                        BorderBrush="Black"
+                                        BorderThickness="2, 2, 2, 2"
+                                        Margin="-2">
+                                    <Border.Effect>
+                                        <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItems="{Binding SelectedItemLogMessages}"
+                                     ItemsSource="{Binding ItemLogMessages}">
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"></Setter>
+                                    </Style>
+                                </ListBox.Styles>
+                                <!-- <ListBox.ContextFlyout> -->
+                                <!--     <MenuFlyout> -->
+                                <!--         <MenuItem Header="Copy Message..." -->
+                                <!--                   Command="{Binding CopyMessages}" /> -->
+                                <!--     </MenuFlyout> -->
+                                <!-- </ListBox.ContextFlyout> -->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel LastChildFill="False">
+                                            <Grid Margin="0, 0, 5, 0">
+                                                <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                       Width="20"
+                                                                       Height="{Binding $self.Bounds.Width}"
+                                                                       Kind="Shield"
+                                                                       Foreground="DodgerBlue" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="IndianRed"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=ERROR}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="DarkMagenta"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=DEBUG}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="HotPink"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=CRITICAL}" />
+                                            </Grid>
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding Message}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="MerchantLogTab">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.Styles>
+                                    <Style Selector="Border.isSelected">
+                                        <Setter Property="Background" Value="#c8cfd6"></Setter>
+                                    </Style>
+                                    <Style Selector="Border">
+                                        <Setter Property="Background" Value="#adb7c1"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <Border Classes.isSelected="{Binding IsSelected, ElementName=MerchantLogTab}"
+                                        BorderBrush="#6b7a89"
+                                        BorderThickness="2,2, 0, 2"
+                                        CornerRadius="5, 0, 0,0">
+                                    <Grid>
+                                        <avalonia:MaterialIcon Height="24"
+                                                               Width="24"
+                                                               Kind="AttachMoney"
+                                                               Foreground="DarkGoldenrod" />
+                                        <Rectangle Fill="Transparent"
+                                                   ToolTip.Tip="Merchant Log" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid>
+                            <Border Background="#c8cfd6"
+                                    CornerRadius="2"
+                                    ClipToBounds="True">
+                                <Border Background="Transparent"
+                                        BorderBrush="Black"
+                                        BorderThickness="2, 2, 2, 2"
+                                        Margin="-2">
+                                    <Border.Effect>
+                                        <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItems="{Binding SelectedMerchantLogMessages}"
+                                     ItemsSource="{Binding MerchantLogMessages}">
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"></Setter>
+                                    </Style>
+                                </ListBox.Styles>
+                                <!-- <ListBox.ContextFlyout> -->
+                                <!--     <MenuFlyout> -->
+                                <!--         <MenuItem Header="Copy Message..." -->
+                                <!--                   Command="{Binding CopyMessages}" /> -->
+                                <!--     </MenuFlyout> -->
+                                <!-- </ListBox.ContextFlyout> -->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel LastChildFill="False">
+                                            <Grid Margin="0, 0, 5, 0">
+                                                <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                       Width="20"
+                                                                       Height="{Binding $self.Bounds.Width}"
+                                                                       Kind="AttachMoney"
+                                                                       Foreground="DarkGoldenrod" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="IndianRed"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=ERROR}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="DarkMagenta"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=DEBUG}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="HotPink"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=CRITICAL}" />
+                                            </Grid>
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding Message}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="GameLogTab">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.Styles>
+                                    <Style Selector="Border.isSelected">
+                                        <Setter Property="Background" Value="#c8cfd6"></Setter>
+                                    </Style>
+                                    <Style Selector="Border">
+                                        <Setter Property="Background" Value="#adb7c1"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <Border Classes.isSelected="{Binding IsSelected, ElementName=GameLogTab}"
+                                        BorderBrush="#6b7a89"
+                                        BorderThickness="2,2, 0, 2"
+                                        CornerRadius="5, 0, 0,0">
+                                    <Grid>
+                                        <avalonia:MaterialIcon Height="24"
+                                                               Width="24"
+                                                               Kind="Games"
+                                                               Foreground="Teal" />
+                                        <Rectangle Fill="Transparent"
+                                                   ToolTip.Tip="Game Log" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid>
+                            <Border Background="#c8cfd6"
+                                    CornerRadius="2"
+                                    ClipToBounds="True">
+                                <Border Background="Transparent"
+                                        BorderBrush="Black"
+                                        BorderThickness="2, 2, 2, 2"
+                                        Margin="-2">
+                                    <Border.Effect>
+                                        <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItems="{Binding SelectedGameLogMessages}"
+                                     ItemsSource="{Binding GameLogMessages}">
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"></Setter>
+                                    </Style>
+                                </ListBox.Styles>
+                                <!-- <ListBox.ContextFlyout> -->
+                                <!--     <MenuFlyout> -->
+                                <!--         <MenuItem Header="Copy Message..." -->
+                                <!--                   Command="{Binding CopyMessages}" /> -->
+                                <!--     </MenuFlyout> -->
+                                <!-- </ListBox.ContextFlyout> -->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel LastChildFill="False">
+                                            <Grid Margin="0, 0, 5, 0">
+                                                <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                       Width="20"
+                                                                       Height="{Binding $self.Bounds.Width}"
+                                                                       Kind="Games"
+                                                                       Foreground="Teal" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="IndianRed"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=ERROR}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="DarkMagenta"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=DEBUG}" />
+                                                <Ellipse Height="8"
+                                                         Width="8"
+                                                         Margin="0, 0, 2, 2"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalAlignment="Right"
+                                                         Fill="HotPink"
+                                                         IsVisible="{Binding LogLevel, Converter={StaticResource LogLevelToErrorIndicatorVisibilityConverter}, ConverterParameter=CRITICAL}" />
+                                            </Grid>
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding Message}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="ErrorLogTab">
+                        <TabItem.Header>
+                            <Grid>
+                                <Grid.Styles>
+                                    <Style Selector="Border.isSelected">
+                                        <Setter Property="Background" Value="#c8cfd6"></Setter>
+                                    </Style>
+                                    <Style Selector="Border">
+                                        <Setter Property="Background" Value="#adb7c1"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <Border Classes.isSelected="{Binding IsSelected, ElementName=ErrorLogTab}"
+                                        BorderBrush="#6b7a89"
+                                        BorderThickness="2,2, 0, 2"
+                                        CornerRadius="5, 0, 0,0">
+                                    <Grid>
+                                        <avalonia:MaterialIcon Height="24"
+                                                               Width="24"
+                                                               Kind="Error"
+                                                               Foreground="IndianRed" />
+                                        <Rectangle Fill="Transparent"
+                                                   ToolTip.Tip="Error Log" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem.Header>
+                        <Grid>
+                            <Border Background="#c8cfd6"
+                                    CornerRadius="2"
+                                    ClipToBounds="True">
+                                <Border Background="Transparent"
+                                        BorderBrush="Black"
+                                        BorderThickness="2, 2, 2, 2"
+                                        Margin="-2">
+                                    <Border.Effect>
+                                        <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItems="{Binding SelectedErrorLogMessages}"
+                                     ItemsSource="{Binding ErrorLogMessages}">
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="5"></Setter>
+                                    </Style>
+                                </ListBox.Styles>
+                                <!-- <ListBox.ContextFlyout> -->
+                                <!--     <MenuFlyout> -->
+                                <!--         <MenuItem Header="Copy Message..." -->
+                                <!--                   Command="{Binding CopyMessages}" /> -->
+                                <!--     </MenuFlyout> -->
+                                <!-- </ListBox.ContextFlyout> -->
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel LastChildFill="False">
+                                            <Grid Margin="0, 0, 5, 0">
+                                                <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                       Width="20"
+                                                                       Height="{Binding $self.Bounds.Width}"
+                                                                       Kind="Error"
+                                                                       Foreground="IndianRed" />
+                                            </Grid>
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding Message}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>

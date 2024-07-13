@@ -1,0 +1,56 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BMBot.GUI.Avalonia.BotApp"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             RequestedThemeVariant="Light">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <FontFamily x:Key="Exocet">/Assets/Fonts#Exocet</FontFamily>
+    </Application.Resources>
+             
+    <Application.Styles>
+        <FluentTheme />
+        
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        
+        <materialIcons:MaterialIconStyles />
+        
+        <Style Selector="GridSplitter">
+            <Setter Property="ResizeBehavior" Value="PreviousAndNext"/>
+            <Setter Property="Background" Value="DimGray"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Height" Duration="0:0:0.05"/>
+                    <DoubleTransition Property="Width" Duration="0:0:0.05"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="GridSplitter.horizontal">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="ResizeDirection" Value="Rows"/>
+            <Setter Property="MinHeight" Value="1"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="3" />
+        </Style>
+        <Style Selector="GridSplitter.horizontal:pointerover">
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="5"/>
+        </Style>
+        <Style Selector="GridSplitter.vertical">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="ResizeDirection" Value="Columns"/>
+            <Setter Property="MinWidth" Value="1"/>
+            <Setter Property="Width" Value="3"/>
+            <Setter Property="Height" Value="150" />
+        </Style>
+        <Style Selector="GridSplitter.vertical:pointerover">
+            <Setter Property="Width" Value="5"/>
+            <Setter Property="Height" Value="175"/>
+        </Style>
+        
+    </Application.Styles>
+             
+</Application>

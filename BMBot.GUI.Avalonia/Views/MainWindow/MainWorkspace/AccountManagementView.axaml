@@ -1,0 +1,333 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mainWorkspace="clr-namespace:BMBot.GUI.Avalonia.ViewModels.MainWindow.MainWorkspace"
+             xmlns:local="clr-namespace:BMBot.GUI.Avalonia"
+             xmlns:accountData="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:accountManagement="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement"
+             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagementView"
+             x:DataType="mainWorkspace:AccountManagementViewModel"
+             DataContext="{ReflectionBinding AccountManagementViewModel, Source={x:Static local:BotApp.Locator}}">
+
+    <UserControl.Styles>
+        <Style Selector="Button.TreeHeader">
+            <Setter Property="CornerRadius" Value="2, 2, 0, 0" />
+        </Style>    
+    </UserControl.Styles>
+    
+    <Border Padding="8, 8, 8, 7"
+            Background="Transparent">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="200" MaxWidth="250" />
+                <ColumnDefinition Width="7" MinWidth="" />
+                <ColumnDefinition Width="*" MinWidth="" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                  RowDefinitions="Auto, *">
+                <Border Grid.Row="0"
+                        CornerRadius="2, 2, 0, 0">
+                    <ContentControl>
+                        <ContentControl.Content>
+                            <Binding Path="SelectedItem">
+                                <Binding.TargetNullValue>
+                                    <Grid ColumnDefinitions="*">
+                                        <Button Classes="TreeHeader" 
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                ToolTip.Tip="Add Account"
+                                                Command="{Binding ClickAddAccount}">
+                                            <StackPanel Orientation="Horizontal"
+                                                        Spacing="4">
+                                                <Grid>
+                                                    <avalonia:MaterialIcon Kind="MonitorAccount"
+                                                                           Width="24"
+                                                                           Height="24" />
+                                                    <avalonia:MaterialIcon Kind="AddBold"
+                                                                           Margin="0, 0, 28, 5"
+                                                                           Foreground="ForestGreen"
+                                                                           VerticalAlignment="Center"
+                                                                           HorizontalAlignment="Left"
+                                                                           Width="16"
+                                                                           Height="16" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </Binding.TargetNullValue>
+                            </Binding>
+                        </ContentControl.Content>
+                        <ContentControl.DataTemplates>
+                            <DataTemplate DataType="accountData:Account">
+                                <Grid ColumnDefinitions="*, *, *">
+                                    <Button Classes="TreeHeader" 
+                                            Grid.Column="0" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Add Account"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickAddAccount, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="MonitorAccount"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="AddBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="ForestGreen"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="TreeHeader"
+                                            Grid.Column="1" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Remove Account"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickRemoveAccount, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="MonitorAccount"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="RemoveBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="IndianRed"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="TreeHeader"
+                                            Grid.Column="2" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Add Character"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickAddCharacter, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="Account"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="AddBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="ForestGreen"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                            <DataTemplate DataType="characters:ICharacter">
+                                <Grid ColumnDefinitions="*, *, *">
+                                    <Button Classes="TreeHeader"
+                                            Grid.Column="0" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Add Account"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickAddAccount, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="MonitorAccount"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="AddBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="ForestGreen"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="TreeHeader"
+                                            Grid.Column="1" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Add Character"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickAddCharacter, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="Account"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="AddBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="ForestGreen"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Classes="TreeHeader"
+                                            Grid.Column="2" HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Center"
+                                            ToolTip.Tip="Remove Character"
+                                            Command="{Binding $parent[UserControl].((mainWorkspace:AccountManagementViewModel)DataContext).ClickRemoveCharacter, FallbackValue=NULL}">
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="4">
+                                            <Grid>
+                                                <avalonia:MaterialIcon Kind="Account"
+                                                                       Width="24"
+                                                                       Height="24" />
+                                                <avalonia:MaterialIcon Kind="RemoveBold"
+                                                                       Margin="0, 0, 28, 5"
+                                                                       Foreground="IndianRed"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Width="16"
+                                                                       Height="16" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ContentControl.DataTemplates>
+                    </ContentControl>
+                </Border>
+                <Border Grid.Row="1" Background="#c8cfd6"
+                        CornerRadius="0, 0, 2, 2"
+                        ClipToBounds="True">
+                    <Border Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="2, 2, 2, 2"
+                            Margin="-2">
+                        <Border.Effect>
+                            <DropShadowEffect OffsetX="0" OffsetY="0" BlurRadius="5" />
+                        </Border.Effect>
+                    </Border>
+                </Border>
+                <TreeView Grid.Row="1"
+                          ItemsSource="{Binding TreeItems}"
+                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                    <TreeView.DataTemplates>
+                        <TreeDataTemplate DataType="accountData:Account"
+                                          ItemsSource="{Binding Characters}">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <Grid>
+                                    <avalonia:MaterialIcon Kind="MonitorAccount"
+                                                           Width="24"
+                                                           Height="24" />
+                                    <avalonia:MaterialIcon Kind="PlayCircleFilled"
+                                                           Foreground="ForestGreen"
+                                                           Width="16"
+                                                           Height="16"
+                                                           Margin="0, 0, 15, 0"
+                                                           IsVisible="{Binding AccountIsBusy}"
+                                                           ToolTip.Tip="This account is currently deployed and cannot be edited" />
+                                </Grid>
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:AmazonCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="BowArrow" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:AssassinCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="KnifeMilitary" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:NecromancerCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="Skull" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:BarbarianCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="SwordCross" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:PaladinCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="ShieldCross" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:SorceressCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="MagicStaff" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                        <TreeDataTemplate DataType="characters:DruidCharacter">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="4">
+                                <avalonia:MaterialIcon Kind="TeddyBear" Width="24" Height="24" />
+                                <TextBlock Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold" />
+                            </StackPanel>
+                        </TreeDataTemplate>
+                    </TreeView.DataTemplates>
+                </TreeView>
+            </Grid>
+            <GridSplitter Grid.Column="1"
+                          Classes="vertical" />
+            <ContentControl Grid.Column="2">
+                <ContentControl.Content>
+                    <Binding Path="SelectedItem">
+                        <Binding.TargetNullValue>
+                            <controls:InsetContainer>
+                                <TextBlock Text="Add or select an Account or Character"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </controls:InsetContainer>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </ContentControl.Content>
+                <ContentControl.DataTemplates>
+                    <DataTemplate DataType="accountData:Account">
+                        <accountManagement:AccountSettingsView />
+                    </DataTemplate>
+                    <DataTemplate DataType="characters:ICharacter">
+                        <accountManagement:CharacterSettingsView />
+                    </DataTemplate>
+                </ContentControl.DataTemplates>
+            </ContentControl>
+        </Grid>
+    </Border>
+
+</UserControl>

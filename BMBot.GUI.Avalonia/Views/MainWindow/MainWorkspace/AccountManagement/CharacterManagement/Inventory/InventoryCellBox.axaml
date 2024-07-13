@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory.InventoryCellBox"
+             x:Name="Root">
+    <Button Classes.IsOccupied="{Binding IsOccupied, ElementName=Root}" 
+            Background="Transparent"
+            CornerRadius="0"
+            BorderBrush="DimGray"
+            BorderThickness="1"
+            Padding="2"
+            Click="ToggleButton_OnClick">
+        <Button.Styles>
+            <Style Selector="Button">
+                <Setter Property="ToolTip.Tip" Value="This inventory space is available to the bot" />
+            </Style>
+            <Style Selector="Button.IsOccupied">
+                <Setter Property="ToolTip.Tip" Value="This inventory space is off limits to the bot" />
+            </Style>
+            <Style Selector="avalonia|MaterialIcon">
+                <Setter Property="Kind" Value="CircleOutline" />
+                <Setter Property="Foreground" Value="ForestGreen" />
+            </Style>
+            <Style Selector="avalonia|MaterialIcon.IsOccupied">
+                <Setter Property="Kind" Value="RemoveBold" />
+                <Setter Property="Foreground" Value="IndianRed" />
+            </Style>
+        </Button.Styles>
+        <Grid>
+            <avalonia:MaterialIcon Width="{Binding IconSize, ElementName=Root}"
+                                   Height="{Binding IconSize, ElementName=Root}"
+                                   Classes.IsOccupied="{Binding IsOccupied, ElementName=Root}" />
+        </Grid>
+    </Button>
+</UserControl>

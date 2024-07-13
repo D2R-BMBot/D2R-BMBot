@@ -1,0 +1,116 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:local="clr-namespace:BMBot.GUI.Avalonia"
+             xmlns:mainWindow="clr-namespace:BMBot.GUI.Avalonia.ViewModels.MainWindow"
+             xmlns:mainWorkspace="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspaceView"
+             x:DataType="mainWindow:MainWorkspaceViewModel"
+             DataContext="{ReflectionBinding MainWorkspaceViewModel, Source={x:Static local:BotApp.Locator}}">
+
+    <SplitView DisplayMode="CompactInline"
+               PaneBackground="LightSlateGray"
+               IsPaneOpen="{Binding PaneIsOpen}">
+        <SplitView.Pane>
+            <Grid RowDefinitions="*,*">
+                <StackPanel Grid.Row="0"
+                            Orientation="Vertical"
+                            Spacing="4">
+                    <controls:HamburgerMenuButton ClickCommand="{Binding ClickExpandNavigationPanel}"
+                                                  Icon="Menu"
+                                                  IconSize="32"
+                                                  IconColor="White"
+                                                  ToolTip.Tip="Expand or Collapse Menu" />
+                    <Separator Height="1"
+                               Background="LightGray"
+                               Margin="5, 0, 5, 0" />
+                    <controls:HamburgerMenuButton ButtonText="Deploy"
+                                                  TextColor="White"
+                                                  Icon="PlayCircle"
+                                                  ClickCommand="{Binding ClickNavigationButton}"
+                                                  CommandParameter="DEPLOY" />
+                    <controls:HamburgerMenuButton ButtonText="Account Management"
+                                                  x:Name="NavigateManageButton"
+                                                  TextColor="White"
+                                                  Icon="PeopleGroup"
+                                                  ClickCommand="{Binding ClickNavigationButton}"
+                                                  CommandParameter="ACCOUNT" />
+                    <!--     <controls:HamburgerMenuButton ButtonText="Scan and Remediate" -->
+                    <!--                               x:Name="NavigateScanRemButton" -->
+                    <!--                               TextColor="White" -->
+                    <!--                               ImageSource="../../../Assets/scanRemediate_128.png" -->
+                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
+                    <!--                               CommandParameter="Scan"> -->
+                    <!--         <controls:HamburgerMenuButton.IsEnabled> -->
+                    <!--             <MultiBinding Converter="{x:Static BoolConverters.Or}"> -->
+                    <!--                 <Binding Path="CurrentUser.Roles" -->
+                    <!--                          Converter="{StaticResource UserHasPermissionsConverter}" -->
+                    <!--                          ConverterParameter="CAN_SCAN" /> -->
+                    <!--                 <Binding Path="CurrentUser.Roles" -->
+                    <!--                          Converter="{StaticResource UserHasPermissionsConverter}" -->
+                    <!--                          ConverterParameter="CAN_REMEDIATE" /> -->
+                    <!--             </MultiBinding> -->
+                    <!--         </controls:HamburgerMenuButton.IsEnabled> -->
+                    <!--     </controls:HamburgerMenuButton> -->
+                    <!--     <controls:HamburgerMenuButton ButtonText="Rollback" -->
+                    <!--                               x:Name="NavigateRollbackButton" -->
+                    <!--                               TextColor="White" -->
+                    <!--                               ImageSource="../../../Assets/rollback_128.png" -->
+                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
+                    <!--                               CommandParameter="Rollback" -->
+                    <!--                               IsEnabled="{Binding CurrentUser.Roles,Converter={StaticResource UserHasPermissionsConverter},ConverterParameter='CAN_REMEDIATE'}" /> -->
+                    <!--     <controls:HamburgerMenuButton ButtonText="View Results" -->
+                    <!--                               x:Name="NavigateResultsButton" -->
+                    <!--                               TextColor="White" -->
+                    <!--                               ImageSource="../../../Assets/results_128.png" -->
+                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
+                    <!--                               CommandParameter="Results" -->
+                    <!--                               IsEnabled="{Binding CurrentUser.Roles,Converter={StaticResource UserHasPermissionsConverter},ConverterParameter='CAN_AUDIT'}" /> -->
+                </StackPanel>
+                <StackPanel Grid.Row="1"
+                            Spacing="4"
+                            VerticalAlignment="Bottom">
+                    <Separator Height="1" Background="LightGray" Margin="5, 0, 5, 0" />
+                    <controls:HamburgerMenuButton ButtonText="Settings"
+                                                  x:Name="NavigateSettingsButton"
+                                                  TextColor="White"
+                                                  Icon="Gear"
+                                                  IconColor="White"
+                                                  IconSize="32"
+                                                  ClickCommand="{Binding ClickNavigationButton}"
+                                                  CommandParameter="SETTINGS" />
+                </StackPanel>
+            </Grid>
+        </SplitView.Pane>
+        <DockPanel Background="LightSlateGray">
+            <Grid DockPanel.Dock="Top"
+                  Height="48">
+                <Viewbox Margin="0, 4">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe UI"
+                               Foreground="White"
+                               FontWeight="SemiBold"
+                               Text="{Binding WorkspaceTitle}" />
+                </Viewbox>
+            </Grid>
+            <Border DockPanel.Dock="Top"
+                    Background="#adb7c1"
+                    CornerRadius="5, 0, 0, 5">
+                <Carousel SelectedIndex="{Binding SelectedWorkspaceIndex}">
+                    <Carousel.PageTransition>
+                        <CrossFade Duration="0.25" />
+                    </Carousel.PageTransition>
+                    <mainWorkspace:DeployView />
+                    <mainWorkspace:AccountManagementView />
+                    <mainWorkspace:ScriptManagementView />
+                    <mainWorkspace:SettingsView />
+                </Carousel>
+            </Border>
+        </DockPanel>
+    </SplitView>
+
+</UserControl>

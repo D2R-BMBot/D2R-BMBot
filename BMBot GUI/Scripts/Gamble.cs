@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.CSharp;
+
 public class Gamble
 {
     Form1 Form1_0;

@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters"
+             xmlns:inventory="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory"
+             mc:Ignorable="d" d:DesignWidth="1010" d:DesignHeight="500"
+             x:DataType="characters:ICharacter"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterSettingsView">
+
+    <Grid Background="#c8cfd6"
+          RowDefinitions="Auto, *"
+          IsEnabled="{Binding !CharacterIsBusy}">
+        <Grid Grid.Row="0"
+              Background="LightSlateGray">
+            <TextBlock Text="Character Settings"
+                       Margin="0, 5"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontWeight="DemiBold" />
+        </Grid>
+        <controls:InsetContainer Grid.Row="1"
+                                 CornerRadius="0, 0, 2, 2">
+            <Grid ColumnDefinitions="*, Auto">
+                <Grid Grid.Column="0" />
+                <controls:InsetContainer Grid.Column="1">
+                    <Grid RowDefinitions="*, Auto"
+                          Background="#929fad">
+                        <controls:InsetContainer Grid.Row="0">
+                            <inventory:EquipmentView />
+                        </controls:InsetContainer>
+                        <Grid Grid.Row="1" Background="Gray" />
+                        <inventory:InventoryAccessView Grid.Row="1"
+                                                       Opacity="1"
+                                                       Inventory="{Binding Inventory}" />
+                    </Grid>
+                </controls:InsetContainer>
+            </Grid>
+        </controls:InsetContainer>
+    </Grid>
+</UserControl>

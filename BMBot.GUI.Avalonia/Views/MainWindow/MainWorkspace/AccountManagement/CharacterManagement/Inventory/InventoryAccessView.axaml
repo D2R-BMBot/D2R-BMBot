@@ -1,0 +1,142 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:converters="clr-namespace:BMBot.GUI.Avalonia.Models.Converters"
+             xmlns:inventory="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory.InventoryAccessView"
+             x:Name="Root">
+    
+    <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+          RowDefinitions="Auto, Auto, Auto, Auto"
+          x:Name="ParentGrid">
+        <Grid.Styles>
+            <Style Selector="inventory|InventoryCellBox">
+                <Setter Property="IconSize" Value="36" />
+            </Style>
+        </Grid.Styles>
+        <inventory:InventoryCellBox Grid.Column="0"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Path=Inventory.InventoryCell00.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="0"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell01.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="0"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell02.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="0"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell03.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="1"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell10.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="1"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell11.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="1"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell12.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="1"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell13.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="2"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell20.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="2"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell21.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="2"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell22.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="2"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell23.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="3"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell30.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="3"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell31.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="3"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell32.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="3"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell33.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="4"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell40.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="4"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell41.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="4"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell42.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="4"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell43.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="5"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell50.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="5"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell51.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="5"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell52.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="5"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell53.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="6"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell60.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="6"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell61.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="6"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell62.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="6"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell63.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="7"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell70.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="7"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell71.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="7"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell72.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="7"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell73.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="8"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell80.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="8"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell81.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="8"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell82.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="8"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell83.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="9"
+                                   Grid.Row="0"
+                                   IsOccupied="{Binding Inventory.InventoryCell90.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="9"
+                                   Grid.Row="1"
+                                   IsOccupied="{Binding Inventory.InventoryCell91.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="9"
+                                   Grid.Row="2"
+                                   IsOccupied="{Binding Inventory.InventoryCell92.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+        <inventory:InventoryCellBox Grid.Column="9"
+                                   Grid.Row="3"
+                                   IsOccupied="{Binding Inventory.InventoryCell93.IsOccupied, Mode=TwoWay, ElementName=Root}" />
+    </Grid>
+
+</UserControl>
