@@ -1290,6 +1290,8 @@ public class Town
         }*/
         if (TownAct == 2)
         {
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5044, Y = 5050 });
+            Form1_0.WaitDelay(50);
             CheckForNPCValidPos("Greiz");
             Form1_0.PathFinding_0.MoveToNPC("Greiz");
             Form1_0.NPCStruc_0.GetNPC("Greiz");
@@ -1396,7 +1398,7 @@ public class Town
 
     public void GetCorpse()
     {
-        if (Form1_0.ItemsStruc_0.ItemsEquiped > 2) return;
+        if (Form1_0.ItemsStruc_0.ItemsEquiped <= 2) return;
 
         //method #1
         if (Form1_0.NPCStruc_0.GetNPC("DeadCorpse"))

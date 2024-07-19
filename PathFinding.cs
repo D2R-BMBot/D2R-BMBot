@@ -223,8 +223,8 @@ public class PathFinding
 
         return false;
     }
-
-    public bool GetPathFinding(int AcceptOffset = 4, bool ClearAreaOnMoving = false)
+    //public bool GetPathFinding(int AcceptOffset = 4, bool ClearAreaOnMoving = false)  //Original
+    public bool GetPathFinding(int AcceptOffset = 1, bool ClearAreaOnMoving = false) //testing to short path maxdistance
     {
         bool MovedCorrectly = false;
 
@@ -281,8 +281,10 @@ public class PathFinding
         //Shorten the path so we don't go at each single unit
         int ThisOffsetToUse = AcceptMoveOffset;
         if (Form1_0.Town_0.IsInTown) ThisOffsetToUse = 5;
-        else if (!CharConfig.UseTeleport) ThisOffsetToUse = 5;
-        else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown() && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ArcaneSanctuary) ThisOffsetToUse = 1;
+        //else if (!CharConfig.UseTeleport) ThisOffsetToUse = 5;
+        else if (!CharConfig.UseTeleport) ThisOffsetToUse = 2; //Test to see if it shorten teleport maxdistance
+        else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 2; //Test to see if it shorten teleport maxdistance
+        //else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown() && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ArcaneSanctuary) ThisOffsetToUse = 1;
         //else if(CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 1;
 
         List<Point> pathShortened = new List<Point>();

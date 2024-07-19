@@ -590,7 +590,8 @@ public class GameStruc
         for (int i = 0; i < 7; i++)
         {
             //uint tzArea = Form1_0.Mem_0.ReadUInt32Raw((IntPtr) ((long)Form1_0.BaseAddress + (0x299E2D8 + (i * 4))));
-            uint tzArea = Form1_0.Mem_0.ReadUInt32Raw((IntPtr)((long)Form1_0.BaseAddress + (0x29E9558 + (i * 4))));
+            //uint tzArea = Form1_0.Mem_0.ReadUInt32Raw((IntPtr)((long)Form1_0.BaseAddress + (0x29E9558 + (i * 4))));
+            uint tzArea = Form1_0.Mem_0.ReadUInt32Raw((IntPtr)((long)Form1_0.BaseAddress + (0x29D1578 + (i * 4))));
             if (tzArea != 0)
             {
                 if (!SetActArea)

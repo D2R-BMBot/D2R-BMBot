@@ -461,6 +461,7 @@ public class ObjectsStruc
             case 569: return 1; //BaalsPortal2
             case 298: return 1; //ArcaneSanctuaryPortal
             case 377: return 1; //GuildPortal
+            case 737: return 1; //TristiamPortal
         }
         return 0;
     }
@@ -1042,6 +1043,7 @@ public class ObjectsStruc
             case 572: return "DoorBlocker2";
             case 580: return "GoodChest";
             case 581: return "NotSoGoodChest";
+            case 737: return "TristiamPortal";
         }
         return "";
     }

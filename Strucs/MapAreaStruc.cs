@@ -24,16 +24,414 @@ public class MapAreaStruc
     public bool[,] CurrentAreaCollisionGrid = new bool[0, 0];
     public string[] MapDataLines = new string[0];
     public List<int> AllExitsIDs = new List<int>();
-    List<string> avoidObjects = new List<string>
-        {
+    List<string> avoidObjects = new List<string> //not working yet
+    {
             "shrine",
             //"Dummy",
             "fire",
             "ArmorStand",
             "WeaponRack",
-            "Crate",
+            /*"Crate",
             "Barrel",
-        };
+            "Casket5",
+            "Casket6",
+            "LargeUrn1",
+            "Barrel",
+            "TowerTome",
+            "Urn2",
+            "Bench",
+            "BarrelExploding",
+            "RogueFountain",
+            "HoleAnim",
+            "Brazier",
+            "InifussTree",
+            "Fountain",
+            "Crucifix",
+            "Candles1",
+            "Candles2",
+            "Torch1Tiki",
+            "Torch2Wall",
+            "RogueBonfire",
+            "River1",
+            "River2",
+            "River3",
+            "River4",
+            "River5",
+            "AmbientSoundGenerator",
+            "Crate",
+            "RogueTorch1",
+            "RogueTorch2",
+            "CasketR",
+            "CasketL",
+            "Urn3",
+            "Casket",
+            "RogueCorpse1",
+            "RogueCorpse2",
+            "RogueCorpseRolling",
+            "CorpseOnStick1",
+            "CorpseOnStick2",
+            "InvisibleObject",
+            "Ripple1",
+            "Ripple2",
+            "Ripple3",
+            "Ripple4",
+            "ForestNightSound1",
+            "ForestNightSound2",
+            "YetiDung",
+            "SewerDrip",
+            "HealthOrama",
+            "Casket3",
+            "Obelisk",
+            "ForestAltar",
+            "BubblingPoolOfBlood",
+            "HornShrine",
+            //"HealingWell",
+            "BullHealthShrine",
+            "SteleDesertMagicShrine",
+            //"Sarcophagus",
+            //"DesertObelisk",
+            "InnerHellManaShrine",
+            //"LargeUrn4",
+            //"LargeUrn5",
+            "InnerHellHealthShrine",
+            "InnerHellShrine",
+            "ArmorStandRight",
+            "ArmorStandLeft",
+            "WeaponRackRight",
+            "WeaponRackLeft",
+            "PalaceHealthShrine",
+            /*"Drinker",
+            "Fountain1",
+            "DesertFountain",
+            "Turner",
+            "Fountain3",
+            "SnakeWomanShrine",
+            //"JungleTorch",
+            //"Fountain4",
+            "DungeonHealthShrine",
+            //"JerhynPlaceHolder1",
+            //"JerhynPlaceHolder2",
+            "InnerHellShrine2",
+            "InnerHellShrine3",
+            "InnerHellHiddenStash",
+            //"InnerHellSkullPile",
+            "InnerHellHiddenStash2",
+            "InnerHellHiddenStash3",
+            /*"Act1WildernessWell",
+            "VileDogAfterglow",
+            "CathedralWell",
+            "DesertShrine2",
+            "DesertShrine3",
+            "DesertShrine1",
+            /*"DesertWell",
+            "CaveWell",
+            "DesertJug1",
+            "DesertJug2",
+            "TaintedSunAltar",
+            "DesertShrine5",
+            "DesertShrine4",
+            /*"HoradricOrifice",
+            "GuardCorpse",
+            "HiddenStashRock",
+            "SkeletonCorpseIsAnOxymoron",
+            "HiddenStashRockB",
+            "SmallFire",
+            "MediumFire",
+            "LargeFire",
+            "Act1CliffHidingSpot",
+            "ManaWell1",
+            "ManaWell2",
+            "ManaWell3",
+            "ManaWell4",
+            "ManaWell5",
+            "HollowLog",
+            "JungleHealWell",
+            "SkeletonCorpseIsStillAnOxymoron",
+            "DesertHealthShrine",
+            /*"ManaWell7",
+            "LooseRock",
+            "LooseBoulder",
+            "GuardCorpseOnAStick",
+            "Bookshelf1",
+            "Bookshelf2",
+            "TombCoffin",
+            "JungleShrine2",
+            /*"JungleStashObject1",
+            "JungleStashObject2",
+            "JungleStashObject3",
+            "JungleStashObject4",
+            "JungleShrine3",
+            "JungleShrine4",
+           // "TeleportationPad1",
+            "JungleShrine5",
+            "MephistoShrine1",
+            "MephistoShrine2",
+            "MephistoShrine3",
+            "MephistoManaShrine",
+            //"MephistoLair",
+            //"StashBox",
+            //"StashAltar",
+            "MafistoHealthShrine",
+            /*"Act3WaterRocks",
+            "Basket1",
+            "Basket2",
+            "Act3WaterLogs",
+            "Act3WaterRocksGirl",
+            "Act3WaterBubbles",
+            "Act3WaterLogsX",
+            "Act3WaterRocksB",
+            "Act3WaterRocksGirlC",
+            "Act3WaterRocksY",
+            "Act3WaterLogsZ",
+            "WebCoveredTree1",
+            "WebCoveredTree2",
+            "WebCoveredTree3",
+            "WebCoveredTree4",
+            "Pillar",
+            "Cocoon",
+            "Cocoon2",
+            "SkullPileH1",
+            "OuterHellShrine",
+            //"Act3WaterRocksGirlW",
+            //"Act3BigLog",
+            "OuterHellShrine2",
+            "OuterHellShrine3",
+           /*"PillarH2",
+            "Act3BigLogC",
+            "Act3BigLogD",
+            "HellHealthShrine",
+            /*"SewersRatNest",
+            "BurningBodyTown2",
+            "SewersRatNest2",
+            "Act1BedBed1",
+            "Act1BedBed2",
+            "HellManaShrine",
+            "ExplodingCow",
+            "GidbinnAltar",
+            "GidbinnAltarDecoy",
+            "DiabloRightLight",
+            "DiabloLeftLight",
+            "Act1CabinStool",
+            "Act1CabinWood",
+            "Act1CabinWood2",
+            "HellSkeletonSpawnNW",
+            "Act1HolyShrine",
+            //"TombsFloorTrapSpikes",
+            "Act1CathedralShrine",
+            "Act1JailShrine1",
+            "Act1JailShrine2",
+            "Act1JailShrine3",
+            /*"MaggotLairGooPile",
+            "Bank",
+            "GoldPlaceHolder",
+            "GuardCorpse2",
+            "DeadVillager1",
+            "DeadVillager2",
+            //"DummyFlameNoDamage",
+            "TinyPixelShapedThingie",
+            "CavesHealthShrine",
+            "CavesManaShrine",
+            "CaveMagicShrine",
+            "Act3DungeonManaShrine",
+            "Act3SewersMagicShrine1",
+            //"Act3SewersHealthWell",
+            //"Act3SewersManaWell",
+            "Act3SewersMagicShrine2",
+            /*"Act2BrazierCeller",
+            "Act2TombAnubisCoffin",
+            "Act2Brazier",
+            "Act2BrazierTall",
+            "Act2BrazierSmall",
+            "HarumBedBed",
+            "TombsWallTorchLeft",
+            "TombsWallTorchRight",
+            "Act2HaramMagicShrine1",
+            "Act2HaramMagicShrine2",
+            //"MaggotHealthWell",
+            //"MaggotManaWell",
+            "ArcaneSanctuaryMagicShrine",
+            /*"DummyArcaneThing1",
+            //"DummyArcaneThing2",
+            //"DummyArcaneThing3",
+            //"DummyArcaneThing4",
+            //"DummyArcaneThing5",
+            //"DummyArcaneThing6",
+            //"DummyArcaneThing7",
+            "HaremDeadGuard1",
+            "HaremDeadGuard2",
+            "HaremDeadGuard3",
+            "HaremDeadGuard4",
+            "HaremEunuchBlocker",
+            "ArcaneHealthWell",
+            "ArcaneManaWell",
+            "Act2TombWell",
+            "Act3SewerMagicShrine",
+           /*"Act3SewerDeadBody",
+            "Act3SewerTorch",
+            "Act3KurastTorch",
+            "SteegStone",
+            "GuildVault",
+            "Trophy",
+            "MessageBoard",
+            "Act3KurastManaWell",
+            "Act3KurastHealthWell",
+            "HellFire1",
+            "HellFire2",
+            "HellFire3",
+            "HellLava1",
+            "HellLava2",
+            "HellLava3",
+            "HellLightSource1",
+            "HellLightSource2",
+            "HellLightSource3",
+            "YetAnotherTome",
+            "HellBrazier1",
+            "HellBrazier2",
+            "DungeonRockPile",
+            "Act3DungeonMagicShrine",
+            /*"Act3DungeonBasket",
+            "OuterHellHungSkeleton",
+            "GuyForDungeon",
+            "Act3DungeonCasket",
+            "TrappedSoulPlaceHolder",
+            "Act3TownTorch",
+            "HellSkeletonSpawnNE",
+            "Act3WaterFog",
+            "HellForge",
+            "BurningTrappedSoul1",
+            "BurningTrappedSoul2",
+            "StuckedTrappedSoul1",
+            "StuckedTrappedSoul2",
+            "ArcaneCasket",
+            "InnerHellFissure",
+            "HellMesaBrazier",
+            "Smoke",
+            "HellBrazier3",
+            "CompellingOrb",
+            "SiegeMachineControl",
+            "PotOTorch",
+            "PyoxFirePit",
+            "ExpansionWildernessShrine1",
+            "ExpansionWildernessShrine2",
+            /*"ExpansionHiddenStash",
+            "ExpansionWildernessFlag",
+            "ExpansionWildernessBarrel",
+            "ExpansionSiegeBarrel",
+            "ExpansionWildernessShrine3",
+            "ExpansionManaShrine",
+            "ExpansionHealthShrine",
+            //"ExpansionWell",
+            "ExpansionWildernessShrine4",
+            "ExpansionWildernessShrine5",
+            /*"ExpansionTorch1",
+            "ExpansionCampFire",
+            "ExpansionTownTorch",
+            "ExpansionTorch2",
+            "ExpansionBurningBodies",
+            "ExpansionBurningPit",
+            "ExpansionTribalFlag",
+            "ExpansionTownFlag",
+            "ExpansionChandelier",
+            "ExpansionJar1",
+            "ExpansionJar2",
+            "ExpansionJar3",
+            "ExpansionSwingingHeads",
+            "ExpansionWildernessPole",
+            "AnimatedSkullAndRockPile",
+            "SkullAndRockPile",
+            "EnemyCampBanner1",
+            "EnemyCampBanner2",
+            "ExpansionDeathPole",
+            "ExpansionDeathPoleLeft",
+            "TempleAltar",
+            "IceCaveHiddenStash",
+            "IceCaveHealthShrine",
+            "IceCaveManaShrine",
+            /*"IceCaveEvilUrn",
+            "IceCaveJar1",
+            "IceCaveJar2",
+            "IceCaveJar3",
+            "IceCaveJar4",
+            "IceCaveJar5",
+            "IceCaveMagicShrine",
+            /*"CagedWussie",
+            "AncientStatue3",
+            "AncientStatue1",
+            "AncientStatue2",
+            "DeadBarbarian",
+            "ClientSmoke",
+            "IceCaveMagicShrine2",
+            /*"IceCaveTorch1",
+            "IceCaveTorch2",
+            "ExpansionTikiTorch",
+            "WorldstoneManaShrine",
+            "WorldstoneHealthShrine",
+           /* "WorldstoneTomb1",
+            "WorldstoneTomb2",
+            "WorldstoneTomb3",
+            "WorldstoneMagicShrine",
+            //"WorldstoneTorch1",
+            //"WorldstoneTorch2",
+            "ExpansionSnowyManaShrine1",
+            "ExpansionSnowyHealthShrine",
+            //"ExpansionSnowyWell",
+            //"ExpansionSnowyMagicShrine2",
+           //"ExpansionSnowyMagicShrine3",
+            //"WorldstoneWell",
+            //"WorldstoneMagicShrine2",
+            //"ExpansionSnowyObject1",
+            //"WorldstoneMagicShrine3",
+            /*"SnowySwingingHeads",
+            "SnowyDebris",
+            "ExpansionTempleMagicShrine1",
+            //"ExpansionSnowyPoleMR",
+            "ExpansionTempleMagicShrine2",
+            /*"ExpansionTempleWell",
+            "ExpansionTempleTorch1",
+            "ExpansionTempleTorch2",
+            "ExpansionTempleObject1",
+            "ExpansionTempleObject2",
+            "WorldstoneMrBox",
+            "IceCaveWell",
+            "ExpansionTempleMagicShrine",
+            "ExpansionTempleHealthShrine",
+            "ExpansionTempleManaShrine",
+            /*"BlacksmithForge",
+            "WorldstoneTomb1Left",
+            "WorldstoneTomb2Left",
+            "WorldstoneTomb3Left",
+            "IceCaveBubblesU",
+            "IceCaveBubblesS",
+            "RedBaalsLairTomb1",
+            "RedBaalsLairTomb1Left",
+            "RedBaalsLairTomb2",
+            "RedBaalsLairTomb2Left",
+            "RedBaalsLairTomb3",
+            "RedBaalsLairTomb3Left",
+            "RedBaalsLairMrBox",
+            "RedBaalsLairTorch1",
+            "RedBaalsLairTorch2",
+            "CandlesTemple",
+            "ExpansionDeadPerson1",
+            "TempleGroundTomb",
+            "TempleGroundTombLeft",
+            "ExpansionDeadPerson2",
+            "ExpansionWeaponRackRight",
+            "ExpansionWeaponRackLeft",
+            "ExpansionArmorStandRight",
+            "ExpansionArmorStandLeft",
+            "ArreatsSummitTorch2",
+            "ExpansionFuneralSpire",
+            "ExpansionBurningLogs",
+            "IceCaveSteam",
+            "ExpansionDeadPerson3",
+            "BBQBunny",
+            "BaalTorchBig",
+            "InvisibleAncient",
+            "InvisibleBase",
+            "ZooTestData",
+            "FirePlaceGuy",*/
+    };
 
     public void SetForm1(Form1 form1_1)
     {
@@ -663,23 +1061,15 @@ public class MapAreaStruc
         }
 
         //Objects (Avoid)
-        //if (area == (Enums.Area)Form1_0.PlayerScan_0.levelNo)
-        /*{
-            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
-            {
-                foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
-                {
 
-                    if (avoidObjects.Contains(item.Name))
-                        cg[item.X, item.Y] = false;
-
-                }
-
-            }
+        /*foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
+        {
+                if (avoidObjects.Contains(item.Name))
+                   cg[item.X, item.Y] = false;
         }*/
-
+        
         if (area == Enums.Area.ChaosSanctuary)
-                {
+        
             for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
             {
                 foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
@@ -691,7 +1081,7 @@ public class MapAreaStruc
                 }
 
             }
-        }
+        
         if (area == Enums.Area.TowerCellarLevel1 || area == Enums.Area.TowerCellarLevel2 || area == Enums.Area.TowerCellarLevel3 || area == Enums.Area.TowerCellarLevel4 || area == Enums.Area.TowerCellarLevel5)
         {
             for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
@@ -857,6 +1247,24 @@ public class MapAreaStruc
             cg[222, 223] = false;
             cg[223, 223] = false;
 
+            cg[216, 102] = false;
+            cg[217, 102] = false;
+            cg[218, 102] = false;
+            cg[219, 102] = false;
+            cg[220, 102] = false;
+            cg[221, 102] = false;
+            cg[222, 102] = false;
+            cg[223, 102] = false;
+
+            cg[216, 103] = false;
+            cg[217, 103] = false;
+            cg[218, 103] = false;
+            cg[219, 103] = false;
+            cg[220, 103] = false;
+            cg[221, 103] = false;
+            cg[222, 103] = false;
+            cg[223, 103] = false;
+
             //map id 21 TC Lvl 2
             cg[135, 182] = false;
             cg[136, 182] = false;
@@ -1011,6 +1419,135 @@ public class MapAreaStruc
             cg[181, 103] = false;
             cg[182, 103] = false;
             cg[183, 103] = false;
+
+            //Rogue Encampment
+            if (area == Enums.Area.RogueEncampment)
+
+            cg[59, 167] = false;
+            cg[60, 167] = false;
+            cg[61, 167] = false;
+
+
+            //Arcane Santuary
+            if (area == Enums.Area.ArcaneSanctuary)
+                
+            cg[436, 311] = false;
+            cg[437, 311] = false;
+            cg[438, 311] = false;
+            cg[439, 311] = false;
+            cg[440, 311] = false;
+            cg[441, 311] = false;
+            cg[442, 311] = false;
+            cg[443, 311] = false;
+            cg[444, 311] = false;
+            cg[445, 311] = false;
+
+            cg[436, 312] = false;
+            cg[437, 312] = false;
+            cg[438, 312] = false;
+            cg[439, 312] = false;
+            cg[440, 312] = false;
+            cg[441, 312] = false;
+            cg[442, 312] = false;
+            cg[443, 312] = false;
+            cg[444, 312] = false;
+            cg[445, 312] = false;
+
+            cg[410, 291] = false;
+            cg[411, 291] = false;
+            cg[412, 291] = false;
+            cg[413, 291] = false;
+            cg[414, 291] = false;
+            cg[415, 291] = false;
+            cg[416, 291] = false;
+            cg[417, 291] = false;
+            cg[418, 291] = false;
+            cg[419, 291] = false;
+            cg[420, 291] = false;
+
+            cg[410, 292] = false;
+            cg[411, 292] = false;
+            cg[412, 292] = false;
+            cg[413, 292] = false;
+            cg[414, 292] = false;
+            cg[415, 292] = false;
+            cg[416, 292] = false;
+            cg[417, 292] = false;
+            cg[418, 292] = false;
+            cg[419, 292] = false;
+            cg[420, 292] = false;
+
+            cg[410, 293] = false;
+            cg[411, 293] = false;
+            cg[412, 293] = false;
+            cg[413, 293] = false;
+            cg[414, 293] = false;
+            cg[415, 293] = false;
+            cg[416, 293] = false;
+            cg[417, 293] = false;
+            cg[418, 293] = false;
+            cg[419, 293] = false;
+            cg[420, 293] = false;
+
+            cg[410, 294] = false;
+            cg[411, 294] = false;
+            cg[412, 294] = false;
+            cg[413, 294] = false;
+            cg[414, 294] = false;
+            cg[415, 294] = false;
+            cg[416, 294] = false;
+            cg[417, 294] = false;
+            cg[418, 294] = false;
+            cg[419, 294] = false;
+            cg[420, 294] = false;
+
+            cg[410, 295] = false;
+            cg[411, 295] = false;
+            cg[412, 295] = false;
+            cg[413, 295] = false;
+            cg[414, 295] = false;
+            cg[415, 295] = false;
+            cg[416, 295] = false;
+            cg[417, 295] = false;
+            cg[418, 295] = false;
+            cg[419, 295] = false;
+            cg[420, 295] = false;
+            cg[421, 295] = false;
+            cg[422, 295] = false;
+            cg[423, 295] = false;
+
+            cg[410, 296] = false;
+            cg[411, 296] = false;
+            cg[412, 296] = false;
+            cg[413, 296] = false;
+            cg[414, 296] = false;
+            cg[415, 296] = false;
+            cg[416, 296] = false;
+            cg[417, 296] = false;
+            cg[418, 296] = false;
+            cg[419, 296] = false;
+            cg[420, 296] = false;
+            cg[421, 296] = false;
+            cg[422, 296] = false;
+            cg[423, 296] = false;
+
+            cg[417, 286] = false;
+            cg[418, 286] = false;
+            cg[419, 286] = false;
+            cg[420, 286] = false;
+            cg[421, 286] = false;
+            cg[422, 286] = false;
+            cg[423, 286] = false;
+
+            cg[417, 287] = false;
+            cg[418, 287] = false;
+            cg[419, 287] = false;
+            cg[420, 287] = false;
+            cg[421, 287] = false;
+            cg[422, 287] = false;
+            cg[423, 287] = false;
+
+
 
         }
 
