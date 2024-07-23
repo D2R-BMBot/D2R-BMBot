@@ -643,7 +643,7 @@ public class PlayerScan
                             Form1_0.Mem_0.ReadRawMemory(ppath, ref ppathData, 144);
 
                             //if posX equal not zero
-                            if (BitConverter.ToInt16(ppathData, 2) != 0 && name == CharConfig.PlayerCharName)
+                            if (BitConverter.ToInt16(ppathData, 2) != 0 && name.ToLower() == CharConfig.PlayerCharName.ToLower())
                             {
                                 Form1_0.method_1("------------------------------------------", Color.DarkBlue);
                                 PlayerPointer = UnitPointerLocation;
