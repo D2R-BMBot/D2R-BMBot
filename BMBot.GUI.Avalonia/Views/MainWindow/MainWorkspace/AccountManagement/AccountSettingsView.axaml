@@ -3,12 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:accountData="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData"
              xmlns:converters="clr-namespace:BMBot.GUI.Avalonia.Models.Converters"
-             xmlns:login="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login"
              xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:login="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login"
+             xmlns:account="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Account"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:DataType="accountData:Account"
+             x:DataType="account:GameAccount"
              x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.AccountSettingsView">
 
     <UserControl.Resources>

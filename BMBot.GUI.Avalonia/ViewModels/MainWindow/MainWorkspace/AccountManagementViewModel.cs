@@ -1,8 +1,8 @@
 ﻿using Avalonia.Collections;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login;
 using BMBot.GUI.Avalonia.Models.Enumerations.Logging;
 using BMBot.GUI.Avalonia.Models.Extensions.Logging;
 
@@ -14,7 +14,7 @@ namespace BMBot.GUI.Avalonia.ViewModels.MainWindow.MainWorkspace;
 
 public class AccountManagementViewModel(ILogger<AccountManagementViewModel> i_logger) : ViewModelBase
 {
-    public AvaloniaList<IAccountItem> TreeItems { get; } = [new Account
+    public AvaloniaList<IAccountItem> TreeItems { get; } = [new GameAccount
                                                                 {
                                                                     LoginMode = new CredentialLogin("My User Name", "My Password"),
                                                                     DisplayName = "Test Account 1",
@@ -29,7 +29,7 @@ public class AccountManagementViewModel(ILogger<AccountManagementViewModel> i_lo
                                                                         new DruidCharacter("Druid 1"),
                                                                     }
                                                                 },
-                                                               new Account
+                                                               new GameAccount
                                                                {
                                                                    LoginMode = new TokenLogin("My Token"),
                                                                    DisplayName = "Test Account 2",

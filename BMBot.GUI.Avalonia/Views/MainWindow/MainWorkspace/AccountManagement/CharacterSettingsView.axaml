@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
-             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters"
              xmlns:inventory="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory"
+             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters"
              mc:Ignorable="d" d:DesignWidth="1010" d:DesignHeight="500"
              x:DataType="characters:ICharacter"
              x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterSettingsView">

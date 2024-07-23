@@ -1,18 +1,22 @@
 ﻿using System;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.Inventory;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 using BMBot.GUI.Avalonia.Models.Enumerations.Game;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
-public class BarbarianCharacter(string p_name) : ICharacter
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
+
+public class BarbarianCharacter(string p_name) : ReactiveObject, ICharacter
 {
     public string  DisplayName   { get; set; } = p_name;
 
-    public bool    CharacterIsBusy { get; set; }
-    public Account ParentAccount   { get; }
-    
+    public bool        CharacterIsBusy   { get; set; }
+    public GameAccount ParentGameAccount { get; }
+    [Reactive] public short       XPosition         { get; set; }
+    [Reactive] public short       YPosition         { get; set; }
+
     public InventoryData Inventory { get; } = new();
     
     public ConsoleKey LeftAttackKey  { get; set; }

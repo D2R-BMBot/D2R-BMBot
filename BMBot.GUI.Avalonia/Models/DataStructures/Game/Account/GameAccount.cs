@@ -3,15 +3,15 @@
 using Avalonia.Collections;
 using Avalonia.Controls;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login;
 
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData;
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account;
 
-public class Account : ReactiveObject, IAccountItem
+public class GameAccount : ReactiveObject, IAccountItem
 {
     [Reactive] public string     DisplayName   { get; set; }
     [Reactive] public ILoginMode LoginMode     { get; set; }

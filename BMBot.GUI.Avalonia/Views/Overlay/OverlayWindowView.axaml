@@ -1,0 +1,52 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:instance="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Instance"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BMBot.GUI.Avalonia.Views.Overlay.OverlayWindowView"
+        x:DataType="instance:InstanceData"
+        Title="OverlayWindow"
+        Topmost="True"
+        SystemDecorations="None"
+        Background="Transparent"
+        IsHitTestVisible="False"
+        Focusable="False"
+        Padding="8, 42, 8, 8">
+    <Grid IsHitTestVisible="False">
+        <Border HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Padding="1"
+                BorderThickness="1"
+                BorderBrush="#a08c5f"
+                Background="#80000000">
+            <Border BorderThickness="1"
+                    BorderBrush="#a08c5f"
+                    Padding="8, 12"
+                    CornerRadius="5">
+                <StackPanel Orientation="Vertical"
+                            Spacing="8">
+                    <StackPanel.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                        </Style>
+                    </StackPanel.Styles>
+                    <TextBlock Text="Character Data"
+                               Foreground="#a08c5f"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="X: " 
+                                   Foreground="#a08c5f"/>
+                        <TextBlock Text="{Binding Character.XPosition}" 
+                                   Foreground="White"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Y: "
+                                   Foreground="#a08c5f"/>
+                        <TextBlock Text="{Binding Character.YPosition}" 
+                                   Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

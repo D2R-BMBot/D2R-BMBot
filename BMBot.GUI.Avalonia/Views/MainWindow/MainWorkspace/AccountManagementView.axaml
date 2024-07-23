@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mainWorkspace="clr-namespace:BMBot.GUI.Avalonia.ViewModels.MainWindow.MainWorkspace"
              xmlns:local="clr-namespace:BMBot.GUI.Avalonia"
-             xmlns:accountData="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:accountManagement="clr-namespace:BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement"
-             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters"
              xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             xmlns:characters="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters"
+             xmlns:account="clr-namespace:BMBot.GUI.Avalonia.Models.DataStructures.Game.Account"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagementView"
              x:DataType="mainWorkspace:AccountManagementViewModel"
@@ -63,7 +63,7 @@
                             </Binding>
                         </ContentControl.Content>
                         <ContentControl.DataTemplates>
-                            <DataTemplate DataType="accountData:Account">
+                            <DataTemplate DataType="account:GameAccount">
                                 <Grid ColumnDefinitions="*, *, *">
                                     <Button Classes="TreeHeader" 
                                             Grid.Column="0" HorizontalAlignment="Stretch"
@@ -216,7 +216,7 @@
                           ItemsSource="{Binding TreeItems}"
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                     <TreeView.DataTemplates>
-                        <TreeDataTemplate DataType="accountData:Account"
+                        <TreeDataTemplate DataType="account:GameAccount"
                                           ItemsSource="{Binding Characters}">
                             <StackPanel Orientation="Horizontal"
                                         Spacing="4">
@@ -319,7 +319,7 @@
                     </Binding>
                 </ContentControl.Content>
                 <ContentControl.DataTemplates>
-                    <DataTemplate DataType="accountData:Account">
+                    <DataTemplate DataType="account:GameAccount">
                         <accountManagement:AccountSettingsView />
                     </DataTemplate>
                     <DataTemplate DataType="characters:ICharacter">

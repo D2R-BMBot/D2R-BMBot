@@ -1,11 +1,13 @@
 using System;
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
 using BMBot.GUI.Avalonia.Models.DataStructures.Logging;
 using BMBot.GUI.Avalonia.Models.IO.Files;
+using BMBot.GUI.Avalonia.Models.Services.Game;
 using BMBot.GUI.Avalonia.Models.Services.Navigation;
 using BMBot.GUI.Avalonia.Models.UI;
 using BMBot.GUI.Avalonia.Models.Utilities;
@@ -88,6 +90,8 @@ public class BotApp : Application
                 p_services.AddSingleton<MainWorkspaceViewModel>();
                 
                 p_services.AddSingleton<AccountManagementViewModel>();
+
+                p_services.AddSingleton<InstanceService>();
             }
         }
         

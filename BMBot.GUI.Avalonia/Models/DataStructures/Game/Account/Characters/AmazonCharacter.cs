@@ -1,18 +1,19 @@
 ﻿using System;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.Inventory;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 using BMBot.GUI.Avalonia.Models.Enumerations.Game;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters;
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 
-public class NecromancerCharacter(string p_name) : ICharacter
+public class AmazonCharacter(string p_name) : ICharacter
 {
     public string  DisplayName   { get; set; } = p_name;
 
-    public bool    CharacterIsBusy { get; set; }
-    public Account ParentAccount   { get; }
-    
+    public bool        CharacterIsBusy   { get; set; }
+    public GameAccount ParentGameAccount { get; }
+    public short       XPosition         { get; set; }
+    public short       YPosition         { get; set; }
+
     public InventoryData Inventory { get; } = new();
     
     public ConsoleKey LeftAttackKey  { get; set; }

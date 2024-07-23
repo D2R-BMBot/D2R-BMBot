@@ -7,6 +7,8 @@ using BMBot.GUI.Avalonia.Models.DataStructures.Logging;
 using BMBot.GUI.Avalonia.Models.DataStructures.Logging.LogMessages;
 using BMBot.GUI.Avalonia.Models.Enumerations.Logging;
 using BMBot.GUI.Avalonia.Models.Extensions.Logging;
+using BMBot.GUI.Avalonia.Models.Services.Game;
+using BMBot.GUI.Avalonia.Views.Overlay;
 
 using Microsoft.Extensions.Logging;
 
@@ -17,11 +19,14 @@ namespace BMBot.GUI.Avalonia.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     private readonly ILogger<MainWindowViewModel> i_logger;
+    private readonly InstanceService             i_instanceService;
 
-    public MainWindowViewModel(ILogger<MainWindowViewModel> p_logger)
+    public MainWindowViewModel(ILogger<MainWindowViewModel> p_logger,
+                               InstanceService              p_instanceService)
     {
-        i_logger = p_logger;
-        
+        i_logger               = p_logger;
+        i_instanceService = p_instanceService;
+
         CollectionSink.SetCollection(LogMessages);
         
         LogMessages.CollectionChanged += (p_sender, p_args) =>
@@ -79,6 +84,13 @@ public class MainWindowViewModel : ViewModelBase
         i_logger.LogDebug(LogMessageType.MERCHANT, "A debug log message for the merchant log.");
         
         i_logger.LogInformation(LogMessageType.STANDARD, "An information log message for the standard log.");
+        
+        var overlayView = new OverlayWindowView
+                          {
+                              DataContext = i_instanceService.Instances.First()
+                          };
+
+        overlayView.Show();
     }
     
     public int SelectedPageIndex { get; set; }

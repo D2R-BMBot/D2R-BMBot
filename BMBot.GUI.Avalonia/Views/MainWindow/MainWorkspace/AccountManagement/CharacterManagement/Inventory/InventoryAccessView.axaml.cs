@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.Inventory;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 
 namespace BMBot.GUI.Avalonia.Views.MainWindow.MainWorkspace.AccountManagement.CharacterManagement.Inventory;
 

@@ -915,7 +915,6 @@ public partial class Form1 : Form
             if (!GameStruc_0.IsGameRunning())
             {
                 method_1("D2R is not running!", Color.Red);
-                return;
             }
             else
             {
@@ -930,6 +929,8 @@ public partial class Form1 : Form
 
                 D2Widht = D2Rect.Width;
                 D2Height = D2Rect.Height;
+                D2Rect.X = thiP.X;
+                D2Rect.Y = thiP.Y;
                 ScreenXOffset = thiP.X;
                 ScreenYOffset = thiP.Y;
 

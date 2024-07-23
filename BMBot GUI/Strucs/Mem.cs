@@ -50,6 +50,7 @@ public class Mem
 
         try
         {
+            var test = (IntPtr)address;
             ReadProcessMemory((int)Form1_0.processHandle, (IntPtr)address, buffer, bytes, ref pBytesRead);
         }
         catch

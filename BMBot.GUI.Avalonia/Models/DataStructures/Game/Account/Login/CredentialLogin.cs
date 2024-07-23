@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login;
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login;
 
 public class CredentialLogin(string p_userName, string p_password) : ReactiveObject, ILoginMode
 {

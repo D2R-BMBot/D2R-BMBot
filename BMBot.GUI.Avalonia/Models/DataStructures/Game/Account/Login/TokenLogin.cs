@@ -1,4 +1,4 @@
-﻿namespace BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login;
+﻿namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login;
 
 public class TokenLogin(string p_token) : ILoginMode
 {

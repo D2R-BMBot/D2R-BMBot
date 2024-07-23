@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.Inventory;
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 
 public class InventoryCell : ReactiveObject
 {

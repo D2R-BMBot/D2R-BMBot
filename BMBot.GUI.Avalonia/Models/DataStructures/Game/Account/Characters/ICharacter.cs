@@ -1,15 +1,17 @@
 ﻿using System;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.Inventory;
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 using BMBot.GUI.Avalonia.Models.Enumerations.Game;
 
-namespace BMBot.GUI.Avalonia.Models.DataStructures.AccountData.Characters;
+namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 
 public interface ICharacter : IAccountItem
 {
     bool    CharacterIsBusy { get; }
-    Account ParentAccount   { get; }
+    GameAccount ParentGameAccount   { get; }
+    
+    short XPosition { get; set; }
+    short YPosition { get; set; }
     
     InventoryData Inventory { get; }
 

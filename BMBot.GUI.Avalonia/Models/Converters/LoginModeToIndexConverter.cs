@@ -3,7 +3,7 @@ using System.Globalization;
 
 using Avalonia.Data.Converters;
 
-using BMBot.GUI.Avalonia.Models.DataStructures.UI.AccountData.Login;
+using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Login;
 
 namespace BMBot.GUI.Avalonia.Models.Converters;
 
