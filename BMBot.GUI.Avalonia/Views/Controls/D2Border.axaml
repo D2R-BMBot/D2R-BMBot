@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BMBot.GUI.Avalonia.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BMBot.GUI.Avalonia.Views.Controls.D2Border">
+    <UserControl.Template>
+        <ControlTemplate TargetType="controls:D2Border">
+            <Border HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Padding="1"
+                    BorderThickness="1"
+                    BorderBrush="#a08c5f"
+                    Background="#80000000">
+                <Border BorderThickness="1"
+                        BorderBrush="#a08c5f"
+                        Padding="8, 12"
+                        CornerRadius="5">
+                    <Grid>
+                        <ContentControl Content="{TemplateBinding Content}"/>
+                    </Grid>
+                </Border>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

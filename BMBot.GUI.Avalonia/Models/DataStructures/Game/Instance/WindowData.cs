@@ -2,22 +2,17 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+using Avalonia;
+
 using BMBot.GUI.Avalonia.Models.GameWindow;
+
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Instance;
 
-public class WindowData : IDisposable
+public class WindowData : ReactiveObject, IDisposable
 {
-    [DllImport("user32.dll")]
-    private static extern void SetWindowLong(IntPtr p_hWnd, int p_nIndex, uint p_dwNewLong);
-
-    [DllImport("user32.dll")]
-    private static extern uint GetWindowLong(IntPtr p_hWnd, int p_nIndex);
-
-    private const int  GwlExStyle      = -20;
-    private const uint WsExTransparent = 0x00000020;
-    private const uint WsExLayered     = 0x00080000;
-
     private readonly IntPtr m_windowHandle;
 
     private readonly IntPtr m_windowChangedHook;
@@ -32,19 +27,44 @@ public class WindowData : IDisposable
 
         WindowHook.WinEventDelegate winEventDelegate = WinEventCallback;
         m_gcSafetyHandle = GCHandle.Alloc(winEventDelegate);
+
+        var targetThreadId = WindowHook.GetWindowThread(m_windowHandle);
+
+        m_windowChangedHook = WindowHook.WinEventHookOne(NativeMethods.SwehEvents.EventObjectLocationchange,
+                                                         winEventDelegate, (uint)p_process.Id, targetThreadId);
+
+        m_windowClosedHook = WindowHook.WinEventHookOne(NativeMethods.SwehEvents.EventObjectDestroy,
+                                                        winEventDelegate, (uint)p_process.Id, targetThreadId);
+
+        m_windowForegroundHook = WindowHook.WinEventHookOne(NativeMethods.SwehEvents.EventSystemForeground,
+                                                            winEventDelegate, 0, 0);
+
+        this.WhenAnyValue(p_data => p_data.XPosition, p_data => p_data.YPosition)
+            .Subscribe(p_data => OnWindowPositionChanged(p_data.Item1, p_data.Item2));
+        
+        var rect = WindowHook.GetWindowRectangle(m_windowHandle);
+        
+        XPosition = rect.Left;
+        YPosition = rect.Top;
+        Width     = rect.Right  - rect.Left;
+        Height    = rect.Bottom - rect.Top;
     }
 
-    public bool Topmost   { get; private set; }
-    public bool IsVisible { get; private set; }
-    public int  XPosition { get; private set; }
-    public int  YPosition { get; private set; }
-    public int  Width     { get; private set; }
-    public int  Height    { get; private set; }
+    
+    [Reactive] public bool       Topmost   { get; private set; }
+    [Reactive] public bool       IsVisible { get; set; }
+    [Reactive] public int        XPosition { get; private set; }
+    [Reactive] public int        YPosition { get; private set; }
+    [Reactive] public int        Width     { get; private set; }
+    [Reactive] public int        Height    { get; private set; }
 
     public float WindowCenterX => XPosition + Width  / 2.0f;
     public float WindowCenterY => YPosition + Height / 2.0f;
+
+    public Action<int,int>? SetWindowPositionAction { get; set; }
+    public Action? CloseAction { get; set; }
     
-    public Action CloseAction { get; set; }
+    // public bool 
 
     private void WinEventCallback(
         IntPtr                     p_hWinEventHook,
@@ -85,7 +105,7 @@ public class WindowData : IDisposable
                 break;
             case NativeMethods.SwehEvents.EventObjectDestroy:
                 IsVisible = false;
-                CloseAction();
+                CloseAction!();
                 break;
             case NativeMethods.SwehEvents.EventSystemForeground:
                 Topmost   = true;
@@ -96,8 +116,21 @@ public class WindowData : IDisposable
         }
     }
 
+    public void RefreshWindowPosition()
+    {
+        SetWindowPositionAction?.Invoke(XPosition, YPosition);
+    }
+
+    private void OnWindowPositionChanged(int p_x, int p_y)
+    {
+        SetWindowPositionAction?.Invoke(p_x, p_y);
+    }
+    
     public void Dispose()
     {
-        // TODO release managed resources here
+        if ( m_gcSafetyHandle.IsAllocated ) m_gcSafetyHandle.Free();
+        WindowHook.WinEventUnhook(m_windowChangedHook);
+        WindowHook.WinEventUnhook(m_windowClosedHook);
+        WindowHook.WinEventUnhook(m_windowForegroundHook);
     }
 }

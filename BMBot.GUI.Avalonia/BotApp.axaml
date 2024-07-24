@@ -6,7 +6,8 @@
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Resources>
-        <FontFamily x:Key="Exocet">/Assets/Fonts#Exocet</FontFamily>
+        <FontFamily x:Key="Exocet">/Assets/Fonts/Exocet.ttf#Exocet</FontFamily>
+        <FontFamily x:Key="Formal436">/Assets/Fonts/formal436.ttf#Formal436 BT</FontFamily>
     </Application.Resources>
              
     <Application.Styles>

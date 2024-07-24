@@ -3,18 +3,18 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
-
-using Avalonia.Input;
+using System.Threading;
 
 using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 using BMBot.GUI.Avalonia.Models.Services.Interop.Memory;
 using BMBot.Interop.API.Process;
-using BMBot.Interop.API.Window;
+
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Instance;
 
-public class InstanceData
+public class InstanceData : ReactiveObject
 {
     public InstanceData(Process p_applicationProcess)
     {
@@ -27,44 +27,61 @@ public class InstanceData
         ProcessHandle = ProcessInterop.OpenProcess((int)ProcessAccess.PROCESS_QUERY_INFORMATION | (int)ProcessAccess.PROCESS_VM_READ, false, p_applicationProcess.Id);
         
         Pointers.BaseAddress = p_applicationProcess.MainModule.BaseAddress;
-        
-        FillPlayerPointers();
 
         Character = new BarbarianCharacter("Testo_Two");
         
         var refreshTimer = Observable.Interval(TimeSpan.FromSeconds(0.5));
         
         refreshTimer.Subscribe(_ =>
-        {
-            if ( !Pointers.PointersAreInitialized ||
-                 !Pointers.PlayerPointersAreInitialized )
-            {
-                return;
-            }
-            
-            FillPlayerPointers();
+                               {
+                                   if ( !Pointers.PointersAreInitialized )
+                                   {
+                                       return;
+                                   }
 
-            if ( Character is not null )
-            {
-                Character.XPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionXAddress);
-                Character.YPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionYAddress);
-            }
-        });
+                                   Character.CharacterIsInGame = GameMemoryService.ReadByte(this, Pointers.PlayerIsInGameAddress) == 0x1;
+                                   
+                                   if ( !Character.CharacterIsInGame )
+                                   {
+                                       if ( !Pointers.PlayerPointersAreInitialized ) return;
+                                       
+                                       Pointers.PlayerBaseAddress     = IntPtr.Zero;
+                                       Pointers.PlayerUnitAddress     = IntPtr.Zero;
+                                       Pointers.PlayerUnitDataAddress = IntPtr.Zero;
+                                       Pointers.PlayerPathAddress     = IntPtr.Zero;
+
+                                       Character.XPosition = 0;
+                                       Character.YPosition = 0;
+
+                                       return;
+                                   }
+
+                                   if ( !Pointers.PlayerPointersAreInitialized )
+                                   {
+                                       Thread.Sleep(2500);
+                                       FillPlayerPointers();
+                                       Character.CharacterId = $"{GameMemoryService.ReadInt32(this, Pointers.PlayerIdAddress):x8}".ToUpper();
+                                   }
+                                   
+                                   var sw = Stopwatch.StartNew();
+
+                                   Character.XPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionXAddress);
+                                   Character.YPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionYAddress);
+                                   
+                                   sw.Stop();
+
+                                   MemReadTime = $"{sw.ElapsedMilliseconds}ms";
+                               });
     }
     
     public IntPtr ProcessHandle { get; }
     
     public InstancePointers Pointers { get; } = new();
     
+    [Reactive] public string MemReadTime { get; set; }
+    
     public WindowData Window { get; }
     public ICharacter Character  { get; private set; }
-    
-    public bool PlayerIsInGame()
-    {
-        if ( !Pointers.PointersAreInitialized ) return false;
-
-        return GameMemoryService.ReadByte(this, Pointers.PlayerIsInGameAddress) == 0x1;
-    }
 
     public void FillPlayerPointers()
     {
@@ -115,7 +132,7 @@ public class InstanceData
                 var playerPathStructure    = GameMemoryService.GetMemorySpan(this, (IntPtr)playerPathPointer, 144);
                 
                 if ( BitConverter.ToInt16(playerPathStructure.ToArray(), 2) != 0 && 
-                     playerName.Equals("Testo_Two", StringComparison.InvariantCultureIgnoreCase) )
+                     playerName.Equals("Bimbus", StringComparison.InvariantCultureIgnoreCase) )
                 {
                     Pointers.PlayerBaseAddress     = baseUnitAddress;
                     Pointers.PlayerUnitAddress     = (IntPtr)unitPointer;

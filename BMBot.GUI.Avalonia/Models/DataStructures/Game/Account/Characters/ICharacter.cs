@@ -7,11 +7,14 @@ namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 
 public interface ICharacter : IAccountItem
 {
-    bool    CharacterIsBusy { get; }
-    GameAccount ParentGameAccount   { get; }
+    string      CharacterId       { get; set; }
+    bool        CharacterIsBusy   { get; }
+    GameAccount ParentGameAccount { get; }
     
     short XPosition { get; set; }
     short YPosition { get; set; }
+    
+    bool CharacterIsInGame { get; set; }
     
     InventoryData Inventory { get; }
 

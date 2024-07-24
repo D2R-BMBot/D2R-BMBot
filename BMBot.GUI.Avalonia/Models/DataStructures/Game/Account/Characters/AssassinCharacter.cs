@@ -3,18 +3,22 @@
 using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters.Inventory;
 using BMBot.GUI.Avalonia.Models.Enumerations.Game;
 
+using ReactiveUI.Fody.Helpers;
+
 namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 
 public class AssassinCharacter(string p_name) : ICharacter
 {
     public string  DisplayName   { get; set; } = p_name;
 
-    public bool        CharacterIsBusy   { get; set; }
-    public GameAccount ParentGameAccount { get; }
-    public short       XPosition         { get; set; }
-    public short       YPosition         { get; set; }
+    [Reactive] public string      CharacterId       { get; set; } = string.Empty;
+    [Reactive] public bool        CharacterIsBusy   { get; set; }
+    public            GameAccount ParentGameAccount { get; }
+    [Reactive] public short       XPosition         { get; set; }
+    [Reactive] public short       YPosition         { get; set; }
 
-    public InventoryData Inventory { get; } = new();
+    [Reactive] public bool        CharacterIsInGame   { get; set; }
+    public            InventoryData Inventory         { get; } = new();
     
     public ConsoleKey LeftAttackKey  { get; set; }
     public ConsoleKey RightAttackKey { get; set; }

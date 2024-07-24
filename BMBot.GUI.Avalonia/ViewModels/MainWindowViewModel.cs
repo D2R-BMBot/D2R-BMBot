@@ -85,11 +85,18 @@ public class MainWindowViewModel : ViewModelBase
         
         i_logger.LogInformation(LogMessageType.STANDARD, "An information log message for the standard log.");
         
+        var instance = i_instanceService.Instances.First();
+        
         var overlayView = new OverlayWindowView
                           {
-                              DataContext = i_instanceService.Instances.First()
+                              DataContext = instance
                           };
 
+        instance.Window.SetWindowPositionAction = overlayView.SetPosition;
+        instance.Window.CloseAction             = overlayView.Close;
+        
+        instance.Window.RefreshWindowPosition();
+        
         overlayView.Show();
     }
     

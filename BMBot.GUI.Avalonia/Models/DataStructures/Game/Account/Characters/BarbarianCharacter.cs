@@ -12,12 +12,14 @@ public class BarbarianCharacter(string p_name) : ReactiveObject, ICharacter
 {
     public string  DisplayName   { get; set; } = p_name;
 
-    public bool        CharacterIsBusy   { get; set; }
-    public GameAccount ParentGameAccount { get; }
+    [Reactive] public string      CharacterId       { get; set; } = string.Empty;
+    [Reactive] public bool        CharacterIsBusy   { get; set; }
+    public            GameAccount ParentGameAccount { get; }
     [Reactive] public short       XPosition         { get; set; }
     [Reactive] public short       YPosition         { get; set; }
 
-    public InventoryData Inventory { get; } = new();
+    [Reactive] public bool        CharacterIsInGame   { get; set; }
+    public InventoryData Inventory         { get; } = new();
     
     public ConsoleKey LeftAttackKey  { get; set; }
     public ConsoleKey RightAttackKey { get; set; }
