@@ -63,8 +63,6 @@ public class WindowData : ReactiveObject, IDisposable
 
     public Action<int,int>? SetWindowPositionAction { get; set; }
     public Action? CloseAction { get; set; }
-    
-    // public bool 
 
     private void WinEventCallback(
         IntPtr                     p_hWinEventHook,

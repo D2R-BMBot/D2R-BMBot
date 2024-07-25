@@ -1240,6 +1240,7 @@ public partial class Form1 : Form
                 {
                     PrintedGameTime = false;
                     PlayerScan_0.scanForPlayer(true);
+                    MercStruc_0.GetMercInfos();
                     if (PlayerScan_0.FoundPlayer)
                     {
                         GameStruc_0.SetNewGame();
