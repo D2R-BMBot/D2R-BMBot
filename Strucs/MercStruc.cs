@@ -90,7 +90,8 @@ public class MercStruc
                         // Read statCount
                         UInt64 statCount = Form1_0.Mem_0.ReadUInt64(statsListExPtr + 0x38);
                         Dictionary<Enums.Attribute, int> mercStats = Form1_0.Mem_0.GetMonsterStats((uint)statCount, statPtr);
-                        if (mercStats.ContainsKey(Enums.Attribute.Life)){
+                        if (mercStats.ContainsKey(Enums.Attribute.Life))
+                        {
                             if (mercStats[Enums.Attribute.Life] > 0) // so not match deadcorpse
                             {
                                 int maxLife = mercStats[Enums.Attribute.LifeMax] >> 8;
@@ -126,7 +127,7 @@ public class MercStruc
 }
 
         Form1_0.Grid_SetInfos("Merc", "Not alive/detected");
-        if (MercCount == 0) MercAlive = false;
+        if (MercCount <= 0) MercAlive = false;
         return false;
     }
 

@@ -15,8 +15,8 @@ public class PathFinding
 
     public Form1 Form1_0;
 
-    public int TeleportAcceptSize = 20; //not implemented yet
-    public int AcceptMoveOffset = 25;
+    public int TeleportAcceptSize = 25; //not implemented yet
+    public int AcceptMoveOffset = 15;
     public int ThisPlayerAreaID = 0;
     public int ThisNextAreaID = 0;
 
@@ -150,7 +150,7 @@ public class PathFinding
         CheckingForCloseToTargetPos = false;
 
         //Form1_0.method_1("ToNPC " + NPCName, Color.Red);
-
+        if (CharConfig.RunningOnChar.ToLower().Contains("sorc")) Form1_0.Mover_0.MoveAcceptOffset = 12; //testing for Santuary teleports
         try
         {
             ThisPlayerAreaID = (int)Form1_0.PlayerScan_0.levelNo;
@@ -198,6 +198,7 @@ public class PathFinding
     }
 
     public bool MoveToThisPos(Position ThisPositionn, int AcceptOffset = 4, bool ClearAreaOnMoving = false)
+
     {
         if (Form1_0.PlayerScan_0.levelNo == 0) Form1_0.PlayerScan_0.GetPositions();
         IsMovingToNextArea = false;
@@ -223,8 +224,8 @@ public class PathFinding
 
         return false;
     }
-    //public bool GetPathFinding(int AcceptOffset = 4, bool ClearAreaOnMoving = false)  //Original
-    public bool GetPathFinding(int AcceptOffset = 1, bool ClearAreaOnMoving = false) //testing to short path maxdistance
+    public bool GetPathFinding(int AcceptOffset = 4, bool ClearAreaOnMoving = false)  //Original
+    //public bool GetPathFinding(int AcceptOffset = 1, bool ClearAreaOnMoving = false) //testing to short path maxdistance
     {
         bool MovedCorrectly = false;
 
@@ -282,8 +283,8 @@ public class PathFinding
         int ThisOffsetToUse = AcceptMoveOffset;
         if (Form1_0.Town_0.IsInTown) ThisOffsetToUse = 5;
         //else if (!CharConfig.UseTeleport) ThisOffsetToUse = 5;
-        else if (!CharConfig.UseTeleport) ThisOffsetToUse = 2; //Test to see if it shorten teleport maxdistance
-        else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 2; //Test to see if it shorten teleport maxdistance
+        else if (!CharConfig.UseTeleport) ThisOffsetToUse = 7; //Test to see if it shorten teleport maxdistance
+        else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 7; //Test to see if it shorten teleport maxdistance
         //else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown() && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ArcaneSanctuary) ThisOffsetToUse = 1;
         //else if(CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 1;
 

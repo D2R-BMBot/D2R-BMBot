@@ -56,7 +56,7 @@ partial class FormSettings
             System.Windows.Forms.ListViewItem listViewItem25 = new System.Windows.Forms.ListViewItem("Nihlatak");
             System.Windows.Forms.ListViewItem listViewItem26 = new System.Windows.Forms.ListViewItem("Baal");
             System.Windows.Forms.ListViewItem listViewItem27 = new System.Windows.Forms.ListViewItem("Baal Leech");
-            System.Windows.Forms.ListViewItem listViewItem28 = new System.Windows.Forms.ListViewItem("Terror Zones");
+            //System.Windows.Forms.ListViewItem listViewItem28 = new System.Windows.Forms.ListViewItem("Terror Zones");
             System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem("Waypoint Taker");
             System.Windows.Forms.ListViewItem listViewItem30 = new System.Windows.Forms.ListViewItem("Dark Wood");
             System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("Tristram");
@@ -221,7 +221,7 @@ partial class FormSettings
             listViewItem25.StateImageIndex = 0;
             listViewItem26.StateImageIndex = 0;
             listViewItem27.StateImageIndex = 0;
-            listViewItem28.StateImageIndex = 0;
+            //listViewItem28.StateImageIndex = 0;
             listViewItem29.StateImageIndex = 0;
             this.listViewRunScripts.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
@@ -252,7 +252,7 @@ partial class FormSettings
             listViewItem25,
             listViewItem26,
             listViewItem27,
-            listViewItem28,
+            //listViewItem28,
             listViewItem29});
             this.listViewRunScripts.Location = new System.Drawing.Point(12, 168);
             this.listViewRunScripts.Name = "listViewRunScripts";

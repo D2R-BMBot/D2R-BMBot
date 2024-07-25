@@ -1070,8 +1070,8 @@ public class MapAreaStruc
         
         if (area == Enums.Area.ChaosSanctuary)
         
-            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
-            {
+            //for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
+            //{
                 foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
                 {
 
@@ -1080,12 +1080,12 @@ public class MapAreaStruc
 
                 }
 
-            }
+            //}
         
         if (area == Enums.Area.TowerCellarLevel1 || area == Enums.Area.TowerCellarLevel2 || area == Enums.Area.TowerCellarLevel3 || area == Enums.Area.TowerCellarLevel4 || area == Enums.Area.TowerCellarLevel5)
         {
-            for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
-            {
+            //for (int i = 0; i < AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects.Count; i++)
+            //{
                 foreach (var item in AllMapData[(int)Form1_0.PlayerScan_0.levelNo].Objects)
                 {
 
@@ -1093,7 +1093,7 @@ public class MapAreaStruc
                         cg[item.X, item.Y] = false;
                 }
 
-            }
+            //}
         }
 
         // Lut Gholein map is a bit bugged, we should close this fake path to avoid pathing issues
@@ -1547,7 +1547,491 @@ public class MapAreaStruc
             cg[422, 287] = false;
             cg[423, 287] = false;
 
+            cg[417, 288] = false;
+            cg[418, 288] = false;
+            cg[419, 288] = false;
+            cg[420, 288] = false;
+            cg[421, 288] = false;
+            cg[422, 288] = false;
+            cg[423, 288] = false;
 
+            cg[417, 289] = false;
+            cg[418, 289] = false;
+            cg[419, 289] = false;
+            cg[420, 289] = false;
+            cg[421, 289] = false;
+            cg[422, 289] = false;
+            cg[423, 289] = false;
+
+            cg[417, 290] = false;
+            cg[418, 290] = false;
+            cg[419, 290] = false;
+            cg[420, 290] = false;
+            cg[421, 290] = false;
+            cg[422, 290] = false;
+            cg[423, 290] = false;
+            //stairs
+            cg[417, 285] = false;
+            cg[418, 285] = false;
+            cg[419, 285] = false;
+            cg[420, 285] = false;
+            cg[421, 285] = false;
+
+            cg[417, 284] = false;
+            cg[418, 284] = false;
+            cg[419, 284] = false;
+            cg[420, 284] = false;
+            cg[421, 284] = false;
+
+            cg[416, 283] = false;
+            cg[417, 283] = false;
+            cg[418, 283] = false;
+            cg[419, 283] = false;
+            cg[420, 283] = false;
+            cg[421, 283] = false;
+
+            cg[410, 296] = false;
+            cg[411, 296] = false;
+            cg[412, 296] = false;
+            cg[413, 296] = false;
+            cg[414, 296] = false;
+
+            cg[408, 275] = false;
+            cg[409, 275] = false;
+            cg[410, 275] = false;
+            cg[411, 275] = false;
+            cg[412, 275] = false;
+            cg[413, 275] = false;
+            cg[414, 275] = false;
+            cg[415, 275] = false;
+            cg[416, 275] = false;
+            cg[417, 275] = false;
+
+            cg[411, 276] = false;
+            cg[412, 276] = false;
+            cg[413, 276] = false;
+            cg[414, 276] = false;
+            cg[415, 276] = false;
+            cg[416, 276] = false;
+            cg[417, 276] = false;
+
+            cg[412, 277] = false;
+            cg[413, 277] = false;
+            cg[414, 277] = false;
+            cg[413, 277] = false;
+            cg[414, 277] = false;
+            cg[414, 277] = false;
+            cg[415, 277] = false;
+            cg[416, 277] = false;
+            cg[417, 277] = false;
+            cg[418, 277] = false;
+            cg[419, 277] = false;
+            cg[420, 277] = false;
+            cg[421, 277] = false;
+
+            cg[413, 278] = false;
+            cg[414, 278] = false;
+            cg[414, 278] = false;
+            cg[415, 278] = false;
+            cg[416, 278] = false;
+            cg[417, 278] = false;
+            cg[418, 278] = false;
+            cg[419, 278] = false;
+            cg[420, 278] = false;
+            cg[421, 278] = false;
+
+            cg[414, 279] = false;   
+            cg[415, 279] = false;
+            cg[416, 279] = false;
+            cg[417, 279] = false;
+            cg[418, 279] = false;
+            cg[419, 279] = false;
+            cg[420, 279] = false;
+            cg[421, 279] = false;
+            cg[422, 279] = false;
+            cg[423, 279] = false;
+
+            cg[415, 280] = false;
+            cg[416, 280] = false;
+            cg[417, 280] = false;
+            cg[418, 280] = false;
+            cg[419, 280] = false;
+            cg[420, 280] = false;
+            cg[421, 280] = false;
+            cg[422, 280] = false;
+            cg[423, 280] = false;
+
+            cg[415, 281] = false;
+            cg[416, 281] = false;
+            cg[417, 281] = false;
+            cg[418, 281] = false;
+            cg[419, 281] = false;
+            cg[420, 281] = false;
+            cg[421, 281] = false;
+            cg[422, 281] = false;
+            cg[423, 281] = false;
+            
+            cg[416, 282] = false;
+            cg[417, 282] = false;
+            cg[418, 282] = false;
+            cg[419, 282] = false;
+            cg[420, 282] = false;
+            cg[421, 282] = false;
+            cg[422, 282] = false;
+            cg[423, 282] = false;
+            //upper platform
+            cg[402, 266] = false;
+            cg[403, 266] = false;
+            cg[404, 266] = false;
+            cg[405, 266] = false;
+            cg[406, 266] = false;
+
+            cg[402, 267] = false;
+            cg[403, 267] = false;
+            cg[404, 267] = false;
+            cg[405, 267] = false;
+            cg[406, 267] = false;
+
+            cg[402, 268] = false;
+            cg[403, 268] = false;
+            cg[404, 268] = false;
+            cg[405, 268] = false;
+            cg[406, 268] = false;
+
+            cg[402, 269] = false;
+            cg[403, 269] = false;
+            cg[404, 269] = false;
+            cg[405, 269] = false;
+            cg[406, 269] = false;
+
+            cg[402, 270] = false;
+            cg[403, 270] = false;
+            cg[404, 270] = false;
+            cg[405, 270] = false;
+            cg[406, 270] = false;
+
+            cg[402, 271] = false;
+            cg[403, 271] = false;
+            cg[404, 271] = false;
+            cg[405, 271] = false;
+            cg[406, 271] = false;
+
+            //West
+            cg[396, 812] = false;
+            cg[397, 812] = false;
+            cg[398, 812] = false;
+            cg[399, 812] = false;
+            cg[400, 812] = false;
+            cg[401, 812] = false;
+            cg[402, 812] = false;
+            cg[403, 812] = false;
+            cg[404, 812] = false;
+            cg[405, 812] = false;
+            cg[406, 812] = false;
+            cg[407, 812] = false;
+            cg[408, 812] = false;
+
+            cg[396, 813] = false;
+            cg[397, 813] = false;
+            cg[398, 813] = false;
+            cg[399, 813] = false;
+            cg[400, 813] = false;
+            cg[401, 813] = false;
+            cg[402, 813] = false;
+            cg[403, 813] = false;
+            cg[404, 813] = false;
+            cg[405, 813] = false;
+            cg[406, 813] = false;
+            cg[407, 813] = false;
+            cg[408, 813] = false;
+
+            cg[396, 814] = false;
+            cg[397, 814] = false;
+            cg[398, 814] = false;
+            cg[399, 814] = false;
+            cg[400, 814] = false;
+            cg[401, 814] = false;
+            cg[402, 814] = false;
+            cg[403, 814] = false;
+            cg[404, 814] = false;
+            cg[405, 814] = false;
+            cg[406, 814] = false;
+            cg[407, 814] = false;
+            cg[408, 814] = false;
+
+            cg[396, 815] = false;
+            cg[397, 815] = false;
+            cg[398, 815] = false;
+            cg[399, 815] = false;
+            cg[400, 815] = false;
+            cg[401, 815] = false;
+            cg[402, 815] = false;
+            cg[403, 815] = false;
+            cg[404, 815] = false;
+            cg[405, 815] = false;
+            cg[406, 815] = false;
+            cg[407, 815] = false;
+            cg[408, 815] = false;
+
+            cg[396, 816] = false;
+            cg[397, 816] = false;
+            cg[398, 816] = false;
+            cg[399, 816] = false;
+            cg[400, 816] = false;
+            cg[401, 816] = false;
+            cg[402, 816] = false;
+            cg[403, 816] = false;
+            cg[404, 816] = false;
+            cg[405, 816] = false;
+            cg[406, 816] = false;
+            cg[407, 816] = false;
+            cg[408, 816] = false;
+
+            cg[396, 817] = false;
+            cg[397, 817] = false;
+            cg[398, 817] = false;
+            cg[399, 817] = false;
+            cg[400, 817] = false;
+            cg[401, 817] = false;
+            cg[402, 817] = false;
+            cg[403, 817] = false;
+            cg[404, 817] = false;
+            cg[405, 817] = false;
+            cg[406, 817] = false;
+            cg[407, 817] = false;
+            cg[408, 817] = false;
+
+            cg[396, 818] = false;
+            cg[397, 818] = false;
+            cg[398, 818] = false;
+            cg[399, 818] = false;
+            cg[400, 818] = false;
+            cg[401, 818] = false;
+            cg[402, 818] = false;
+            cg[403, 818] = false;
+            cg[404, 818] = false;
+            cg[405, 818] = false;
+            cg[406, 818] = false;
+            cg[407, 818] = false;
+            cg[408, 818] = false;
+
+            cg[396, 819] = false;
+            cg[397, 819] = false;
+            cg[398, 819] = false;
+            cg[399, 819] = false;
+            cg[400, 819] = false;
+            cg[401, 819] = false;
+            cg[402, 819] = false;
+            cg[403, 819] = false;
+            cg[404, 819] = false;
+            cg[405, 819] = false;
+            cg[406, 819] = false;
+            cg[407, 819] = false;
+            cg[408, 819] = false;
+
+            cg[396, 820] = false;
+            cg[397, 820] = false;
+            cg[398, 820] = false;
+            cg[399, 820] = false;
+            cg[400, 820] = false;
+            cg[401, 820] = false;
+            cg[402, 820] = false;
+            cg[403, 820] = false;
+            cg[404, 820] = false;
+            cg[405, 820] = false;
+            cg[406, 820] = false;
+            cg[407, 820] = false;
+            cg[408, 820] = false;
+
+            cg[403, 751] = false;
+            cg[404, 751] = false;
+            cg[405, 751] = false;
+
+            cg[403, 752] = false;
+            cg[404, 752] = false;
+            cg[405, 752] = false;
+            cg[406, 752] = false;
+            cg[407, 752] = false;
+            cg[408, 752] = false;
+
+            cg[403, 753] = false;
+            cg[404, 753] = false;
+            cg[405, 753] = false;
+            cg[406, 753] = false;
+            cg[407, 753] = false;
+            cg[408, 753] = false;
+            cg[409, 753] = false;
+            cg[410, 753] = false;
+
+            cg[403, 754] = false;
+            cg[404, 754] = false;
+            cg[405, 754] = false;
+            cg[406, 754] = false;
+            cg[407, 754] = false;
+            cg[408, 754] = false;
+            cg[409, 754] = false;
+            cg[410, 754] = false;
+            cg[411, 754] = false;
+            cg[412, 754] = false;
+
+            cg[404, 755] = false;
+            cg[405, 755] = false;
+            cg[406, 755] = false;
+            cg[407, 755] = false;
+            cg[408, 755] = false;
+            cg[409, 755] = false;
+            cg[410, 755] = false;
+            cg[411, 755] = false;
+            cg[412, 755] = false;
+            cg[413, 755] = false;
+
+            cg[404, 756] = false;
+            cg[405, 756] = false;
+            cg[406, 756] = false;
+            cg[407, 756] = false;
+            cg[408, 756] = false;
+            cg[409, 756] = false;
+            cg[410, 756] = false;
+            cg[411, 756] = false;
+            cg[412, 756] = false;
+            cg[413, 756] = false;
+            cg[414, 756] = false;
+
+            cg[404, 757] = false;
+            cg[405, 757] = false;
+            cg[412, 757] = false;
+            cg[413, 757] = false;
+            cg[414, 757] = false;
+            cg[415, 757] = false;
+
+            cg[404, 758] = false;
+            cg[405, 758] = false;
+            cg[412, 758] = false;
+            cg[413, 758] = false;
+            cg[414, 758] = false;
+            cg[415, 758] = false;
+            cg[416, 758] = false;
+
+            cg[404, 760] = false;
+            cg[405, 760] = false;
+            cg[415, 760] = false;
+            cg[416, 760] = false;
+            cg[417, 760] = false;
+            cg[418, 760] = false;
+
+            cg[438, 791] = false;
+            cg[439, 791] = false;
+            cg[440, 791] = false;
+            cg[441, 791] = false;
+            cg[442, 791] = false;
+            cg[443, 791] = false;
+            cg[444, 791] = false;
+            cg[445, 791] = false;
+
+            cg[438, 792] = false;
+            cg[439, 792] = false;
+            cg[440, 792] = false;
+            cg[441, 792] = false;
+            cg[442, 792] = false;
+            cg[443, 792] = false;
+            cg[444, 792] = false;
+            cg[445, 792] = false;
+            cg[446, 792] = false;
+            cg[447, 792] = false;
+            cg[448, 792] = false;
+
+            cg[438, 793] = false;
+            cg[439, 793] = false;
+            cg[440, 793] = false;
+            cg[441, 793] = false;
+            cg[442, 793] = false;
+            cg[443, 793] = false;
+            cg[444, 793] = false;
+            cg[445, 793] = false;
+            cg[446, 793] = false;
+            cg[447, 793] = false;
+            cg[448, 793] = false;
+            cg[449, 793] = false;
+            cg[450, 793] = false;
+
+            cg[438, 794] = false;
+            cg[439, 794] = false;
+            cg[440, 794] = false;
+            cg[441, 794] = false;
+            cg[442, 794] = false;
+            cg[443, 794] = false;
+            cg[444, 794] = false;
+            cg[445, 794] = false;
+            cg[446, 794] = false;
+            cg[447, 794] = false;
+            cg[448, 794] = false;
+            cg[449, 794] = false;
+            cg[450, 794] = false;
+            cg[451, 794] = false;
+            cg[452, 794] = false;
+
+            cg[448, 795] = false;
+            cg[449, 795] = false;
+            cg[450, 795] = false;
+            cg[451, 795] = false;
+            cg[452, 795] = false;
+            cg[453, 795] = false;
+
+            cg[451, 796] = false;
+            cg[452, 796] = false;
+            cg[453, 796] = false;
+            cg[454, 796] = false;
+
+            cg[452, 797] = false;
+            cg[453, 797] = false;
+            cg[454, 797] = false;
+            cg[455, 797] = false;
+            
+            cg[453, 798] = false;
+            cg[454, 798] = false;
+            cg[455, 798] = false;
+            cg[456, 798] = false;
+
+            cg[454, 799] = false;
+            cg[455, 799] = false;
+            cg[456, 799] = false;
+            cg[457, 799] = false;
+
+            cg[455, 800] = false;
+            cg[456, 800] = false;
+            cg[457, 800] = false;
+            cg[458, 800] = false;
+
+            cg[455, 801] = false;
+            cg[456, 801] = false;
+            cg[457, 801] = false;
+            cg[458, 801] = false;
+
+            cg[455, 802] = false;
+            cg[456, 802] = false;
+            cg[457, 802] = false;
+            cg[458, 802] = false;
+
+            cg[455, 803] = false;
+            cg[456, 803] = false;
+            cg[457, 803] = false;
+            cg[458, 803] = false;
+
+            cg[457, 804] = false;
+            cg[458, 804] = false;
+            cg[459, 804] = false;
+
+            cg[457, 805] = false;
+            cg[458, 805] = false;
+            cg[459, 805] = false;
+
+            cg[457, 806] = false;
+            cg[458, 806] = false;
+            cg[459, 806] = false;
+            cg[460, 806] = false;
+            cg[461, 806] = false;
+            cg[462, 806] = false;
+            cg[463, 806] = false;
 
         }
 

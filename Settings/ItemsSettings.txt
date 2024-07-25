@@ -1365,6 +1365,10 @@
 //[Type] == handtohand && [Quality] == magic && [ShadowDisciplinesSkillTab] == 3 && [Skillfade] == 3 // prebuff 6 venom or 6 fade claw
 //[Type] == handtohand && [Quality] == magic && [ShadowDisciplinesSkillTab] == 3 && [Skillvenom] == 3 // prebuff 6 venom or 6 fade claw
 //[Name] == FeralClaws && [Quality] == magic  && [MartialArtsSkillTab] == 3
+[Type] == assassinclaw && [Quality] <= superior && [Flag] != ethereal && [Skillphoenixstrike] == 3 && ([Sockets] == 0 || [Sockets] == 3)  //mosaic
+[Type] == handtohand && [Quality] <= superior && [Flag] != ethereal && [Skillphoenixstrike] == 3 && ([Sockets] == 0 || [Sockets] == 3)  //mosaic
+[Type] == assassinclaw && [Quality] == normal && [Flag] != ethereal && [Skillphoenixstrike] == 3 && ([Sockets] == 0 || [Sockets] == 3)  //mosaic
+[Type] == handtohand && [Quality] == normal && [Flag] != ethereal && [Skillphoenixstrike] == 3 && ([Sockets] == 0 || [Sockets] == 3)  //mosaic
 
 //##### Sorceress Orbs
 

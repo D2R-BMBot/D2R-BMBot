@@ -93,7 +93,7 @@ public partial class FormSettings : Form
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunNihlatakScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunBaalScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunBaalLeechScript;
-        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunTerrorZonesScript;
+        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunTerrorZonesScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunWPTaker;
 
         CurrI = 0;
@@ -296,7 +296,7 @@ public partial class FormSettings : Form
         CharConfig.RunNihlatakScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunBaalScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunBaalLeechScript = listViewRunScripts.Items[CurrI++].Checked;
-        CharConfig.RunTerrorZonesScript = listViewRunScripts.Items[CurrI++].Checked;
+        //CharConfig.RunTerrorZonesScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunWPTaker = listViewRunScripts.Items[CurrI++].Checked;
 
         CurrI = 0;

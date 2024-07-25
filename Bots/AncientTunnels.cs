@@ -178,11 +178,15 @@ public class AncientTunnels
                     }
                     
                     Form1_0.SetGameStatus("CLEARING ANCIENT TUNNELS");
-                    Form1_0.WaitDelay(250);
-                    if ((Enums.Area)Form1_0.Battle_0.AreaIDFullyCleared != Enums.Area.AncientTunnels)
-                    {
-                        Form1_0.Battle_0.ClearFullAreaOfMobs();
-                        TakeChest(Enums.Area.AncientTunnels);
+                    Form1_0.WaitDelay(150);
+                
+                    if //((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.AncientTunnels)
+                       ((Enums.Area)Form1_0.Battle_0.AreaIDFullyCleared != Enums.Area.AncientTunnels)
+                        {
+                        
+                            Form1_0.Battle_0.ClearFullAreaOfMobs();
+                            TakeChest(Enums.Area.AncientTunnels);
+
                     if (!Form1_0.Battle_0.ClearingArea)
                         {
                             Form1_0.Town_0.FastTowning = false;
