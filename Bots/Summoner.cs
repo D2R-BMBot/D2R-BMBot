@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Enums;
 using static MapAreaStruc;
 
 public class Summoner
@@ -12,6 +13,9 @@ public class Summoner
 
     public int CurrentStep = 0;
     public bool ScriptDone = false;
+
+    public List<Area> TerrorZonesAreas = new List<Area>();
+    public int CurrentTerrorZonesIndex = 0;
 
 
     public void SetForm1(Form1 form1_1)
@@ -23,11 +27,15 @@ public class Summoner
     {
         CurrentStep = 0;
         ScriptDone = false;
+        TerrorZonesAreas = new List<Area>();
+        CurrentTerrorZonesIndex = 0;
     }
 
     public void RunScript()
     {
         Form1_0.Town_0.ScriptTownAct = 2; //set to town act 5 when running this script
+        
+        //if (TerrorZonesAreas.Count == 0) TerrorZonesAreas = Form1_0.GameStruc_0.GetTerrorZones();
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
         {
@@ -47,8 +55,9 @@ public class Summoner
             if (CurrentStep == 0)
             {
                 Form1_0.SetGameStatus("DOING SUMMONER");
+                //Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 25439, Y = 5446 });
                 Form1_0.Battle_0.CastDefense();
-                Form1_0.WaitDelay(15);
+                Form1_0.WaitDelay(200);
 
                 if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ArcaneSanctuary)
                 {
@@ -63,6 +72,10 @@ public class Summoner
 
             if (CurrentStep == 1)
             {
+                Form1_0.WaitDelay(50);
+                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 25439, Y = 5446 });
+                Form1_0.WaitDelay(50);
+
                 Form1_0.PathFinding_0.MoveToNPC("Summoner");
 
                 CurrentStep++;

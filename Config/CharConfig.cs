@@ -137,7 +137,7 @@ public static class CharConfig
     public static bool RunA3SewersScript = false;
     public static bool RunBaalScript = true;
     public static bool RunBaalLeechScript = true;       //BAAL LEECH SCRIPT
-    public static bool RunTerrorZonesScript = false;
+    //public static bool RunTerrorZonesScript = false;
     public static bool RunItemGrabScriptOnly = false;
     public static bool RunShopBotScript = false;
     public static bool RunMausoleumScript = false;

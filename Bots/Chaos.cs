@@ -148,7 +148,7 @@ public class Chaos
                     Form1_0.Town_0.TPSpawned = false;
 
                     BufferPathFindingMoveSize = Form1_0.PathFinding_0.AcceptMoveOffset;
-                    Form1_0.PathFinding_0.AcceptMoveOffset = 15;
+                    Form1_0.PathFinding_0.AcceptMoveOffset = 25; //default 15
 
                     CurrentStep++;
                 }
@@ -172,6 +172,7 @@ public class Chaos
                     int InteractCount = 0;
                     while (InteractCount < 3)
                     {
+                        Form1_0.Battle_0.DoBattleScript(10);
                         Form1_0.PathFinding_0.MoveToObject("DiabloSeal5");
                         Form1_0.WaitDelay(10);
                         InteractCount++;
@@ -273,6 +274,7 @@ public class Chaos
                     int InteractCount = 0;
                     while (InteractCount < 3)
                     {
+                        Form1_0.Battle_0.DoBattleScript(10);
                         Form1_0.PathFinding_0.MoveToObject("DiabloSeal4");
                         Form1_0.WaitDelay(10);
                         InteractCount++;
@@ -298,6 +300,7 @@ public class Chaos
                     int InteractCount = 0;
                     while (InteractCount < 3)
                     {
+                        Form1_0.Battle_0.DoBattleScript(10);
                         Form1_0.PathFinding_0.MoveToObject("DiabloSeal3");
                         Form1_0.WaitDelay(10);
                         InteractCount++;
@@ -367,7 +370,7 @@ public class Chaos
                             }
                             else
                             {
-                                //Form1_0.Battle_0.CastDefense();
+                                Form1_0.Battle_0.CastDefense();
                                 Form1_0.InventoryStruc_0.DumpBadItemsOnGround();
                                 TimeSetForWaitingUniqueBoss = false;
                                 CurrentStep++;
@@ -399,6 +402,7 @@ public class Chaos
                     int InteractCount = 0;
                     while (InteractCount < 3)
                     {
+                        Form1_0.Battle_0.DoBattleScript(10);
                         Form1_0.PathFinding_0.MoveToObject("DiabloSeal2");
                         Form1_0.WaitDelay(10);
                         InteractCount++;
@@ -424,6 +428,7 @@ public class Chaos
                     int InteractCount = 0;
                     while (InteractCount < 3)
                     {
+                        Form1_0.Battle_0.DoBattleScript(10);
                         Form1_0.PathFinding_0.MoveToObject("DiabloSeal1");
                         Form1_0.WaitDelay(10);
                         InteractCount++;

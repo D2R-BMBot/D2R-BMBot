@@ -298,6 +298,7 @@ public static class Enums
         belt,
         circlet,
         assassinclaw,
+        handtohand,
         orb,
         amazonbow,
         amazonspear,

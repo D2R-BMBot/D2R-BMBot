@@ -414,7 +414,7 @@ public class Battle
         IgnoredMobsPointer = new List<long>();
         AttackNotRegisteredCount = 0;
         MoveTryCount = 0;
-        ClearingSize = 500;
+        ClearingSize = 1000;
         ClearingFullArea = true;
         DoingRoomIndex = 0;
 
@@ -426,7 +426,7 @@ public class Battle
 
     public void SetBattleMoveAcceptOffset()
     {
-        if (CharConfig.RunningOnChar.ToLower().Contains("sorc")) Form1_0.Mover_0.MoveAcceptOffset = 10;
+        if (CharConfig.RunningOnChar.ToLower().Contains("sorc")) Form1_0.Mover_0.MoveAcceptOffset = 7;
         else Form1_0.Mover_0.MoveAcceptOffset = 4; //default
     }
 
@@ -522,7 +522,7 @@ public class Battle
 
             DoingBattle = true;
             SetBattleMoveAcceptOffset();
-            Form1_0.Mover_0.MoveAcceptOffset = 2;
+            //Form1_0.Mover_0.MoveAcceptOffset = 2;
             Position ThisAttackPos = GetBestAttackLocation(new Position { X = Form1_0.MobsStruc_0.xPosFinal + 1, Y = Form1_0.MobsStruc_0.yPosFinal + 5 });
             if (ThisAttackPos.X != 0 && ThisAttackPos.Y != 0)
             {

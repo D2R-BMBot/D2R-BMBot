@@ -56,7 +56,7 @@ public class Pindleskin
             Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 5117, 5120);
 
             Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y - 15);
-            Form1_0.WaitDelay(100);
+            Form1_0.WaitDelay(50);
             //}
             //Form1_0.Town_0.GoToWPArea(3, 8);
         }

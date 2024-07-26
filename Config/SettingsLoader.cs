@@ -366,7 +366,7 @@ public class SettingsLoader
                 if (Splitted[0] == "RunShenkScript") AllLines[i] = "RunShenkScript=" + CharConfig.RunShenkScript;
                 if (Splitted[0] == "RunNihlatakScript") AllLines[i] = "RunNihlatakScript=" + CharConfig.RunNihlatakScript;
                 if (Splitted[0] == "RunFrozensteinScript") AllLines[i] = "RunFrozensteinScript=" + CharConfig.RunFrozensteinScript;
-                if (Splitted[0] == "RunTerrorZonesScript") AllLines[i] = "RunTerrorZonesScript=" + CharConfig.RunTerrorZonesScript;
+                //if (Splitted[0] == "RunTerrorZonesScript") AllLines[i] = "RunTerrorZonesScript=" + CharConfig.RunTerrorZonesScript;
                 if (Splitted[0] == "RunShopBotScript") AllLines[i] = "RunShopBotScript=" + CharConfig.RunShopBotScript;
                 if (Splitted[0] == "RunMausoleumScript") AllLines[i] = "RunMausoleumScript=" + CharConfig.RunMausoleumScript;
                 if (Splitted[0] == "RunAncientTunnelsScript") AllLines[i] = "RunAncientTunnelsScript=" + CharConfig.RunAncientTunnelsScript;
@@ -1385,10 +1385,10 @@ public class SettingsLoader
                             {
                                 CharConfig.RunFrozensteinScript = bool.Parse(Params[1].ToLower());
                             }
-                            if (Params[0].Contains("RunTerrorZonesScript"))
+                            /*if (Params[0].Contains("RunTerrorZonesScript"))
                             {
                                 CharConfig.RunTerrorZonesScript = bool.Parse(Params[1].ToLower());
-                            }
+                            }*/
                             if (Params[0].Contains("RunShopBotScript"))
                             {
                                 CharConfig.RunShopBotScript = bool.Parse(Params[1].ToLower());

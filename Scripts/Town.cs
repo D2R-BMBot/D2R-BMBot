@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -246,7 +247,7 @@ public class Town
                     if (Form1_0.ItemsStruc_0.ItemsEquiped <= 2 && FirstTown)
                     {
                         //int Tries = 0;
-                        //while (Tries < 5)
+                        //while (Tries < 3)
                         //{
                         //Console.WriteLine("Corpse found method2");
                         Form1_0.method_1("Grab corpse #3", Color.Red);
@@ -256,7 +257,7 @@ public class Town
                         Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal);
 
                         Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X - 45, itemScreenPos.Y - 5);
-                        //Form1_0.WaitDelay(100);
+                        Form1_0.WaitDelay(50);
                         //Tries++;
                         //}
                     }
@@ -361,6 +362,7 @@ public class Town
                     {
                         Form1_0.SetGameStatus("TOWN-MERC (" + (TriedToMercCount + 1) + "/" + CharConfig.MaxMercReliveTries + ")");
                         MoveToMerc();
+                        Form1_0.WaitDelay(50);
                         TriedToMercCount++;
                     }
                     else
@@ -1083,6 +1085,8 @@ public class Town
 
         if (TownAct == 5)
         {
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+            Form1_0.WaitDelay(25);
             CheckForNPCValidPos("Malah");
             Form1_0.PathFinding_0.MoveToNPC("Malah");
             //Form1_0.NPCStruc_0.GetNPC("Malah");
@@ -1239,8 +1243,21 @@ public class Town
 
         if (TownAct == 5)
         {
-            Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
-            MovedCorrectly = true;
+
+            if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
+            {
+                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+                Form1_0.WaitDelay(25);
+                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
+                Form1_0.WaitDelay(25);
+                Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                MovedCorrectly = true;
+            }
+            else
+            {
+                Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                MovedCorrectly = true;
+            }
         }
 
         if (MovedCorrectly)
@@ -1260,6 +1277,7 @@ public class Town
             Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.NPCStruc_0.xPosFinal, Form1_0.NPCStruc_0.yPosFinal);
 
             Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y);
+            Form1_0.WaitDelay(15);
             if (Form1_0.UIScan_0.WaitTilUIOpen("npcInteract"))
             {
                 //Clic Identify items (get cain pos again) - 227 offset y
@@ -1290,6 +1308,8 @@ public class Town
         }*/
         if (TownAct == 2)
         {
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5044, Y = 5050 });
+            Form1_0.WaitDelay(50);
             CheckForNPCValidPos("Greiz");
             Form1_0.PathFinding_0.MoveToNPC("Greiz");
             Form1_0.NPCStruc_0.GetNPC("Greiz");
@@ -1305,6 +1325,7 @@ public class Town
 
         if (TownAct == 4)
         {
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5019, Y = 5023 });
             CheckForNPCValidPos("Tyrael");
             Form1_0.PathFinding_0.MoveToNPC("Tyrael");
             Form1_0.NPCStruc_0.GetNPC("Tyrael");
@@ -1313,6 +1334,10 @@ public class Town
 
         if (TownAct == 5)
         {
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+            Form1_0.WaitDelay(25);
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
+            Form1_0.WaitDelay(25);
             CheckForNPCValidPos("QualKehk");
             Form1_0.PathFinding_0.MoveToNPC("QualKehk");
             Form1_0.NPCStruc_0.GetNPC("QualKehk");

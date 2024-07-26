@@ -41,7 +41,7 @@ using System.Linq.Expressions;
 public partial class Form1 : Form
 {
 
-    public string BotVersion = "V3.05R3";
+    public string BotVersion = "V3.05R4";
 
     public string D2_LOD_113C_Path = "";
 
@@ -211,7 +211,7 @@ public partial class Form1 : Form
 
     public OverlayForm overlayForm;
     public ScriptsLoader ScriptsLoader_0;
-    public TerrorZones TerrorZones_0;
+    //public TerrorZones TerrorZones_0;
     public AreaScript AreaScript_0;
 
     public ItemsViewer ItemsViewer_0;
@@ -377,7 +377,7 @@ public partial class Form1 : Form
         Shenk_0 = new Shenk();
         Nihlatak_0 = new Nihlatak();
         Frozenstein_0 = new Frozenstein();
-        TerrorZones_0 = new TerrorZones();
+        //TerrorZones_0 = new TerrorZones();
         AreaScript_0 = new AreaScript();
         ShopBot_0 = new ShopBot();
         Mausoleum_0 = new Mausoleum();
@@ -461,7 +461,7 @@ public partial class Form1 : Form
         Shenk_0.SetForm1(Form1_0);
         Nihlatak_0.SetForm1(Form1_0);
         Frozenstein_0.SetForm1(Form1_0);
-        TerrorZones_0.SetForm1(Form1_0);
+       //TerrorZones_0.SetForm1(Form1_0);
         AreaScript_0.SetForm1(Form1_0);
         ShopBot_0.SetForm1(Form1_0);
         Mausoleum_0.SetForm1(Form1_0);
@@ -1118,7 +1118,7 @@ public partial class Form1 : Form
         Shenk_0.ResetVars();
         Nihlatak_0.ResetVars();
         Frozenstein_0.ResetVars();
-        TerrorZones_0.ResetVars();
+        //TerrorZones_0.ResetVars();
         ShopBot_0.ResetVars();
         Mausoleum_0.ResetVars();
         AncientTunnels_0.ResetVars();
@@ -1555,17 +1555,17 @@ public partial class Form1 : Form
                                                                                                                                                 {
                                                                                                                                                     BaalLeech_0.RunScript();
                                                                                                                                                 }
-                                                                                                                                                else
-                                                                                                                                                {
-                                                                                                                                                    if (CharConfig.RunTerrorZonesScript && !TerrorZones_0.ScriptDone)
+                                                                                                                                                //else
+                                                                                                                                                //{
+                                                                                                                                                    /*if (CharConfig.RunTerrorZonesScript && !TerrorZones_0.ScriptDone)
                                                                                                                                                     {
                                                                                                                                                         TerrorZones_0.RunScript();
-                                                                                                                                                    }
+                                                                                                                                                    }*/
                                                                                                                                                     else
                                                                                                                                                     {
                                                                                                                                                         Form1_0.LeaveGame(true);
                                                                                                                                                     }
-                                                                                                                                                }
+                                                                                                                                                //}
                                                                                                                                             }
                                                                                                                                         }
                                                                                                                                     }
@@ -1907,7 +1907,7 @@ public partial class Form1 : Form
                 else if (CharConfig.RunNihlatakScript && !Nihlatak_0.ScriptDone) Nihlatak_0.ScriptDone = true;
                 else if (CharConfig.RunBaalScript && !Baal_0.ScriptDone) Baal_0.ScriptDone = true;
                 else if (CharConfig.RunBaalLeechScript && !BaalLeech_0.ScriptDone) BaalLeech_0.ScriptDone = true;
-                else if (CharConfig.RunTerrorZonesScript && !TerrorZones_0.ScriptDone) TerrorZones_0.ScriptDone = true;
+                //else if (CharConfig.RunTerrorZonesScript && !TerrorZones_0.ScriptDone) TerrorZones_0.ScriptDone = true;
             }
             else
             {
