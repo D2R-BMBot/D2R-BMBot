@@ -67,4 +67,20 @@ public static class GameMemoryService
         
         return BitConverter.ToInt16(buffer, 0);
     }
+
+    public static string ReadString(InstanceData p_instance, IntPtr p_address, int p_stringMaxLength = 16)
+    {
+        var returnString = string.Empty;
+        
+        for (var i = 0; i < p_stringMaxLength; i++)
+        {
+            var currentByte = ReadByte(p_instance, p_address + i);
+            
+            if (currentByte == 0x00) break;
+            
+            returnString += (char)currentByte;
+        }
+        
+        return returnString;
+    }
 }

@@ -271,6 +271,7 @@ public class PatternsScan
     //ALL VERSIONS
     public void scanForUnitsPointer(string SearchUnitsType)
     {
+        var test = AllNPCPointers;
         if (UnitsScanVersion == 1) scanForUnitsPointerV1(SearchUnitsType);
         if (UnitsScanVersion == 2) UnitPatternScanV2(SearchUnitsType);
         if (UnitsScanVersion == 3) UnitPatternScanV3(SearchUnitsType);
@@ -479,6 +480,8 @@ public class PatternsScan
             if (UnitPointerLocation > 0) AllPossiblePointers.Add(UnitPointerLocation);
         }
 
+        var startIndex = AllPossiblePointers.Min();
+        startIndex = Math.Min(startIndex, long.MaxValue);
         //set start index for searching
         for (int i = 0; i < AllPossiblePointers.Count; i++)
         {
@@ -605,6 +608,9 @@ public class PatternsScan
     public void scanForUnitsPointerV1(string SearchUnitsType)
     {
         long UnitOffset = 0;
+        
+        Form1_0.PlayerScan_0.ScanForLeecher();
+        
         try
         {
             UnitOffset = (long)Form1_0.BaseAddress + (long)Form1_0.offsets["unitTable"] + Form1_0.UnitStrucOffset;
@@ -659,7 +665,12 @@ public class PatternsScan
             }
         }
 
+        var test = AllNPCPointers;
+
+        // Seemingly pointless? Immediately undone in UnitPatternScanV1. - Comment by M9 on 07/26/2024 @ 00:00:00
         checkForMissingPointers(SearchUnitsType);
+
+        var test2 = AllNPCPointers;
         UnitPatternScanV1(SearchUnitsType);
     }
 

@@ -5,18 +5,18 @@ using ReactiveUI.Fody.Helpers;
 
 namespace BMBot.GUI.Avalonia.Models.DataStructures.Game.Instance;
 
-public class InstancePointers : ReactiveObject
+public class InstancePointers
 {
-    [Reactive] public IntPtr BaseAddress { get; set; } = 0x0;
+    public IntPtr BaseAddress { get; set; } = 0x0;
 
     public IntPtr UnitTableAddress => BaseAddress + 0x22DA110 - 0x20;
 
     #region Player Data
 
-    [Reactive] public IntPtr PlayerBaseAddress      { get; set; } = 0x00;
-    [Reactive] public IntPtr PlayerUnitAddress      { get; set; } = 0x00;
-    [Reactive] public IntPtr PlayerUnitDataAddress  { get; set; } = 0x00;
-    [Reactive] public IntPtr PlayerPathAddress      { get; set; } = 0x00;
+    public IntPtr PlayerBaseAddress      { get; set; } = 0x00;
+    public IntPtr PlayerUnitAddress      { get; set; } = 0x00;
+    public IntPtr PlayerUnitDataAddress  { get; set; } = 0x00;
+    public IntPtr PlayerPathAddress      { get; set; } = 0x00;
     public            IntPtr PlayerPositionXAddress => PlayerPathAddress + 0x02;
     public            IntPtr PlayerPositionYAddress => PlayerPathAddress + 0x06;
     public            IntPtr PlayerIdAddress        => PlayerUnitAddress + 0x08;

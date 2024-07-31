@@ -26,7 +26,9 @@ public class InstanceData : ReactiveObject
 
         Window    = new WindowData(p_applicationProcess);
         Game  = new GameData();
-        
+
+        // Cannot use standard process handle from p_applicationProcess here.
+        // Must re-open with specified access parameters. - Comment by M9 on 07/25/2024 @ 00:00:00
         ProcessHandle = ProcessInterop.OpenProcess((int)ProcessAccess.PROCESS_QUERY_INFORMATION | (int)ProcessAccess.PROCESS_VM_READ, false, p_applicationProcess.Id);
         
         Pointers.BaseAddress = p_applicationProcess.MainModule.BaseAddress;
@@ -35,33 +37,46 @@ public class InstanceData : ReactiveObject
         
         var refreshTimer = Observable.Interval(TimeSpan.FromSeconds(0.1));
         
-        refreshTimer.Subscribe(_ =>
-                               {
-                                   if ( !Pointers.PointersAreInitialized )
-                                   {
-                                       return;
-                                   }
+        refreshTimer.Subscribe(_ => { Update(); });
+    }
 
-                                   Game.GameSessionIsActive = GameMemoryService.ReadByte(this, Pointers.GameSessionIsActiveAddress) == 0x1;
+    private void Update()
+    {
+        if ( !Pointers.PointersAreInitialized )
+        {
+            return;
+        }
+
+        Game.GameSessionIsActive = GameMemoryService.ReadByte(this, Pointers.GameSessionIsActiveAddress) == 0x1;
                                    
-                                   if ( !Game.GameSessionIsActive )
-                                   {
-                                       if ( !Pointers.PlayerPointersAreInitialized ) return;
+        if ( !Game.GameSessionIsActive )
+        {
+            if ( !Pointers.PlayerPointersAreInitialized ) return;
                                        
-                                       ResetData();
+            ResetData();
 
-                                       return;
-                                   }
+            return;
+        }
 
-                                   if ( !Pointers.PlayerPointersAreInitialized )
-                                   {
-                                       Thread.Sleep(2500);
-                                       FillPlayerPointers();
-                                       Player.Id = $"{GameMemoryService.ReadInt32(this, Pointers.PlayerIdAddress):x8}".ToUpper();
-                                   }
+        if ( !Pointers.PlayerPointersAreInitialized )
+        {
+            // We can't go anything further until the roster is filled. - Comment by M9 on 07/31/2024 @ 00:00:00
+            var rosterPointer = (IntPtr)GameMemoryService.ReadInt64(this, Pointers.RosterAddress);
+
+            if ( rosterPointer == 0x00 )
+            {
+                // Roster isn't finished initializing. Try again next update. - Comment by M9 on 07/31/2024 @ 00:00:00
+                return;
+            }
+            
+            var playerName = GameMemoryService.ReadString(this, rosterPointer);
+            
+            FillPlayerPointers();
+            
+            Player.Id = $"{GameMemoryService.ReadInt32(this, Pointers.PlayerIdAddress):x8}".ToUpper();
+        }
                                    
-                                   UpdateValues();
-                               });
+        UpdateValues();
     }
 
     private void ResetData()

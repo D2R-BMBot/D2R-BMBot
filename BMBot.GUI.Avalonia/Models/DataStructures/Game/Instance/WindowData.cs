@@ -2,8 +2,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-using Avalonia;
-
 using BMBot.GUI.Avalonia.Models.GameWindow;
 
 using ReactiveUI;
@@ -26,6 +24,7 @@ public class WindowData : ReactiveObject, IDisposable
         m_windowHandle = p_process.MainWindowHandle;
 
         WindowHook.WinEventDelegate winEventDelegate = WinEventCallback;
+        
         m_gcSafetyHandle = GCHandle.Alloc(winEventDelegate);
 
         var targetThreadId = WindowHook.GetWindowThread(m_windowHandle);
