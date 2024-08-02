@@ -461,7 +461,7 @@ public class ObjectsStruc
             case 569: return 1; //BaalsPortal2
             case 298: return 1; //ArcaneSanctuaryPortal
             case 377: return 1; //GuildPortal
-            case 737: return 1; //TristiamPortal
+            case 737: return 1; //TristiamPortal Dimped as NPC
         }
         return 0;
     }

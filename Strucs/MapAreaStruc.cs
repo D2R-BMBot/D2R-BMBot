@@ -26,7 +26,8 @@ public class MapAreaStruc
     public List<int> AllExitsIDs = new List<int>();
     List<string> avoidObjects = new List<string> //not working yet
     {
-            "shrine",
+            "shrine", 
+            "Shrine",
             //"Dummy",
             "fire",
             "ArmorStand",

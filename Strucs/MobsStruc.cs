@@ -447,13 +447,13 @@ public class MobsStruc
             int LastDiffY = 999;
             bool GoodMob = false;
 
-            //Set Kill Only the Uniques Mobs
+            //Set Kill Only the Uniques, Bosses & Champion Mobs
             if (CharConfig.KillOnlySuperUnique && MobType == "" && MobName == ""
                 && (Enums.Area)Form1_0.PlayerScan_0.levelNo != Enums.Area.ThroneOfDestruction)
-            {
-                MobType = "getUniqueName";
+            { 
+                MobType = "getSuperUniqueName";
             }
-
+            
             //Set Fast Chaos Only Super Uniques
             if ((Form1_0.Chaos_0.FastChaos || Form1_0.Chaos_0.FastChaosPopingSeals)
                 && MobType == "" && MobName == ""
