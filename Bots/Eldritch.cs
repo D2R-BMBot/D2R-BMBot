@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Enums;
+using static MapAreaStruc;
 
 public class Eldritch
 {
@@ -41,6 +43,7 @@ public class Eldritch
 
         if (Form1_0.Town_0.GetInTown())
         {
+            Form1_0.Battle_0.CastDefense();
             Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
@@ -50,7 +53,7 @@ public class Eldritch
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING ELDRITCH");
+                Form1_0.SetGameStatus("FHwp");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -71,8 +74,22 @@ public class Eldritch
 
             if (CurrentStep == 1)
             {
-                Form1_0.PathFinding_0.MoveToNPC("Eldritch");
-                CurrentStep++;
+                Form1_0.SetGameStatus("Moving to Attack Pos");
+                Position MidPos = new Position { X = 3737, Y = 5065 };
+                Form1_0.WaitDelay(50);
+                if (Form1_0.Mover_0.MoveToLocation(MidPos.X, MidPos.Y))
+                {
+                    if (CharConfig.RunningOnChar == "Sorceress")
+                    {
+                        Form1_0.Battle_0.SetSkillsStatic();
+                        CurrentStep++;
+                    }
+                    else
+                    {
+                        CurrentStep++;
+                        return;
+                    }
+                }
             }
 
             if (CurrentStep == 2)
@@ -84,28 +101,40 @@ public class Eldritch
                 {
                     if (Form1_0.MobsStruc_0.MobsHP > 0)
                     {
-                        Form1_0.Battle_0.RunBattleScriptOnThisMob("getSuperUniqueName", "Eldritch", new List<long>());
+                        Form1_0.Battle_0.SetSkills();
+                        Form1_0.Battle_0.CastSkills();
+                        return;
                     }
-                    else
+                    if (Form1_0.MobsStruc_0.MobsHP < 1)
                     {
+                        Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 3772, Y = 5109 });
+                        {
+                            ScriptDone = true;
+                            return;
+                        }
+                    }
+                }
+                /*else
+                {
+                    if (Form1_0.MobsStruc_0.MobsHP <= 1)
+
+                    {
+                        ScriptDone = true;
+
+                        /*Form1_0.method_1("Eldritch not detected!", Color.Red);
+
+                        //Eldritch not detected...
+                        Form1_0.ItemsStruc_0.GetItems(true);
+                        if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Eldritch", false, 200, new List<long>())) return; //redetect baal?
+                        Form1_0.ItemsStruc_0.GrabAllItemsForGold();
+                        if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Eldritch", false, 200, new List<long>())) return; //redetect baal?
+                        Form1_0.Potions_0.CanUseSkillForRegen = true;
+
                         if (Form1_0.Battle_0.EndBossBattle()) ScriptDone = true;
                         return;
                     }
-                }
-                else
-                {
-                    Form1_0.method_1("Eldritch not detected!", Color.Red);
-
-                    //baal not detected...
-                    Form1_0.ItemsStruc_0.GetItems(true);
-                    if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Eldritch", false, 200, new List<long>())) return; //redetect baal?
-                    Form1_0.ItemsStruc_0.GrabAllItemsForGold();
-                    if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Eldritch", false, 200, new List<long>())) return; //redetect baal?
-                    Form1_0.Potions_0.CanUseSkillForRegen = true;
-
-                    if (Form1_0.Battle_0.EndBossBattle()) ScriptDone = true;
-                    return;
-                }
+                }*/
+                
             }
         }
     }

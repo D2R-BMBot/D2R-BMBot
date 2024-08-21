@@ -369,7 +369,7 @@ public class Potions
         //Set Lower HP
         if (Form1_0.PlayerScan_0.PlayerHP == PlayerHPLast && SameHPCount >= 45)
         {
-            if (!CharConfig.RunItemGrabScriptOnly && !Form1_0.Battle_0.DoingBattle) Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura);
+            //if (!CharConfig.RunItemGrabScriptOnly && !Form1_0.Battle_0.DoingBattle) Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura);
             if (Form1_0.PlayerScan_0.PlayerHP < Form1_0.PlayerScan_0.PlayerMaxHP)
             {
                 Form1_0.PlayerScan_0.PlayerMaxHP = Form1_0.PlayerScan_0.PlayerHP;

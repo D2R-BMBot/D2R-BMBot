@@ -1236,10 +1236,10 @@ public class Town
 
             if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
             {
-                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+                /*Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
                 Form1_0.WaitDelay(25);
                 Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
-                Form1_0.WaitDelay(25);
+                Form1_0.WaitDelay(25);*/
                 Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
                 MovedCorrectly = true;
             }
@@ -1271,8 +1271,8 @@ public class Town
 
             if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
             {
-                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
-                Form1_0.WaitDelay(25);
+                /*Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+                Form1_0.WaitDelay(25);*/
                 Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
                 Form1_0.WaitDelay(25);
                 Form1_0.PathFinding_0.MoveToNPC("DeckardCain");

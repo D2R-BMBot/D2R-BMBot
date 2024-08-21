@@ -54,7 +54,7 @@ public class Summoner
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING SUMMONER");
+                Form1_0.SetGameStatus("Moving to Summoner");
                 //Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 25439, Y = 5446 });
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(200);
@@ -77,8 +77,17 @@ public class Summoner
                 Form1_0.WaitDelay(50);
 
                 Form1_0.PathFinding_0.MoveToNPC("Summoner");
-
-                CurrentStep++;
+                
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
             }
 
             if (CurrentStep == 2)

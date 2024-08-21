@@ -134,7 +134,7 @@ public class UIScan
             int WaitTime = 0;
             while (true)
             {
-                Form1_0.WaitDelay(1);
+                Form1_0.WaitDelay(5);
                 IsOpen = GetMenuActive(UIName);
                 if (WaitTime > MaxWaitingDelayForMenuInteractions || IsOpen)
                 {
@@ -157,7 +157,7 @@ public class UIScan
             int WaitTime = 0;
             while (true)
             {
-                Form1_0.WaitDelay(1);
+                Form1_0.WaitDelay(5);
                 IsClose = !GetMenuActive(UIName);
                 if (WaitTime > MaxWaitingDelayForMenuInteractions || IsClose)
                 {

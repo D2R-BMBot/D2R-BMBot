@@ -553,11 +553,12 @@ public class Chaos
                     CurrentStep = 3;
                     return;
                 }
-                //#############
+                
 
                 if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Diablo", false, 200, new List<long>()))
                 {
                     Form1_0.SetGameStatus("KILLING DIABLO");
+                    
                     if (Form1_0.MobsStruc_0.MobsHP > 0)
                     {
                         DetectedBoss = true;

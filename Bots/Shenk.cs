@@ -73,6 +73,7 @@ public class Shenk
 
             if (CurrentStep == 1)
             {
+                Form1_0.SetGameStatus("Moving to SHENK");
                 Position MidPos = new Position { X = 3854, Y = 5119 };
                 if (Form1_0.Mover_0.MoveToLocation(MidPos.X, MidPos.Y))
                 {
@@ -82,9 +83,18 @@ public class Shenk
 
             if (CurrentStep == 2)
             {
-
                 Form1_0.PathFinding_0.MoveToNPC("Shenk");
-                CurrentStep++;
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
             }
 
             if (CurrentStep == 3)

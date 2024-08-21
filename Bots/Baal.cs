@@ -321,6 +321,7 @@ public class Baal
                 }
                 else
                 {
+                    
                     Form1_0.Battle_0.DoBattleScript(30);
 
                     if (Form1_0.Battle_0.ClearingArea || Form1_0.Battle_0.DoingBattle)
@@ -393,9 +394,10 @@ public class Baal
                     {
                         if (Form1_0.MobsStruc_0.MobsHP > 0)
                         {
-                            Wave5Detected = true;
+                            {
+                                Wave5Detected = true;
+                            }
                         }
-                        else
                         {
                             if (Wave5Detected)
                             {
@@ -499,8 +501,21 @@ public class Baal
                 CurrentStep++;
                 //15065,5891
             }
-
+           
             if (CurrentStep == 8)
+            {
+                    if (CharConfig.RunningOnChar == "Sorceress")
+                    {
+                        Form1_0.Battle_0.SetSkillsStatic();
+                        CurrentStep++;
+                    }
+            else
+            {
+                CurrentStep++;
+                return;
+            }
+        }
+        if (CurrentStep == 9)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING BAAL");

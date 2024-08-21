@@ -84,8 +84,22 @@ public class Pindleskin
                 Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 10058, Y = 13236 });
                 CurrentStep++;
             }
-
             if (CurrentStep == 2)
+            {
+                Form1_0.PathFinding_0.MoveToNPC("Pindleskin");
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 3)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING PINDLESKIN");

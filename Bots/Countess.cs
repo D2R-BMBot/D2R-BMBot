@@ -55,7 +55,7 @@ public class Countess
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING COUNTESS");
+                Form1_0.SetGameStatus("Moving to Countess");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -201,8 +201,22 @@ public class Countess
                     CurrentStep++;
                 }
             }
-
             if (CurrentStep == 8)
+            {
+                Form1_0.PathFinding_0.MoveToNPC("Countess");
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 9)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING COUNTESS");
