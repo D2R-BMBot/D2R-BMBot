@@ -49,7 +49,7 @@ partial class FormSettings
             System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("Mephisto");
             System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("Chaos");
             System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("Chaos Leech");
-            //System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("Eldritch");
+            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("Eldritch");
             System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem("Shenk");
             System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem("Frozenstein (Anya)");
             System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem("Pindleskin");
@@ -214,7 +214,7 @@ partial class FormSettings
             listViewItem18.StateImageIndex = 0;
             listViewItem19.StateImageIndex = 0;
             listViewItem20.StateImageIndex = 0;
-            //listViewItem21.StateImageIndex = 0;
+            listViewItem21.StateImageIndex = 0;
             listViewItem22.StateImageIndex = 0;
             listViewItem23.StateImageIndex = 0;
             listViewItem24.StateImageIndex = 0;
@@ -245,7 +245,7 @@ partial class FormSettings
             listViewItem18,
             listViewItem19,
             listViewItem20,
-            //listViewItem21,
+            listViewItem21,
             listViewItem22,
             listViewItem23,
             listViewItem24,

@@ -99,8 +99,22 @@ public class Nihlatak
                 Form1_0.PathFinding_0.MoveToObject("NihlathakWildernessStartPosition");
                 CurrentStep++;
             }
-
             if (CurrentStep == 3)
+            {
+                //Form1_0.PathFinding_0.MoveToNPC("Nihlathak");
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 4)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING NIHLATAK");

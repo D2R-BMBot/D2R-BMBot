@@ -267,7 +267,7 @@ public class Mover
             Form1_0.KeyMouse_0.MouseClicRelease();
             Form1_0.KeyMouse_0.ReleaseKey(CharConfig.KeyForceMovement);
         }
-        Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura);
+        //Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura);
 
         Form1_0.ItemsStruc_0.AvoidItemsOnGroundPointerList.Clear();
         Form1_0.overlayForm.ResetMoveToLocation();

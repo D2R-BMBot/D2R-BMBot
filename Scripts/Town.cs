@@ -1213,15 +1213,40 @@ public class Town
 
         if (TownAct == 1)
         {
-            if (!CainNotFoundAct1)
+            /*if (!CainNotFoundAct1)
             {
+                Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                MovedCorrectly = true;
+            }
+            //switch to Act 5 Town
+            Form1_0.Town_0.GoToWPArea(5, 0);
+            Form1_0.WaitDelay(25);
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5079, Y = 5078 });
+            Form1_0.WaitDelay(25);
+            CheckForNPCValidPos("QualKehk");
+            else
+            {
+                //go to town act5 for cain
+                ScriptTownAct = 5;
+            }*/
+
+            //switch to Act 5 Town
+            Form1_0.Town_0.GoToWPArea(5, 0);
+            Form1_0.WaitDelay(25);
+
+            if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
+            {
+                /*Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+                Form1_0.WaitDelay(25);
+                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
+                Form1_0.WaitDelay(25);*/
                 Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
                 MovedCorrectly = true;
             }
             else
             {
-                //go to town act5 for cain
-                ScriptTownAct = 5;
+                Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
+                MovedCorrectly = true;
             }
         }
         if (TownAct == 2)
@@ -1246,8 +1271,8 @@ public class Town
 
             if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
             {
-                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
-                Form1_0.WaitDelay(25);
+                /*Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+                Form1_0.WaitDelay(25);*/
                 Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5077, Y = 5078 });
                 Form1_0.WaitDelay(25);
                 Form1_0.PathFinding_0.MoveToNPC("DeckardCain");
@@ -1262,7 +1287,7 @@ public class Town
 
         if (MovedCorrectly)
         {
-            if (!Form1_0.NPCStruc_0.GetNPC("DeckardCain"))
+            /*if (!Form1_0.NPCStruc_0.GetNPC("DeckardCain"))
             {
                 if (TownAct == 1 && !CainNotFoundAct1)
                 {
@@ -1271,7 +1296,7 @@ public class Town
                     //go to town act5 for cain
                     ScriptTownAct = 5;
                 }
-            }
+            }*/
 
             //Clic cain
             Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.NPCStruc_0.xPosFinal, Form1_0.NPCStruc_0.yPosFinal);
@@ -1299,13 +1324,19 @@ public class Town
     {
         bool MovedCorrectly = false;
 
-        /*if (TownAct == 1)
+        if (TownAct == 1)
         {
-            CheckForNPCValidPos("Kashya");
-            Form1_0.PathFinding_0.MoveToNPC("Kashya");
-            Form1_0.NPCStruc_0.GetNPC("Kashya");
+            //switch to Act 5 Town
+            Form1_0.Town_0.GoToWPArea(5, 0);
+            Form1_0.WaitDelay(25);
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5079, Y = 5078 });
+            Form1_0.WaitDelay(25);
+            CheckForNPCValidPos("QualKehk");
+            Form1_0.PathFinding_0.MoveToNPC("QualKehk");
+            Form1_0.NPCStruc_0.GetNPC("QualKehk");
             MovedCorrectly = true;
-        }*/
+            
+        }
         if (TownAct == 2)
         {
             Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5044, Y = 5050 });

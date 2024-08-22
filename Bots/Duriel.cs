@@ -57,7 +57,7 @@ public class Duriel
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING DURIEL");
+                Form1_0.SetGameStatus("Moving to Duriel");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -177,8 +177,22 @@ public class Duriel
                     CurrentStep++;
                 }
             }
-
             if (CurrentStep == 4)
+            {
+                Form1_0.PathFinding_0.MoveToNPC("Duriel");
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 5)
             {
                 if (Form1_0.PlayerScan_0.levelNo >= (int)Enums.Area.TalRashasTomb1 && Form1_0.PlayerScan_0.levelNo <= (int)Enums.Area.TalRashasTomb7)
                 {

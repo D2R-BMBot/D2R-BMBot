@@ -289,7 +289,7 @@ partial class FormCharSettings
             this.textBoxCastDefenseSkill.Name = "textBoxCastDefenseSkill";
             this.textBoxCastDefenseSkill.Size = new System.Drawing.Size(67, 21);
             this.textBoxCastDefenseSkill.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.textBoxCastDefenseSkill, "Paladin=Sacred Shield, Sorceress=Frozen Armor");
+            this.toolTip1.SetToolTip(this.textBoxCastDefenseSkill, "Paladin=Sacred Shield, Sorceress=Armor(Frozen,Energy Shield)");
             // 
             // textBoxDefenseSkill
             // 
@@ -298,7 +298,7 @@ partial class FormCharSettings
             this.textBoxDefenseSkill.Name = "textBoxDefenseSkill";
             this.textBoxDefenseSkill.Size = new System.Drawing.Size(67, 21);
             this.textBoxDefenseSkill.TabIndex = 28;
-            this.toolTip1.SetToolTip(this.textBoxDefenseSkill, "Paladin=Defiance, Sorceress=Set to Teleport or Nothing");
+            this.toolTip1.SetToolTip(this.textBoxDefenseSkill, "Paladin=Defiance, Sorceress=Set to Static or Nothing");
             // 
             // textBoxFastMoveTeleport
             // 
@@ -399,7 +399,7 @@ partial class FormCharSettings
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Defense Skill:";
+            this.label6.Text = "Def. Skill or Sorc Static:";
             // 
             // label5
             // 

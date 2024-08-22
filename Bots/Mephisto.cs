@@ -51,7 +51,7 @@ public class Mephisto
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING MEPHISTO");
+                Form1_0.SetGameStatus("Moving to MEPHISTO");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -101,8 +101,22 @@ public class Mephisto
                     CurrentStep++;
                 }
             }
-
             if (CurrentStep == 3)
+            {
+                Form1_0.PathFinding_0.MoveToNPC("Mephisto");
+
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 4)
             {
                 //####
                 if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.DuranceOfHateLevel2)
@@ -122,54 +136,54 @@ public class Mephisto
                         Form1_0.Battle_0.RunBattleScriptOnThisMob("getBossName", "Mephisto", new List<long>());
                     }
                     else
-                    {
-                        if (Form1_0.Battle_0.EndBossBattle())
                         {
-                            Form1_0.Town_0.FastTowning = false;
-                            Form1_0.Town_0.UseLastTP = false;
-                            ScriptDone = true;
-
-                            //Position ThisFinalPosition = Form1_0.MapAreaStruc_0.GetPositionOfObject("object", "portal", 102 - 1, new List<int>() { });
-                            //if (Form1_0.Mover_0.MoveToLocation(ThisFinalPosition.X, ThisFinalPosition.Y))
-                            /*while (Form1_0.PlayerScan_0.levelNo == (int)Enums.Area.DuranceOfHateLevel3)
+                            if (Form1_0.Battle_0.EndBossBattle())
                             {
-                                Form1_0.ItemsStruc_0.GetItems(true);
-                                if (Form1_0.Mover_0.MoveToLocation(17601, 8070))
+                                Form1_0.Town_0.FastTowning = false;
+                                Form1_0.Town_0.UseLastTP = false;
+                                ScriptDone = true;
+
+                                //Position ThisFinalPosition = Form1_0.MapAreaStruc_0.GetPositionOfObject("object", "portal", 102 - 1, new List<int>() { });
+                                //if (Form1_0.Mover_0.MoveToLocation(ThisFinalPosition.X, ThisFinalPosition.Y))
+                                /*while (Form1_0.PlayerScan_0.levelNo == (int)Enums.Area.DuranceOfHateLevel3)
                                 {
-                                    Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 17601, 8070);
-                                    //Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, ThisFinalPosition.X, ThisFinalPosition.Y);
+                                    Form1_0.ItemsStruc_0.GetItems(true);
+                                    if (Form1_0.Mover_0.MoveToLocation(17601, 8070))
+                                    {
+                                        Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 17601, 8070);
+                                        //Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, ThisFinalPosition.X, ThisFinalPosition.Y);
 
-                                    Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y - 15);
+                                        Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y - 15);
 
-                                    Form1_0.PlayerScan_0.GetPositions();
+                                        Form1_0.PlayerScan_0.GetPositions();
+                                    }
                                 }
+
+                                Form1_0.WaitDelay(CharConfig.MephistoRedPortalEnterDelay);
+
+                                Form1_0.Town_0.FastTowning = false;
+                                Form1_0.Town_0.UseLastTP = false;
+                                ScriptDone = true;*/
+                                return;
+                                //Form1_0.LeaveGame(true);
                             }
-
-                            Form1_0.WaitDelay(CharConfig.MephistoRedPortalEnterDelay);
-
-                            Form1_0.Town_0.FastTowning = false;
-                            Form1_0.Town_0.UseLastTP = false;
-                            ScriptDone = true;*/
-                            return;
-                            //Form1_0.LeaveGame(true);
                         }
                     }
-                }
-                else
-                {
-                    Form1_0.method_1("Mephisto not detected!", Color.Red);
+                    else
+                    {
+                        Form1_0.method_1("Mephisto not detected!", Color.Red);
 
-                    //baal not detected...
-                    Form1_0.ItemsStruc_0.GetItems(true);
-                    if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Mephisto", false, 200, new List<long>())) return; //redetect baal?
-                    Form1_0.ItemsStruc_0.GrabAllItemsForGold();
-                    if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Mephisto", false, 200, new List<long>())) return; //redetect baal?
-                    Form1_0.Potions_0.CanUseSkillForRegen = true;
+                        //baal not detected...
+                        Form1_0.ItemsStruc_0.GetItems(true);
+                        if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Mephisto", false, 200, new List<long>())) return; //redetect baal?
+                        Form1_0.ItemsStruc_0.GrabAllItemsForGold();
+                        if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Mephisto", false, 200, new List<long>())) return; //redetect baal?
+                        Form1_0.Potions_0.CanUseSkillForRegen = true;
 
-                    if (Form1_0.Battle_0.EndBossBattle()) ScriptDone = true;
-                    return;
+                        if (Form1_0.Battle_0.EndBossBattle()) ScriptDone = true;
+                        return;
+                    }
                 }
             }
         }
     }
-}

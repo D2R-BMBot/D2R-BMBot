@@ -102,11 +102,11 @@ public class ScriptsLoader
                 //dynamic myClassInstance = Activator.CreateInstance(myClassType);
 
                 // Check if the type was found
-                if (myClassType == null || !typeof(Andariel).IsAssignableFrom(myClassType))
+                /*if (myClassType == null || !typeof(Andariel).IsAssignableFrom(myClassType))
                 {
                     Console.WriteLine("Invalid or incompatible type.");
                     return;
-                }
+                }*/
 
                 //Form1_0.AllClassInstances.Add(myClassInstance);
 
@@ -117,7 +117,7 @@ public class ScriptsLoader
 
                 // Replace the existing instance with the new one
                 //Form1_0.Andariel_0 = newAndarielInstance;
-                Andariel andarielInstance = Activator.CreateInstance(myClassType) as Andariel;
+                //Andariel andarielInstance = Activator.CreateInstance(myClassType) as Andariel;
                 //myClassInstance.RunScript();
                 //Form1_0.Andariel_0 = andarielInstance;
                 //Form1_0.Andariel_0 = new Andariel();
@@ -188,7 +188,7 @@ public class ScriptsLoader
         ExecuteScript(scriptCode2, className2, "MyMethod");*/
     }
 
-    Andariel LoadAndarielDynamically()
+    /*Andariel LoadAndarielDynamically()
     {
         // Load the assembly containing Andariel dynamically
         Assembly assembly = Form1_0.AllClassInstances[0] as Assembly;
@@ -200,7 +200,7 @@ public class ScriptsLoader
         Andariel andarielInstance = (Andariel)Activator.CreateInstance(andarielType);
 
         return andarielInstance;
-    }
+    }*/
 
     public void ExecuteScript(string scriptCode, string className, string methodName)
     {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MapAreaStruc;
 
 public class Andariel
 {
@@ -35,7 +36,7 @@ public class Andariel
 
     public void RunScript()
     {
-        Form1_0.Town_0.ScriptTownAct = 1; //set to town act 5 when running this script
+        Form1_0.Town_0.ScriptTownAct = 1; //set to town act 1 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
         {
@@ -54,7 +55,7 @@ public class Andariel
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING ANDARIEL");
+                Form1_0.SetGameStatus("Moving to ANDARIEL");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -115,28 +116,88 @@ public class Andariel
                     return;
                 }
                 //####
-
-                /*X: 22561,
-                Y: 9553,*/
-                if (Form1_0.Mover_0.MoveToLocation(22556, 9544))
+                if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.CatacombsLevel4)
                 {
-                    DetectedBoss = false;
-                    CurrentStep++;
+                    Form1_0.SetGameStatus("Moving to Attack Pos");
+                    Position MidPos = new Position { X = 22547, Y = 9555 };
+                    Form1_0.WaitDelay(50);
+                    if (Form1_0.Mover_0.MoveToLocation(MidPos.X, MidPos.Y))
+                    {
+                        if (CharConfig.RunningOnChar == "Sorceress")
+                        {//Form1_0.Battle_0.FirstAttackCasting();
+                            Form1_0.Battle_0.SetSkillsStatic();
+                            CurrentStep++;
+                        }
+                        else
+                        {
+                            CurrentStep++;
+                            return;
+                        }
+                    }
+
+                    //if (Form1_0.Mover_0.MoveToLocation(22556, 9544))
+
+                    /*{
+                        DetectedBoss = false;
+                        CurrentStep++;
+                    }*/
                 }
-            }
 
-            if (CurrentStep == 4)
-            {
-                Form1_0.Potions_0.CanUseSkillForRegen = false;
-                Form1_0.SetGameStatus("KILLING ANDARIEL");
+                if (CurrentStep == 4)
+                {
+                    Form1_0.Potions_0.CanUseSkillForRegen = false;
+                    Form1_0.SetGameStatus("KILLING ANDARIEL");
+                    Form1_0.MobsStruc_0.DetectThisMob("getBossName", "Andariel", false, 200, new List<long>());
+                    if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Andariel", false, 200, new List<long>()))
+                    {
+                        if (Form1_0.MobsStruc_0.MobsHP > 0)
+                        {
+                            Form1_0.Battle_0.SetSkills();
+                            Form1_0.Battle_0.CastSkills();
+                            return;
+                        }
+                        {
+                            DetectedBoss = true;
+                            Form1_0.Battle_0.RunBattleScriptOnThisMob("getBossName", "Andariel", new List<long>());
+                            CurrentStep++;
+                        }
+                    }
+                    else
+                    {
+                        if (!DetectedBoss)
+                        {
+                            Form1_0.SetGameStatus("Andariel not detected");
+                            Form1_0.method_1("Clearing Area of Mobs!", Color.Red);
+                            //Form1_0.Battle_0.DoBattleScript(20);
+                            Form1_0.PlayerScan_0.GetPositions();
+                            Form1_0.Battle_0.ClearAreaOfMobs(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 15);
+                            CurrentStep++;
+                        }
 
-                //#############
-                Form1_0.MobsStruc_0.DetectThisMob("getBossName", "Andariel", false, 200, new List<long>());
-                bool DetectedAndy = Form1_0.MobsStruc_0.GetMobs("getBossName", "Andariel", false, 200, new List<long>());
+                    }
+                    if (CurrentStep == 5)
+                    {
+                        ScriptDone = true;
+                        return;
+                    }
+
+                    /*if (Form1_0.Battle_0.EndBossBattle()) 
+                        ScriptDone = true;
+                        return;
+                    /*if (Form1_0.MobsStruc_0.MobsHP < 1)
+                    {
+                        Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 22547, Y = 9555 });
+                        {
+                            ScriptDone = true;
+                            return;
+                        }
+                    }*/
+                }
+                /*bool DetectedAndy = Form1_0.MobsStruc_0.GetMobs("getBossName", "Andariel", false, 200, new List<long>());
                 DateTime StartTime = DateTime.Now;
                 TimeSpan TimeSinceDetecting = DateTime.Now - StartTime;
-                while (!DetectedAndy && TimeSinceDetecting.TotalSeconds < 5)
-                {
+                while (!DetectedAndy && TimeSinceDetecting.TotalSeconds < 5)*/
+                /*{
                     Form1_0.SetGameStatus("WAITING DETECTING ANDARIEL");
                     DetectedAndy = Form1_0.MobsStruc_0.GetMobs("getBossName", "Andariel", false, 200, new List<long>());
                     TimeSinceDetecting = DateTime.Now - StartTime;
@@ -158,6 +219,7 @@ public class Andariel
                 if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Andariel", false, 200, new List<long>()))
                 {
                     Form1_0.SetGameStatus("KILLING ANDARIEL");
+                    Form1_0.Battle_0.FirstAttackCasting();
                     if (Form1_0.MobsStruc_0.MobsHP > 0)
                     {
                         DetectedBoss = true;
@@ -181,7 +243,7 @@ public class Andariel
 
                     Form1_0.Battle_0.DoBattleScript(15);
 
-                    //baal not detected...
+                    //Andariel not detected...
                     Form1_0.ItemsStruc_0.GetItems(true);
                     if (Form1_0.MobsStruc_0.GetMobs("getBossName", "Andariel", false, 200, new List<long>())) return; //redetect baal?
                     Form1_0.ItemsStruc_0.GrabAllItemsForGold();
@@ -190,7 +252,7 @@ public class Andariel
 
                     if (Form1_0.Battle_0.EndBossBattle()) ScriptDone = true;
                     return;
-                }
+                }*/
             }
         }
     }

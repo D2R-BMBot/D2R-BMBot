@@ -86,7 +86,7 @@ public partial class FormSettings : Form
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunMephistoScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunChaosScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunChaosLeechScript;
-        //listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunEldritchScript;
+        listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunEldritchScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunShenkScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunFrozensteinScript;
         listViewRunScripts.Items[CurrI++].Checked = CharConfig.RunPindleskinScript;
@@ -289,7 +289,7 @@ public partial class FormSettings : Form
         CharConfig.RunMephistoScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunChaosScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunChaosLeechScript = listViewRunScripts.Items[CurrI++].Checked;
-        //CharConfig.RunEldritchScript = listViewRunScripts.Items[CurrI++].Checked;
+        CharConfig.RunEldritchScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunShenkScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunFrozensteinScript = listViewRunScripts.Items[CurrI++].Checked;
         CharConfig.RunPindleskinScript = listViewRunScripts.Items[CurrI++].Checked;

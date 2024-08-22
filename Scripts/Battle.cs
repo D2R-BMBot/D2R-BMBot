@@ -26,6 +26,7 @@ public class Battle
     public bool FirstAttackCasted = false;
     public bool DoingBattle = false;
     public bool ClearingFullArea = false;
+    public bool SetSkillsStaticCasted = false;
 
     public int TriedToMoveToMobsCount = 0;
 
@@ -674,7 +675,7 @@ public class Battle
             Form1_0.Mover_0.MoveAcceptOffset = 4;
             ResetBattleMoveAcceptOffset();
 
-            FirstAttackCasting();
+            //FirstAttackCasting();
             SetSkills();
             CastSkills();
             if (CharConfig.RunningOnChar == "Paladin")
@@ -728,7 +729,7 @@ public class Battle
                 ResetBattleMoveAcceptOffset();
 
 
-                FirstAttackCasting();
+                //FirstAttackCasting();
                 SetSkills();
                 CastSkills();
                 if (CharConfig.RunningOnChar == "Paladin")
@@ -866,6 +867,30 @@ public class Battle
         Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAura);
     }
 
+    public void SetSkillsStatic()
+    {
+        Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura); //select static
+
+        {
+            int tryes = 0;
+            while (tryes < 3)
+            {
+                CastSkills();
+                Form1_0.WaitDelay(50);
+                tryes++;
+            }
+            /*CastSkills();
+            Form1_0.WaitDelay(35);
+            CastSkills();
+            Form1_0.WaitDelay(35);
+            CastSkills();
+            Form1_0.WaitDelay(35);
+            CastSkills();
+            Form1_0.WaitDelay(35);*/
+        }
+        SetSkillsStaticCasted = true;
+    }
+
     public void CastSkills()
     {
         Form1_0.KeyMouse_0.ReleaseKey(CharConfig.KeyForceMovement);
@@ -930,7 +955,7 @@ public class Battle
         //Form1_0.WaitDelay(1);
     }
 
-    public void FirstAttackCasting()
+    public void FirstAttackCasting() //this is your left mouse button attack skill
     {
         /*if (CharConfig.RunningOnChar == "Necromancer")
         {
@@ -997,22 +1022,26 @@ public class Battle
                     Form1_0.WaitDelay(35);
                     tryes++;
                 }
-            }
+            }*/
 
-            if (CharConfig.RunningOnChar == "Sorceress")
+            if (CharConfig.RunningOnChar == "Sorceress") //setting to use static, place on Defense Skill on bot ui
             {
-                Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAttack); //select static
+                Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura); //select static
 
-                int tryes = 0;
-                while (tryes < 6)
+                //int tryes = 0;
+                //while (tryes < 1)
                 {
                     CastSkills();
-                    Form1_0.WaitDelay(35);
-                    tryes++;
-                }
+                    Form1_0.WaitDelay(25);
+                    CastSkills();
+                    Form1_0.WaitDelay(25);
+                    CastSkills();
+                    Form1_0.WaitDelay(25);
+                // tryes++;
+            }
             }
 
             FirstAttackCasted = true;
-        }*/
+        
     }
 }

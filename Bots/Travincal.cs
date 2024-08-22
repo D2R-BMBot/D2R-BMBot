@@ -82,8 +82,20 @@ public class Travincal
                     return;
                 }
             }
-
             if (CurrentStep == 2)
+            {
+                if (CharConfig.RunningOnChar == "Sorceress")
+                {
+                    Form1_0.Battle_0.SetSkillsStatic();
+                    CurrentStep++;
+                }
+                else
+                {
+                    CurrentStep++;
+                    return;
+                }
+            }
+            if (CurrentStep == 3)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING TRAVINCAL COUNCIL");
