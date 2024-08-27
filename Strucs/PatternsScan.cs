@@ -218,19 +218,30 @@ public class PatternsScan
         Form1_0.method_1("Roster offset: 0x" + rosterOffset.ToString("X"), Color.Black);
 
         //#################################################################################################
-        /*All games available offset: 0x2A19F10
+        /*All games available offset: 0x2A19F10 0x2A06310
+        Selected game offset: 0x2A28420
         Selected game offset: 0x229DBD10
         Selected Char offset: 0x1E1EEF8*/
-        Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A19F10);
-        Form1_0.method_1("All games available offset: 0x" + 0x2A19F10.ToString("X"), Color.Black);
+        //Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A06310);
+        //Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A060C0);
+        //Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A05F98);
+        Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A05E70);
+        //Form1_0.offsets["AllGamesOffset"] = ((IntPtr)0x2A06438);
+        //Form1_0.method_1("All games available offset: 0x" + 0x2A06310.ToString("X"), Color.Black);
+        //Form1_0.method_1("All games available offset: 0x" + 0x2A060C0.ToString("X"), Color.Black);
+        //Form1_0.method_1("All games available offset: 0x" + 0x2A05F98.ToString("X"), Color.Black);
+        Form1_0.method_1("All games available offset: 0x" + 0x2A05E70.ToString("X"), Color.Black);
+        //Form1_0.method_1("All games available offset: 0x" + 0x2A06438.ToString("X"), Color.Black);
 
-        Form1_0.offsets["GameSelectedOffset"] = ((IntPtr)0x2A28420);
-        Form1_0.method_1("Selected game offset: 0x" + 0x2A28420.ToString("X"), Color.Black);
+        //Form1_0.offsets["GameSelectedOffset"] = ((IntPtr)0x2A14890);
+        Form1_0.offsets["GameSelectedOffset"] = ((IntPtr)0x2A14380);
+        //Form1_0.method_1("Selected game offset: 0x" + 0x2A14890.ToString("X"), Color.Black);
+        Form1_0.method_1("Selected game offset: 0x" + 0x2A14380.ToString("X"), Color.Black);
 
         //Form1_0.offsets["SelectedChar"] = ((IntPtr)0x1E1EEF8);
         //Form1_0.method_1("Selected Char offset: 0x" + 0x1E1EEF8.ToString("X"), Color.Black);
         Form1_0.offsets["SelectedChar"] = ((IntPtr)0x2a01a50);
-        Form1_0.method_1("Selected Char offset: 0x" + 0x2a01a50.ToString("X"), Color.Black);
+        //Form1_0.method_1("Selected Char offset: 0x" + 0x2a01a50.ToString("X"), Color.Black);
 
         /*
         //; all games datas

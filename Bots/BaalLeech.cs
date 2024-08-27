@@ -175,7 +175,7 @@ public class BaalLeech
         {
             Form1_0.Town_0.GetCorpse();
         }
-
+                
         GetLeechInfo();
         if (Form1_0.Town_0.GetInTown())
         {
