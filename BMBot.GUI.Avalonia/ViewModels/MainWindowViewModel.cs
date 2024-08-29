@@ -92,10 +92,17 @@ public class MainWindowViewModel : ViewModelBase
                               DataContext = instance
                           };
 
-        instance.Window.SetWindowPositionAction = overlayView.SetPosition;
-        instance.Window.CloseAction             = overlayView.Close;
+        var overlayOptionsView = new OverlayOptionsView
+                                 {
+                                     DataContext = instance
+                                 };
+
+        instance.Window.SetMainWindowPositionAction = overlayView.SetPosition;
+        instance.Window.SetOptionsWindowPositionAction = overlayOptionsView.SetPosition;
+        instance.Window.CloseAction             += overlayView.Close;
+        instance.Window.CloseAction             += overlayOptionsView.Close;
         
-        instance.Window.RefreshWindowPosition();
+        instance.Window.RefreshWindowPositions();
         
         overlayView.Show();
     }

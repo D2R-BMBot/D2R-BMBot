@@ -125,7 +125,7 @@ public class PlayerScan
     {
         Form1_0.SetProcessingTime();
 
-        ScanForLeecher();
+            // ScanForLeecher();
         
         long QuestOffset = (long)Form1_0.BaseAddress + 0x230E9A8;
         long QuestAddress = Form1_0.Mem_0.ReadInt64Raw((IntPtr)(QuestOffset));

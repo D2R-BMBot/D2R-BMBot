@@ -3,7 +3,6 @@ using Avalonia.ReactiveUI;
 
 using System;
 
-using BMBot.GUI.Avalonia.Models.IO;
 using BMBot.GUI.Avalonia.Models.IO.Directories;
 
 namespace BMBot.GUI.Avalonia;
@@ -29,7 +28,7 @@ sealed class Program
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
+    private static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<BotApp>()
                      .UsePlatformDetect()
                      .WithInterFont()

@@ -4,7 +4,12 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Reactive.Linq;
-using System.Threading;
+using System.Threading.Tasks;
+
+using Avalonia;
+using Avalonia.Input;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
 using BMBot.GUI.Avalonia.Models.DataStructures.Game.Account.Characters;
 using BMBot.GUI.Avalonia.Models.Services.Interop.Memory;
@@ -23,6 +28,11 @@ public class InstanceData : ReactiveObject
         {
             throw new InvalidDataException();
         }
+        
+        var cursorImage  = AssetLoader.Open(new Uri("avares://BMBot.GUI.Avalonia/Assets/d2Hand.png"));
+        var cursorBitmap = new Bitmap(cursorImage);
+        
+        CustomCursor = new Cursor(cursorBitmap.CreateScaledBitmap(new PixelSize(48, 48), BitmapInterpolationMode.None), new PixelPoint(0, 0));
 
         Window    = new WindowData(p_applicationProcess);
         Game  = new GameData();
@@ -35,12 +45,13 @@ public class InstanceData : ReactiveObject
 
         Player = new BarbarianCharacter("Testo_Two");
         
-        var refreshTimer = Observable.Interval(TimeSpan.FromSeconds(0.1));
+        var refreshTimer = Observable.Interval(TimeSpan.FromSeconds(0.1))
+                                     .SelectMany(_ => Observable.FromAsync(Update));
         
-        refreshTimer.Subscribe(_ => { Update(); });
+        refreshTimer.Subscribe();
     }
 
-    private void Update()
+    private async Task Update()
     {
         if ( !Pointers.PointersAreInitialized )
         {
@@ -69,22 +80,69 @@ public class InstanceData : ReactiveObject
                 return;
             }
             
-            var playerName = GameMemoryService.ReadString(this, rosterPointer);
+            var playerId = GameMemoryService.ReadInt32(this, rosterPointer + 0x48);
             
-            FillPlayerPointers();
+            FindPlayerAddresses(playerId);
             
-            Player.Id = $"{GameMemoryService.ReadInt32(this, Pointers.PlayerIdAddress):x8}".ToUpper();
+            Player.Id = $"{playerId:x8}".ToUpper();
+
+            GetGameSeed();
         }
                                    
         UpdateValues();
+
+        await Task.CompletedTask;
+    }
+
+    private void GetGameSeed()
+    {
+        var seedHashStart = GameMemoryService.ReadUInt32(this, Pointers.SeedHashStartAddress);
+        var seedHashEnd   = GameMemoryService.ReadUInt32(this, Pointers.SeedHashEndAddress);
+
+        var seedXor = 0u;
+        
+        var incrementalValue = 1u;
+
+        var startValue = 0u;
+        var valueFound = false;
+
+        for (; startValue < uint.MaxValue; startValue += incrementalValue)
+        {
+            var seedResult = (startValue * 0x6AC690C5 + 666) & 0xFFFFFFFF;
+
+            if (seedResult == seedHashEnd)
+            {
+                valueFound = true;
+                break;
+            }
+
+            if (incrementalValue == 1 && (seedResult % 65536) == (seedHashEnd % 65536))
+            {
+                incrementalValue = 65536;
+            }
+        }
+
+        if ( valueFound )
+        {
+            seedXor = seedHashStart ^ startValue;
+        }
+
+        if ( seedXor == 0 )
+        {
+            throw new DataException("Failed to find game seed hash");
+        }
+        
+        Game.Seed = startValue;
     }
 
     private void ResetData()
     {
-        Pointers.PlayerBaseAddress     = IntPtr.Zero;
+        Pointers.PlayerPointerAddress     = IntPtr.Zero;
         Pointers.PlayerUnitAddress     = IntPtr.Zero;
         Pointers.PlayerUnitDataAddress = IntPtr.Zero;
-        Pointers.PlayerPathAddress     = IntPtr.Zero;
+        Pointers.PlayerUnitPathAddress = IntPtr.Zero;
+        Pointers.CurrentActAddress     = IntPtr.Zero;
+        Pointers.ActMiscellaneousAddress = IntPtr.Zero;
 
         Player.XPosition = 0;
         Player.YPosition = 0;
@@ -106,8 +164,8 @@ public class InstanceData : ReactiveObject
 
     private void UpdatePlayerValues()
     {
-        Player.XPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionXAddress);
-        Player.YPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerPositionYAddress);
+        Player.XPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerXPositionAddress);
+        Player.YPosition = GameMemoryService.ReadInt16(this, Pointers.PlayerYPositionAddress);
     }
 
     private void UpdateGameValues()
@@ -137,15 +195,21 @@ public class InstanceData : ReactiveObject
         Game.SkillTreeIsOpen = GameMemoryService.ReadByte(this, Pointers.SkillTreeIsOpenAddress) == 0x1;
     }
 
-    public IntPtr ProcessHandle { get; }
+    [Reactive] public RelativePoint TransformOrigin { get; set; }
+    [Reactive] public double        RotAngle        { get; set; } = 63.5;
+    [Reactive] public double        SkewAngleX      { get; set; }
+    [Reactive] public double        SkewAngleY      { get; set; } = -37;
+    [Reactive] public double        ScaleX          { get; set; } = 1;
+    [Reactive] public double        ScaleY          { get; set; } = 1.3333333;
+    public            IntPtr        ProcessHandle   { get; }
     
     public InstancePointers Pointers { get; } = new();
 
-    [Reactive] public string MemReadTime { get; set; } = string.Empty;
-    
-    public WindowData           Window     { get; }
-    public GameData             Game   { get; }
-    public ICharacter           Player  { get; }
+    [Reactive] public string     MemReadTime  { get; set; } = string.Empty;
+    [Reactive] public Cursor?    CustomCursor { get; set; }
+    public            WindowData Window       { get; }
+    public            GameData   Game         { get; }
+    public            ICharacter Player       { get; }
 
     public void GetNearbyNpcs()
     {
@@ -159,7 +223,6 @@ public class InstanceData : ReactiveObject
         
         for ( var i = 0; i < unitTableBuffer.Length; i += 8 )
         {
-            var baseUnitAddress = Pointers.UnitTableAddress + i;
             var unitPointer     = BitConverter.ToInt64(unitTableBuffer.ToArray(), i);
 
             if ( unitPointer == 0 ) continue;
@@ -185,8 +248,8 @@ public class InstanceData : ReactiveObject
 
         var test = npcUnits;
     }
-    
-    public void FillPlayerPointers()
+
+    private void FindPlayerAddresses(IntPtr p_playerId)
     {
         if ( !Pointers.PointersAreInitialized ) return;
         
@@ -201,49 +264,27 @@ public class InstanceData : ReactiveObject
 
             if (unitPointer == 0) continue;
 
-            byte[] unitDataStructure;
-            
-            try
-            {
-                unitDataStructure = GameMemoryService.GetMemorySpan(this, (IntPtr)unitPointer, 144).ToArray();
+            IntPtr unitId;
+
+            try 
+            {            
+                unitId = GameMemoryService.ReadInt32(this, (IntPtr)unitPointer + 0x08);
             }
             catch ( DataException )
             {
                 continue;
             }
             
-            var unitType = BitConverter.ToUInt32(unitDataStructure);
+            if ( unitId != p_playerId ) continue;
 
-            // TODO: Implement unit type enum. - Comment by M9 on 07/18/2024 @ 15:30:04
-            // 0 = Player
-            if ( unitType == 0 )
-            {
-                var playerDataPointer = BitConverter.ToInt64(unitDataStructure, 0x10);
-                var playerDataStructure        = GameMemoryService.GetMemorySpan(this, (IntPtr)playerDataPointer, 144);
-
-                var playerName = string.Empty;
-                
-                for (var charIndex = 0; charIndex < 16; charIndex++)
-                {
-                    if ( playerDataStructure[charIndex] != 0x00 )
-                    {
-                        playerName += (char)playerDataStructure[charIndex];
-                    }
-                }
-
-                var playerPathPointer = BitConverter.ToInt64(unitDataStructure, 0x38);
-                var playerPathStructure    = GameMemoryService.GetMemorySpan(this, (IntPtr)playerPathPointer, 144);
-                
-                if ( BitConverter.ToInt16(playerPathStructure.ToArray(), 2) != 0 && 
-                     playerName.Equals("Bimbus", StringComparison.InvariantCultureIgnoreCase) )
-                {
-                    Pointers.PlayerBaseAddress     = baseUnitAddress;
-                    Pointers.PlayerUnitAddress     = (IntPtr)unitPointer;
-                    Pointers.PlayerUnitDataAddress = (IntPtr)playerDataPointer;
-                    Pointers.PlayerPathAddress     = (IntPtr)playerPathPointer;
-                    return;
-                }
-            }
+            Pointers.PlayerPointerAddress  = baseUnitAddress;
+            Pointers.PlayerUnitAddress     = (IntPtr)unitPointer;
+            Pointers.PlayerUnitDataAddress = (IntPtr)GameMemoryService.ReadInt64(this, Pointers.PlayerUnitDataPointerAddress);
+            Pointers.PlayerUnitPathAddress = (IntPtr)GameMemoryService.ReadInt64(this, Pointers.PlayerUnitPathPointerAddress);
+            Pointers.CurrentActAddress     = (IntPtr)GameMemoryService.ReadInt64(this, Pointers.CurrentActPointerAddress);
+            Pointers.ActMiscellaneousAddress = (IntPtr)GameMemoryService.ReadInt64(this, Pointers.ActMiscellaneousPointerAddress);
+            
+            return;
         }
 
         throw new DataException("Failed to find player pointers");

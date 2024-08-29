@@ -53,6 +53,7 @@ public class GameData : ReactiveObject
                        });
     }
 
+    [Reactive] public uint Seed { get; set; }
     [Reactive] public bool GameSessionIsActive { get; set; }
     
     [Reactive] public bool MercIsActive { get; set; }

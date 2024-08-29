@@ -13,17 +13,29 @@ public class InstancePointers
 
     #region Player Data
 
-    public IntPtr PlayerBaseAddress      { get; set; } = 0x00;
-    public IntPtr PlayerUnitAddress      { get; set; } = 0x00;
-    public IntPtr PlayerUnitDataAddress  { get; set; } = 0x00;
-    public IntPtr PlayerPathAddress      { get; set; } = 0x00;
-    public            IntPtr PlayerPositionXAddress => PlayerPathAddress + 0x02;
-    public            IntPtr PlayerPositionYAddress => PlayerPathAddress + 0x06;
-    public            IntPtr PlayerIdAddress        => PlayerUnitAddress + 0x08;
+    public IntPtr PlayerPointerAddress           { get; set; } = 0x00;
+    public IntPtr PlayerUnitAddress              { get; set; } = 0x00;
+    public IntPtr CurrentActPointerAddress       => PlayerUnitAddress + 0x20;
+    public IntPtr CurrentActAddress              { get; set; } = 0x00;
+    public IntPtr ActMiscellaneousPointerAddress => CurrentActAddress + 0x78;
+    public IntPtr ActMiscellaneousAddress        { get; set; } = 0x00;
+    public IntPtr SeedHashStartAddress           => ActMiscellaneousAddress + 0x840;
+    public IntPtr SeedHashEndAddress             => ActMiscellaneousAddress + 0x868;
+    public IntPtr PlayerUnitDataPointerAddress   => PlayerUnitAddress       + 0x10;
+    public IntPtr PlayerUnitDataAddress          { get; set; } = 0x00;
+    public IntPtr PlayerUnitPathPointerAddress   => PlayerUnitAddress + 0x38;
+    public IntPtr PlayerUnitPathAddress          { get; set; } = 0x00;
+    public IntPtr PlayerXPositionAddress         => PlayerUnitPathAddress + 0x02;
+    public IntPtr PlayerXPositionOffsetAddress   => PlayerUnitPathAddress;
+    public IntPtr PlayerYPositionAddress         => PlayerUnitPathAddress + 0x06;
+    public IntPtr PlayerYPositionOffsetAddress   => PlayerUnitPathAddress + 0x04;
+    public IntPtr PlayerIdAddress                => PlayerUnitAddress     + 0x08;
 
     #endregion
 
     public IntPtr GameSessionIsActiveAddress => UnitTableAddress - 0x18;
+
+    #region UI Data
 
     public IntPtr UiDataAddress                    => BaseAddress   + 0x22E9E00;
     public IntPtr MercIsActiveAddress              => UiDataAddress + 0x0A;
@@ -46,12 +58,15 @@ public class InstancePointers
     public IntPtr WaypointScreenIsOpenAddress      => UiDataAddress + 0x0B;
     public IntPtr InventoryIsOpenAddress           => UiDataAddress - 0x07;
     public IntPtr SkillTreeIsOpenAddress           => UiDataAddress - 0x04;
-    public IntPtr RosterAddress                    => BaseAddress   + 0x22F0388;
-    public IntPtr ExpansionDataAddress             => BaseAddress   + 0x21F5E08;
-    public IntPtr GameDataAddress                  => BaseAddress   + 0x29DBCD8;
-    public IntPtr MenuVisibilityAddress            => BaseAddress   + 0x21F92C8;
-    public IntPtr LastHoverAddress                 => BaseAddress   + 0x21F6920;
 
-    public bool PointersAreInitialized       => BaseAddress       != IntPtr.Zero;
-    public bool PlayerPointersAreInitialized => PlayerBaseAddress != IntPtr.Zero;
+    #endregion
+
+    public IntPtr RosterAddress         => BaseAddress + 0x22F0388;
+    public IntPtr ExpansionDataAddress  => BaseAddress + 0x21F5E08;
+    public IntPtr GameDataAddress       => BaseAddress + 0x29DBCD8;
+    public IntPtr MenuVisibilityAddress => BaseAddress + 0x21F92C8;
+    public IntPtr LastHoverAddress      => BaseAddress + 0x21F6920;
+
+    public bool PointersAreInitialized       => BaseAddress          != IntPtr.Zero;
+    public bool PlayerPointersAreInitialized => PlayerPointerAddress != IntPtr.Zero;
 }

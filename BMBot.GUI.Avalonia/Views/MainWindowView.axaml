@@ -13,7 +13,7 @@
         Width="1280"
         Height="720"
         CanResize="False"
-        Icon="/Assets/d2r-lod-regred.ico"
+        Icon="/Assets/bmbot.ico"
         Title="D2R BMBot"
         DataContext="{ReflectionBinding MainWindowViewModel, Source={x:Static local:BotApp.Locator}}">
 

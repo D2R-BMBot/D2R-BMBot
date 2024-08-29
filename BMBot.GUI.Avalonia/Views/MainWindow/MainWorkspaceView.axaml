@@ -38,38 +38,7 @@
                                                   Icon="PeopleGroup"
                                                   ClickCommand="{Binding ClickNavigationButton}"
                                                   CommandParameter="ACCOUNT" />
-                    <!--     <controls:HamburgerMenuButton ButtonText="Scan and Remediate" -->
-                    <!--                               x:Name="NavigateScanRemButton" -->
-                    <!--                               TextColor="White" -->
-                    <!--                               ImageSource="../../../Assets/scanRemediate_128.png" -->
-                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
-                    <!--                               CommandParameter="Scan"> -->
-                    <!--         <controls:HamburgerMenuButton.IsEnabled> -->
-                    <!--             <MultiBinding Converter="{x:Static BoolConverters.Or}"> -->
-                    <!--                 <Binding Path="CurrentUser.Roles" -->
-                    <!--                          Converter="{StaticResource UserHasPermissionsConverter}" -->
-                    <!--                          ConverterParameter="CAN_SCAN" /> -->
-                    <!--                 <Binding Path="CurrentUser.Roles" -->
-                    <!--                          Converter="{StaticResource UserHasPermissionsConverter}" -->
-                    <!--                          ConverterParameter="CAN_REMEDIATE" /> -->
-                    <!--             </MultiBinding> -->
-                    <!--         </controls:HamburgerMenuButton.IsEnabled> -->
-                    <!--     </controls:HamburgerMenuButton> -->
-                    <!--     <controls:HamburgerMenuButton ButtonText="Rollback" -->
-                    <!--                               x:Name="NavigateRollbackButton" -->
-                    <!--                               TextColor="White" -->
-                    <!--                               ImageSource="../../../Assets/rollback_128.png" -->
-                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
-                    <!--                               CommandParameter="Rollback" -->
-                    <!--                               IsEnabled="{Binding CurrentUser.Roles,Converter={StaticResource UserHasPermissionsConverter},ConverterParameter='CAN_REMEDIATE'}" /> -->
-                    <!--     <controls:HamburgerMenuButton ButtonText="View Results" -->
-                    <!--                               x:Name="NavigateResultsButton" -->
-                    <!--                               TextColor="White" -->
-                    <!--                               ImageSource="../../../Assets/results_128.png" -->
-                    <!--                               ClickCommand="{Binding ClickNavigationButton}" -->
-                    <!--                               CommandParameter="Results" -->
-                    <!--                               IsEnabled="{Binding CurrentUser.Roles,Converter={StaticResource UserHasPermissionsConverter},ConverterParameter='CAN_AUDIT'}" /> -->
-                </StackPanel>
+                    </StackPanel>
                 <StackPanel Grid.Row="1"
                             Spacing="4"
                             VerticalAlignment="Bottom">

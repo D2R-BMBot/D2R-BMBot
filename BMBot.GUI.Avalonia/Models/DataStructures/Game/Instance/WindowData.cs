@@ -60,7 +60,8 @@ public class WindowData : ReactiveObject, IDisposable
     public float WindowCenterX => XPosition + Width  / 2.0f;
     public float WindowCenterY => YPosition + Height / 2.0f;
 
-    public Action<int,int>? SetWindowPositionAction { get; set; }
+    public Action<int,int>? SetMainWindowPositionAction { get; set; }
+    public Action<int, int>? SetOptionsWindowPositionAction { get; set; }
     public Action? CloseAction { get; set; }
 
     private void WinEventCallback(
@@ -113,14 +114,16 @@ public class WindowData : ReactiveObject, IDisposable
         }
     }
 
-    public void RefreshWindowPosition()
+    public void RefreshWindowPositions()
     {
-        SetWindowPositionAction?.Invoke(XPosition, YPosition);
+        SetMainWindowPositionAction?.Invoke(XPosition, YPosition);
+        SetOptionsWindowPositionAction?.Invoke(XPosition, YPosition);
     }
 
     private void OnWindowPositionChanged(int p_x, int p_y)
     {
-        SetWindowPositionAction?.Invoke(p_x, p_y);
+        SetMainWindowPositionAction?.Invoke(p_x, p_y);
+        SetOptionsWindowPositionAction?.Invoke(p_x, p_y);
     }
     
     public void Dispose()

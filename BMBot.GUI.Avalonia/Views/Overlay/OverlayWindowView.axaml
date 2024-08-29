@@ -8,136 +8,212 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BMBot.GUI.Avalonia.Views.Overlay.OverlayWindowView"
         x:DataType="instance:InstanceData"
-        Title="OverlayWindow"
+        Title="BMBot Overlay"
+        Icon="/Assets/bmbot.ico"
         Topmost="{Binding Window.Topmost}"
         IsVisible="{Binding Window.IsVisible}"
         Width="{Binding Window.Width}"
         Height="{Binding Window.Height}"
         SystemDecorations="None"
         Background="Transparent"
-        IsHitTestVisible="False"
-        Focusable="False"
+        IsHitTestVisible="True"
+        Focusable="True"
         Padding="8, 42, 8, 8">
-    
+
     <Window.Resources>
         <converters:MercIsActiveToPanelMarginConverter x:Key="MercIsActiveToPanelMarginConverter" />
     </Window.Resources>
-    
-    <Grid ColumnDefinitions="*, *, *"
-          IsHitTestVisible="False">
-        <Grid Grid.Column="0"
-              x:Name="LeftPanels">
-            <Grid>
-                <Grid.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="Game.GameSessionIsActive" />
-                        <Binding Path="!Game.LeftPanelIsOpen" />
-                    </MultiBinding>
-                </Grid.IsVisible>
-                <controls:D2Border VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Left">
-                    <StackPanel Grid.IsSharedSizeScope="True"
-                                Orientation="Vertical"
-                                Spacing="8">
-                        <StackPanel.Styles>
-                            <Style Selector="TextBlock.label">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
-                            </Style>
-                            <Style Selector="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="FontFamily" Value="{StaticResource Formal436}" />
-                            </Style>
-                        </StackPanel.Styles>
-                        <TextBlock Classes="label"
-                                   Text="Character Data"
-                                   Foreground="#a08c5f" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Classes="label"
-                                       Text="Id: "
+
+    <Grid>
+        <!-- <ZoomBorder > -->
+        <!--     <Grid> -->
+        <!--         <Canvas Width="32767" Height="32767" Background="Aqua"> -->
+        <!--             <Canvas.RenderTransform> -->
+        <!--                 <MatrixTransform> -->
+        <!--                     <MatrixTransform.Matrix></MatrixTransform.Matrix> -->
+        <!--                 </MatrixTransform> -->
+        <!--                 <TransformGroup> -->
+        <!--                     <ScaleTransform ScaleX="{Binding ScaleX}" -->
+        <!--                                     ScaleY="{Binding ScaleY}" /> -->
+        <!--                     <SkewTransform AngleX="{Binding SkewAngleX}" -->
+        <!--                                    AngleY="{Binding SkewAngleY}" /> -->
+        <!--                     <RotateTransform Angle="{Binding RotAngle}" /> -->
+        <!--                 </TransformGroup> -->
+        <!--             </Canvas.RenderTransform> -->
+        <!--             <Line StartPoint="120,185" EndPoint="30,115" Stroke="Red" StrokeThickness="20"/> -->
+        <!--         </Canvas> -->
+        <!--     </Grid> -->
+        <!-- </ZoomBorder> -->
+        <Grid ColumnDefinitions="*, *, *"
+              IsHitTestVisible="True">
+            <Grid Grid.Column="0"
+                  x:Name="LeftPanels">
+                <Grid>
+                    <Grid.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="Game.GameSessionIsActive" />
+                            <Binding Path="!Game.LeftPanelIsOpen" />
+                        </MultiBinding>
+                    </Grid.IsVisible>
+                    <controls:D2Border VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Left">
+                        <StackPanel Grid.IsSharedSizeScope="True"
+                                    Orientation="Vertical"
+                                    Spacing="8">
+                            <StackPanel.Styles>
+                                <Style Selector="TextBlock.label">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                                </Style>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                                </Style>
+                                <!-- <Style Selector="TextBlock"> -->
+                                <!--     <Setter Property="VerticalAlignment" Value="Center" /> -->
+                                <!--     <Setter Property="FontFamily" Value="{StaticResource Formal436}" /> -->
+                                <!-- </Style> -->
+                            </StackPanel.Styles>
+                            <TextBlock Classes="label"
+                                       Text="Character Data"
                                        Foreground="#a08c5f" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding Player.Id}"
-                                       Foreground="White" />
-                        </Grid>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Classes="label"
-                                       Text="X: "
-                                       Foreground="#a08c5f" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding Player.XPosition}"
-                                       Foreground="White" />
-                        </Grid>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Classes="label"
-                                       Text="Y: "
-                                       Foreground="#a08c5f" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding Player.YPosition}"
-                                       Foreground="White" />
-                        </Grid>
-                    </StackPanel>
-                </controls:D2Border>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="1" x:Name="CenterPanels">
-            <Grid IsVisible="{Binding !Game.GameSessionIsActive}">
-                <Grid.Styles>
-                    <Style Selector="TextBlock">
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
-                    </Style>
-                </Grid.Styles>
-                <controls:D2Border VerticalAlignment="Top"
-                                   HorizontalAlignment="Center">
-                    <TextBlock Text="Waiting for game to start..." />
-                </controls:D2Border>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="2" x:Name="RightPanels">
-            <Grid>
-                <Grid.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="Game.GameSessionIsActive" />
-                        <Binding Path="!Game.RightPanelIsOpen" />
-                    </MultiBinding>
-                </Grid.IsVisible>
-                <controls:D2Border VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Right">
-                    <StackPanel Orientation="Vertical"
-                                Spacing="8">
-                        <StackPanel.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
-                            </Style>
-                        </StackPanel.Styles>
-                        <TextBlock Text="Debug Info"
-                                   Foreground="#a08c5f" />
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Mem Read: "
-                                       Foreground="#a08c5f" />
-                            <TextBlock Text="{Binding MemReadTime}"
-                                       Foreground="White" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Classes="label"
+                                           Text="Id: "
+                                           Foreground="#a08c5f" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Player.Id}"
+                                           Foreground="White" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Classes="label"
+                                           Text="X: "
+                                           Foreground="#a08c5f" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Player.XPosition}"
+                                           Foreground="White" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Classes="label"
+                                           Text="Y: "
+                                           Foreground="#a08c5f" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Player.YPosition}"
+                                           Foreground="White" />
+                            </Grid>
                         </StackPanel>
-                    </StackPanel>
-                </controls:D2Border>
+                    </controls:D2Border>
+                </Grid>
             </Grid>
+            <Grid Grid.Column="1" x:Name="CenterPanels">
+                <Grid IsVisible="{Binding !Game.GameSessionIsActive}">
+                    <Grid.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                        </Style>
+                    </Grid.Styles>
+                    <controls:D2Border VerticalAlignment="Top"
+                                       HorizontalAlignment="Center">
+                        <TextBlock Text="Waiting for game to start..." />
+                    </controls:D2Border>
+                </Grid>
             </Grid>
+            <Grid Grid.Column="2" x:Name="RightPanels">
+                <Grid>
+                    <Grid.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="Game.GameSessionIsActive" />
+                            <Binding Path="!Game.RightPanelIsOpen" />
+                        </MultiBinding>
+                    </Grid.IsVisible>
+                    <controls:D2Border VerticalAlignment="Top"
+                                       HorizontalAlignment="Right">
+                        <StackPanel Orientation="Vertical"
+                                    Spacing="8">
+                            <StackPanel.Styles>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                                </Style>
+                            </StackPanel.Styles>
+                            <TextBlock Text="Map Debug"
+                                       Foreground="#a08c5f" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Skew X: "
+                                           Foreground="#a08c5f" />
+                                <NumericUpDown Value="{Binding SkewAngleX}" 
+                                           Foreground="Black" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Skew Y: "
+                                           Foreground="#a08c5f" />
+                                <NumericUpDown Value="{Binding SkewAngleY}" 
+                                               Foreground="Black" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Rot: "
+                                           Foreground="#a08c5f" />
+                                <NumericUpDown Value="{Binding RotAngle}" 
+                                               Foreground="Black" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Scale X: "
+                                           Foreground="#a08c5f" />
+                                <NumericUpDown Value="{Binding ScaleX}" 
+                                               Foreground="Black" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Scale Y: "
+                                           Foreground="#a08c5f" />
+                                <NumericUpDown Value="{Binding ScaleY}" 
+                                               Foreground="Black" />
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:D2Border>
+                    <controls:D2Border VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right">
+                        <StackPanel Orientation="Vertical"
+                                    Spacing="8">
+                            <StackPanel.Styles>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="FontFamily" Value="{StaticResource Exocet}" />
+                                </Style>
+                            </StackPanel.Styles>
+                            <TextBlock Text="Debug Info"
+                                       Foreground="#a08c5f" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Seed: "
+                                           Foreground="#a08c5f" />
+                                <TextBlock Text="{Binding Game.Seed}"
+                                           Foreground="White" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Mem Read: "
+                                           Foreground="#a08c5f" />
+                                <TextBlock Text="{Binding MemReadTime}"
+                                           Foreground="White" />
+                            </StackPanel>
+                        </StackPanel>
+                    </controls:D2Border>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
+
 </Window>
