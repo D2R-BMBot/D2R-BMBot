@@ -15,7 +15,7 @@ public class PathFinding
 
     public Form1 Form1_0;
 
-    public int TeleportAcceptSize = 50; //not implemented yet
+    public int TeleportAcceptSize = 35; //not implemented yet
     public int AcceptMoveOffset = 15;
     public int ThisPlayerAreaID = 0;
     public int ThisNextAreaID = 0;
@@ -286,6 +286,7 @@ public class PathFinding
         else if (!CharConfig.UseTeleport) ThisOffsetToUse = 7; //Test 
         else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 7; //Test to see if it shorten teleport maxdistance
         else if (CharConfig.UseTeleport && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ChaosSanctuary) ThisOffsetToUse = 50; //Test
+        else if (CharConfig.UseTeleport && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.Travincal) ThisOffsetToUse = 50; //Test
         //else if (CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown() && (Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.ArcaneSanctuary) ThisOffsetToUse = 1;
         //else if(CharConfig.UseTeleport && !Form1_0.Town_0.GetInTown()) ThisOffsetToUse = 1;
 

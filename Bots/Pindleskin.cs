@@ -26,6 +26,8 @@ public class Pindleskin
 
     public void RunScript()
     {
+        Form1_0.SetGameStatus("Pindleskin Script");
+
         Form1_0.Town_0.ScriptTownAct = 5; //set to town act 5 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
@@ -36,7 +38,6 @@ public class Pindleskin
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.SetGameStatus("GO TO RED PORTAL");
             CurrentStep = 0;
 
             if (Form1_0.Town_0.TownAct != 5)
@@ -48,28 +49,21 @@ public class Pindleskin
 
             Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5121, Y = 5123 });
 
-            //5119,5121
-
-            //if (Form1_0.ObjectsStruc_0.GetObjects("PermanentTownPortal", true, new List<uint>()))
-            //{
-            //Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, Form1_0.ObjectsStruc_0.itemx, Form1_0.ObjectsStruc_0.itemy);
             Position itemScreenPos = Form1_0.GameStruc_0.World2Screen(Form1_0.PlayerScan_0.xPosFinal, Form1_0.PlayerScan_0.yPosFinal, 5117, 5120);
 
             Form1_0.KeyMouse_0.MouseClicc_RealPos(itemScreenPos.X, itemScreenPos.Y - 15);
             Form1_0.WaitDelay(50);
-            //}
-            //Form1_0.Town_0.GoToWPArea(3, 8);
+            
         }
         else
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING PINDLESKIN");
-                Form1_0.Battle_0.CastDefense();
-                Form1_0.WaitDelay(15);
-
-                if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.NihlathaksTemple)
+               if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.NihlathaksTemple)
                 {
+                    Form1_0.SetGameStatus("Moving to Attack Positon");
+                    Form1_0.Battle_0.CastDefense();
+                    Form1_0.WaitDelay(15);
                     CurrentStep++;
                 }
                 else
@@ -81,16 +75,12 @@ public class Pindleskin
 
             if (CurrentStep == 1)
             {
-                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 10058, Y = 13236 });
-                CurrentStep++;
-            }
-            if (CurrentStep == 2)
-            {
-                Form1_0.PathFinding_0.MoveToNPC("Pindleskin");
-
-                if (CharConfig.RunningOnChar == "Sorceress")
+                if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.NihlathaksTemple)
                 {
+                    Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 10058, Y = 13228 });
                     Form1_0.Battle_0.SetSkillsStatic();
+                    Form1_0.WaitDelay(25);
+
                     CurrentStep++;
                 }
                 else
@@ -98,8 +88,10 @@ public class Pindleskin
                     CurrentStep++;
                     return;
                 }
+                
             }
-            if (CurrentStep == 3)
+
+            if (CurrentStep == 2)
             {
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING PINDLESKIN");

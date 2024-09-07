@@ -415,7 +415,7 @@ public class Battle
         IgnoredMobsPointer = new List<long>();
         AttackNotRegisteredCount = 0;
         MoveTryCount = 0;
-        ClearingSize = 1000;
+        ClearingSize = 750;
         ClearingFullArea = true;
         DoingRoomIndex = 0;
 
@@ -867,26 +867,19 @@ public class Battle
         Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillAura);
     }
 
-    public void SetSkillsStatic()
+    public void SetSkillsStatic() //For Sorceress 
     {
         Form1_0.KeyMouse_0.PressKey(CharConfig.KeySkillDefenseAura); //select static
 
         {
             int tryes = 0;
-            while (tryes < 3)
+            while (tryes < 4)
             {
                 CastSkills();
                 Form1_0.WaitDelay(50);
                 tryes++;
             }
-            /*CastSkills();
-            Form1_0.WaitDelay(35);
-            CastSkills();
-            Form1_0.WaitDelay(35);
-            CastSkills();
-            Form1_0.WaitDelay(35);
-            CastSkills();
-            Form1_0.WaitDelay(35);*/
+            
         }
         SetSkillsStaticCasted = true;
     }

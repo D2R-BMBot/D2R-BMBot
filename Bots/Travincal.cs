@@ -30,6 +30,8 @@ public class Travincal
 
     public void RunScript()
     {
+        Form1_0.SetGameStatus("Travincal Script");
+
         Form1_0.Town_0.ScriptTownAct = 5; //set to town act 5 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
@@ -40,7 +42,7 @@ public class Travincal
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.SetGameStatus("GO TO WP");
+            //Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
             Form1_0.Town_0.GoToWPArea(3, 7);
@@ -49,7 +51,7 @@ public class Travincal
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING TRAVINCAL");
+                Form1_0.SetGameStatus("Moving to Council Members");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -75,13 +77,14 @@ public class Travincal
                 }
                 else
                 {
-                    Form1_0.method_1("Kahlim Orb location not detected!", Color.Red);
-                    Form1_0.Town_0.FastTowning = false;
-                    Form1_0.Town_0.UseLastTP = false;
-                    ScriptDone = true;
-                    return;
+                Form1_0.method_1("Kahlim Orb location not detected!", Color.Red);
+                Form1_0.Town_0.FastTowning = false;
+                Form1_0.Town_0.UseLastTP = false;
+                ScriptDone = true;
+                return;
                 }
             }
+
             if (CurrentStep == 2)
             {
                 if (CharConfig.RunningOnChar == "Sorceress")
@@ -97,9 +100,11 @@ public class Travincal
             }
             if (CurrentStep == 3)
             {
+                
                 Form1_0.Potions_0.CanUseSkillForRegen = false;
                 Form1_0.SetGameStatus("KILLING TRAVINCAL COUNCIL");
                 Form1_0.MobsStruc_0.DetectThisMob("getSuperUniqueName", "Council Member", false, 200, new List<long>());
+                
                 if (Form1_0.MobsStruc_0.GetMobs("getSuperUniqueName", "Council Member", false, 200, IgnoredCouncilMembers))
                 {
                     if (Form1_0.MobsStruc_0.MobsHP > 0)

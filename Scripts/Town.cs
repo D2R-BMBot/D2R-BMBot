@@ -1085,7 +1085,7 @@ public class Town
 
         if (TownAct == 5)
         {
-            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
+            Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5074, Y = 5026 });
             Form1_0.WaitDelay(25);
             CheckForNPCValidPos("Malah");
             Form1_0.PathFinding_0.MoveToNPC("Malah");
@@ -1269,7 +1269,7 @@ public class Town
         if (TownAct == 5)
         {
 
-            if (Form1_0.PlayerScan_0.xPosFinal >= 5092 - 25 && Form1_0.PlayerScan_0.yPosFinal >= 5023 - 11)
+            if (Form1_0.PlayerScan_0.xPosFinal == 5098 && Form1_0.PlayerScan_0.yPosFinal == 5023)
             {
                 /*Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 5073, Y = 5034 });
                 Form1_0.WaitDelay(25);*/

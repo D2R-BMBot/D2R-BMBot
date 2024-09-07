@@ -108,6 +108,7 @@
 //Flawless Ruby
 //Flawless Emerald
 //Flawless Diamond
+//Flawless Skull
 
 //Perfect Topaz
 //Perfect Amethyst
@@ -115,6 +116,7 @@
 //Perfect Ruby
 //Perfect Emerald
 //Perfect Diamond
+//Perfect Skull
 
 
 //#######################################
@@ -122,6 +124,24 @@
 //#######################################
 //##### Gold
 [Name] == Gold && [Quality] == normal && [GoldInPlayer] >= 5000 // Gold
+
+﻿//##### Helms 
+[Name] == WarHat && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == Sallet && [Quality] ==  normal && [Sockets] == 3 // Variable
+[Name] == Casque && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == Basinet && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == WingedHelm && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == GrandCrown && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == DeathMask && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == GrimHelm && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == Shako && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == Hydraskull && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == Armet && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == GiantConch && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == SpiredHelm && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == Corona && [Quality] == normal [Sockets] == 3 // Variable
+[Name] == Demonhead && [Quality] == normal && [Sockets] == 3 // Variable
+[Name] == BoneVisage && [Quality] == normal && [Sockets] == 3 // Variable
 
 ﻿//##### Helms (Exceptional)
 //[Name] == WarHat && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
@@ -132,6 +152,14 @@
 //[Name] == GrandCrown && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == DeathMask && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == GrimHelm && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
+[Name] == WarHat && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == Sallet && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == Casque && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == Basinet && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == WingedHelm && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == GrandCrown && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == DeathMask && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == GrimHelm && [Quality] == superior && [Sockets] == 3 // Variable
 
 ﻿//##### Helms (Elite)
 //[Name] == Shako && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 // Delirium or Dream
@@ -142,6 +170,14 @@
 //[Name] == Corona && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == Demonhead && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == BoneVisage && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
+[Name] == Shako && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == Hydraskull && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == Armet && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == GiantConch && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == SpiredHelm && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == Corona && [Quality] == superior [Sockets] == 3 // Variable
+[Name] == Demonhead && [Quality] == superior && [Sockets] == 3 // Variable
+[Name] == BoneVisage && [Quality] == superior && [Sockets] == 3 // Variable
 
 //##### Armor
 //[Name] == MagePlate && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Enigma
@@ -335,6 +371,10 @@
 //[Name] == BerserkerAxe && [Quality] == superior && [Flag] == ethereal
 //[Name] == BerserkerAxe && [Quality] == superior && [Flag] != ethereal && [Sockets] == 5
 //[Name] == BerserkerAxe && [Quality] == superior && [Flag] == ethereal && [Sockets] == 6 
+//[Name] == EttinAxe && [Quality] <= superior && [Flag] != ethereal && [Sockets] >= 3
+//[Name] == DoubleAxe && [Quality] <= superior && [Flag] != ethereal && [Sockets] >= 3
+//[Name] == TwinAxe && [Quality] <= superior && [Flag] != ethereal && [Sockets] >= 3
+
 
 //##### Bows (Elite)
 //[Name] == SpiderBow && [Quality] == superior && [Sockets] == 4 && [EnhancedDamage] >= 10 // Faith or Breath of the Dying
@@ -488,7 +528,8 @@
 //##### Sorceress Orbs
 
 //##### Circlets
-//[Type] == circlet && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 // Dream
+[Type] == circlet && [Quality] <= superior && [Sockets] == 3 // Variable
+
 
 
 
@@ -722,7 +763,7 @@
 //[Name] == SuperManaPotion
 //[Name] == RejuvenationPotion
 //[Name] == FullRejuvenationPotion
-//[Name] == FullrejuvenationPotion
+
 
 
 //#######################################

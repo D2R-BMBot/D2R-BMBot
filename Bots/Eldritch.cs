@@ -33,6 +33,8 @@ public class Eldritch
 
     public void RunScript()
     {
+        Form1_0.SetGameStatus("Eldritch Script");
+
         Form1_0.Town_0.ScriptTownAct = 5; //set to town act 5 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
@@ -43,8 +45,8 @@ public class Eldritch
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.Battle_0.CastDefense();
-            Form1_0.SetGameStatus("GO TO WP");
+            //Form1_0.Battle_0.CastDefense();
+            //Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
             Form1_0.Town_0.GoToWPArea(5, 1);
