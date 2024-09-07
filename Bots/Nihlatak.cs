@@ -33,7 +33,9 @@ public class Nihlatak
 
     public void RunScript()
     {
-        Form1_0.Town_0.ScriptTownAct = 1; //set to town act 5 when running this script
+        Form1_0.SetGameStatus("Nihlatak Script");
+
+        Form1_0.Town_0.ScriptTownAct = 5; //set to town act 5 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
         {
@@ -43,7 +45,7 @@ public class Nihlatak
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.SetGameStatus("GO TO WP");
+            //Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
             Form1_0.Town_0.GoToWPArea(5, 5);
@@ -52,12 +54,15 @@ public class Nihlatak
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING NIHLATAK");
-                Form1_0.Battle_0.CastDefense();
-                Form1_0.WaitDelay(15);
+                //Form1_0.SetGameStatus("DOING NIHLATAK");
+                //Form1_0.Battle_0.CastDefense();
+                //Form1_0.WaitDelay(15);
 
                 if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.HallsOfPain)
                 {
+                    Form1_0.SetGameStatus("Moving to Nihlatak");
+                    Form1_0.Battle_0.CastDefense();
+                    Form1_0.WaitDelay(15);
                     CurrentStep++;
                 }
                 else

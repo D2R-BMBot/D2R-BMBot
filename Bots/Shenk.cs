@@ -33,6 +33,7 @@ public class Shenk
 
     public void RunScript()
     {
+        Form1_0.SetGameStatus("Shenk Script");
         Form1_0.Town_0.ScriptTownAct = 5; //set to town act 5 when running this script
 
         if (!Form1_0.Running || !Form1_0.GameStruc_0.IsInGame())
@@ -43,7 +44,7 @@ public class Shenk
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.SetGameStatus("GO TO WP");
+            //Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
             Form1_0.Town_0.GoToWPArea(5, 1);
@@ -52,7 +53,7 @@ public class Shenk
         {
             if (CurrentStep == 0)
             {
-                Form1_0.SetGameStatus("DOING SHENK");
+                Form1_0.SetGameStatus("Moving to SHENK");
                 Form1_0.Battle_0.CastDefense();
                 Form1_0.WaitDelay(15);
 
@@ -73,7 +74,10 @@ public class Shenk
 
             if (CurrentStep == 1)
             {
+               
                 Form1_0.SetGameStatus("Moving to SHENK");
+                Form1_0.PathFinding_0.MoveToThisPos(new Position { X = 3795, Y = 5108 });
+                Form1_0.WaitDelay(15);
                 Position MidPos = new Position { X = 3854, Y = 5119 };
                 if (Form1_0.Mover_0.MoveToLocation(MidPos.X, MidPos.Y))
                 {
@@ -83,17 +87,24 @@ public class Shenk
 
             if (CurrentStep == 2)
             {
-                Form1_0.PathFinding_0.MoveToNPC("Shenk");
+                if ((Enums.Area)Form1_0.PlayerScan_0.levelNo == Enums.Area.BloodyFoothills)
 
-                if (CharConfig.RunningOnChar == "Sorceress")
+                    Form1_0.SetGameStatus("Moving to Attack Pos");
+                    Position MidPos = new Position { X = 3895, Y = 5117 };
+                    Form1_0.WaitDelay(25);
+
+                if (Form1_0.Mover_0.MoveToLocation(MidPos.X, MidPos.Y))
                 {
-                    Form1_0.Battle_0.SetSkillsStatic();
-                    CurrentStep++;
-                }
-                else
-                {
-                    CurrentStep++;
-                    return;
+                    if (CharConfig.RunningOnChar == "Sorceress")
+                    {
+                        Form1_0.Battle_0.SetSkillsStatic();
+                        CurrentStep++;
+                    }
+                    else
+                    {
+                        CurrentStep++;
+                        return;
+                    }
                 }
             }
 

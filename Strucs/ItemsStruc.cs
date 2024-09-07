@@ -918,8 +918,8 @@ public class ItemsStruc
                 if (ThisItemName.Contains("Healing")) IsItemPickingPotion = true;
                 if (ThisItemName.Contains("Mana")) IsItemPickingPotion = true;
                 if (ThisItemName.Contains("Rejuvenation")) IsItemPickingPotion = true;
-                if (ThisItemName.Contains("FullRejuvenation")) IsItemPickingPotion = true;
-
+                if (ThisItemName.Contains("FullRejuvenation || FullRejuvenationPotion || Full Rejuvenation || Full Rejuvenation Potion")) IsItemPickingPotion = true;
+                
                 if (IsItemPickingPotion) break;
             }
         }

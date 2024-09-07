@@ -160,7 +160,8 @@ public partial class FormItems : Form
                 || ThisDir.Key.Contains("Sapphire")
                 || ThisDir.Key.Contains("Ruby")
                 || ThisDir.Key.Contains("Emerald")
-                || ThisDir.Key.Contains("Diamond"))
+                || ThisDir.Key.Contains("Diamond")
+                || ThisDir.Key.Contains("Skull"))
             {
                 string[] arr = new string[2];
                 arr[0] = ThisDir.Key;
@@ -639,7 +640,8 @@ public partial class FormItems : Form
                     || ThisDir.Key.Contains("Sapphire")
                     || ThisDir.Key.Contains("Ruby")
                     || ThisDir.Key.Contains("Emerald")
-                    || ThisDir.Key.Contains("Diamond"))
+                    || ThisDir.Key.Contains("Diamond")
+                    || ThisDir.Key.Contains("Skull"))
                 {
                     if (ThisDir.Key == listViewGems.Items[i].SubItems[0].Text.ToString())
                     {

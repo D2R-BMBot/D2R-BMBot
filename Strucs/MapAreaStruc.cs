@@ -33,10 +33,10 @@ public class MapAreaStruc
             "ArmorStand",
             "WeaponRack",
             /*"Crate",
-            "Barrel",
+            "Barrel",*/
             "Casket5",
             "Casket6",
-            "LargeUrn1",
+           /*"LargeUrn1",
             "Barrel",
             "TowerTome",
             "Urn2",
@@ -61,12 +61,12 @@ public class MapAreaStruc
             "AmbientSoundGenerator",
             "Crate",
             "RogueTorch1",
-            "RogueTorch2",
+            "RogueTorch2",*/
             "CasketR",
             "CasketL",
-            "Urn3",
+            //"Urn3",
             "Casket",
-            "RogueCorpse1",
+            /*"RogueCorpse1",
             "RogueCorpse2",
             "RogueCorpseRolling",
             "CorpseOnStick1",
@@ -80,13 +80,13 @@ public class MapAreaStruc
             "ForestNightSound2",
             "YetiDung",
             "SewerDrip",
-            "HealthOrama",
+            "HealthOrama",*/
             "Casket3",
-            "Obelisk",
+            /*"Obelisk",
             "ForestAltar",
             "BubblingPoolOfBlood",
             "HornShrine",
-            //"HealingWell",
+            "HealingWell",
             "BullHealthShrine",
             "SteleDesertMagicShrine",
             //"Sarcophagus",
@@ -1098,7 +1098,9 @@ public class MapAreaStruc
         }
 
         // Lut Gholein map is a bit bugged, we should close this fake path to avoid pathing issues
-        if (area == Enums.Area.LutGholein) cg[13, 210] = false;
+        if (area == Enums.Area.LutGholein) 
+            
+            cg[13, 210] = false;
 
         // Kurast Docks
         if (area == Enums.Area.KurastDocks)
@@ -1166,8 +1168,7 @@ public class MapAreaStruc
             cg[317, 731] = false;
             cg[318, 731] = false;
             cg[319, 731] = false;
-            //cg[320, 731] = false;
-
+            
             cg[285, 723] = false;
             cg[285, 724] = false;
             cg[285, 725] = false;
@@ -1212,6 +1213,143 @@ public class MapAreaStruc
         if (area == Enums.Area.TowerCellarLevel1 || area == Enums.Area.TowerCellarLevel2 || area == Enums.Area.TowerCellarLevel3 || area == Enums.Area.TowerCellarLevel4)
         {
             //map id 21 TC Lvl 1
+
+            cg[175, 178] = false; //Casket Test
+            cg[176, 178] = false;
+            cg[177, 178] = false;
+            cg[178, 178] = false;
+            cg[179, 178] = false;
+            cg[180, 178] = false;
+            cg[181, 178] = false;
+            cg[182, 178] = false;
+            cg[183, 178] = false;
+
+            cg[176, 177] = false; //Casket Test
+            cg[177, 177] = false;
+            cg[178, 177] = false;
+            cg[179, 177] = false;
+            cg[180, 177] = false;
+            cg[181, 177] = false;
+            cg[182, 177] = false;
+            cg[183, 177] = false;
+
+            cg[216, 176] = false; //Casket Test
+            cg[217, 176] = false;
+            cg[218, 176] = false;
+            cg[219, 176] = false;
+            cg[220, 176] = false;
+            cg[221, 176] = false;
+            cg[222, 176] = false;
+            cg[223, 176] = false;
+
+            cg[136, 21] = false;
+            cg[137, 21] = false;
+            cg[138, 21] = false;
+            cg[139, 21] = false;
+            cg[140, 21] = false;
+            cg[141, 21] = false;
+            cg[142, 21] = false;
+
+            cg[136, 22] = false;
+            cg[137, 22] = false;
+            cg[138, 22] = false;
+            cg[139, 22] = false;
+            cg[140, 22] = false;
+            cg[141, 22] = false;
+            cg[142, 22] = false;
+
+            cg[136, 23] = false;
+            cg[137, 23] = false;
+            cg[138, 23] = false;
+            cg[139, 23] = false;
+            cg[140, 23] = false;
+            cg[141, 23] = false;
+            cg[142, 23] = false;
+
+            cg[216, 21] = false;
+            cg[217, 21] = false;
+            cg[218, 21] = false;
+            cg[219, 21] = false;
+            cg[220, 21] = false;
+            cg[221, 21] = false;
+            cg[222, 21] = false;
+
+            cg[216, 22] = false;
+            cg[217, 22] = false;
+            cg[218, 22] = false;
+            cg[219, 22] = false;
+            cg[220, 22] = false;
+            cg[221, 22] = false;
+            cg[222, 22] = false;
+            
+            cg[216, 23] = false;
+            cg[217, 23] = false;
+            cg[218, 23] = false;
+            cg[219, 23] = false;
+            cg[220, 23] = false;
+            cg[221, 23] = false;
+            cg[222, 23] = false;
+
+            cg[296, 101] = false;
+            cg[297, 101] = false;
+            cg[298, 101] = false;
+            cg[299, 101] = false;
+            cg[300, 101] = false;
+            cg[301, 101] = false;
+            cg[302, 101] = false;
+
+            cg[296, 102] = false;
+            cg[297, 102] = false;
+            cg[298, 102] = false;
+            cg[299, 102] = false;
+            cg[300, 102] = false;
+            cg[301, 102] = false;
+            cg[302, 102] = false;
+
+            cg[296, 103] = false;
+            cg[297, 103] = false;
+            cg[298, 103] = false;
+            cg[299, 103] = false;
+            cg[290, 103] = false;
+            cg[291, 103] = false;
+            cg[292, 103] = false;
+
+            cg[176, 141] = false;
+            cg[177, 141] = false;
+            cg[178, 141] = false;
+            cg[179, 141] = false;
+            cg[180, 141] = false;
+            cg[181, 141] = false;
+            cg[182, 141] = false;
+            cg[183, 141] = false;
+
+            cg[176, 142] = false;
+            cg[177, 142] = false;
+            cg[178, 142] = false;
+            cg[179, 142] = false;
+            cg[180, 142] = false;
+            cg[181, 142] = false;
+            cg[182, 142] = false;
+            cg[183, 142] = false;
+
+            cg[173, 143] = false;
+            cg[177, 143] = false;
+            cg[178, 143] = false;
+            cg[179, 143] = false;
+            cg[180, 143] = false;
+            cg[181, 143] = false;
+            cg[182, 143] = false;
+            cg[183, 143] = false;
+
+            cg[256, 141] = false;
+            cg[257, 141] = false;
+            cg[258, 141] = false;
+            cg[259, 141] = false;
+            cg[260, 141] = false;
+            cg[261, 141] = false;
+            cg[261, 141] = false;
+            cg[261, 141] = false;
+
             cg[256, 142] = false;
             cg[257, 142] = false;
             cg[258, 142] = false;
@@ -1230,6 +1368,102 @@ public class MapAreaStruc
             cg[261, 143] = false;
             cg[261, 143] = false;
 
+            cg[175, 181] = false;
+            cg[176, 181] = false;
+            cg[177, 181] = false;
+            cg[178, 181] = false;
+            cg[179, 181] = false;
+            cg[180, 181] = false;
+            cg[181, 181] = false;
+            cg[182, 181] = false;
+            cg[183, 181] = false;
+
+            cg[175, 182] = false;
+            cg[176, 182] = false;
+            cg[177, 182] = false;
+            cg[178, 182] = false;
+            cg[179, 182] = false;
+            cg[180, 182] = false;
+            cg[181, 182] = false;
+            cg[182, 182] = false;
+            cg[183, 182] = false;
+
+            cg[175, 183] = false;
+            cg[176, 183] = false;
+            cg[177, 183] = false;
+            cg[178, 183] = false;
+            cg[179, 183] = false;
+            cg[180, 183] = false;
+            cg[181, 183] = false;
+            cg[182, 183] = false;
+            cg[183, 183] = false;
+
+            cg[216, 181] = false;
+            cg[217, 181] = false;
+            cg[218, 181] = false;
+            cg[219, 181] = false;
+            cg[220, 181] = false;
+            cg[221, 181] = false;
+            cg[222, 181] = false;
+
+            cg[216, 182] = false;
+            cg[217, 182] = false;
+            cg[218, 182] = false;
+            cg[219, 182] = false;
+            cg[220, 182] = false;
+            cg[221, 182] = false;
+            cg[222, 182] = false;
+            
+            cg[216, 183] = false;
+            cg[217, 183] = false;
+            cg[218, 183] = false;
+            cg[219, 183] = false;
+            cg[220, 183] = false;
+            cg[221, 183] = false;
+            cg[222, 183] = false;
+
+            cg[296, 181] = false;
+            cg[297, 181] = false;
+            cg[298, 181] = false;
+            cg[299, 181] = false;
+            cg[300, 181] = false;
+            cg[301, 181] = false;
+            cg[302, 181] = false;
+
+            cg[296, 182] = false;
+            cg[297, 182] = false;
+            cg[298, 182] = false;
+            cg[299, 182] = false;
+            cg[300, 182] = false;
+            cg[301, 182] = false;
+            cg[302, 182] = false;
+
+            cg[296, 183] = false;
+            cg[297, 183] = false;
+            cg[298, 183] = false;
+            cg[299, 183] = false;
+            cg[300, 183] = false;
+            cg[301, 183] = false;
+            cg[302, 183] = false;
+
+            cg[176, 220] = false;
+            cg[177, 220] = false;
+            cg[178, 220] = false;
+            cg[179, 220] = false;
+            cg[180, 220] = false;
+            cg[181, 220] = false;
+            cg[182, 220] = false;
+            cg[183, 220] = false;
+
+            cg[176, 221] = false;
+            cg[177, 221] = false;
+            cg[178, 221] = false;
+            cg[179, 221] = false;
+            cg[180, 221] = false;
+            cg[181, 221] = false;
+            cg[182, 221] = false;
+            cg[183, 221] = false;
+
             cg[216, 222] = false;
             cg[217, 222] = false;
             cg[218, 222] = false;
@@ -1247,6 +1481,56 @@ public class MapAreaStruc
             cg[221, 223] = false;
             cg[222, 223] = false;
             cg[223, 223] = false;
+
+            cg[256, 100] = false;
+            cg[257, 100] = false;
+            cg[258, 100] = false;
+            cg[259, 100] = false;
+            cg[260, 100] = false;
+            cg[261, 100] = false;
+            cg[262, 100] = false;
+
+            cg[256, 101] = false;
+            cg[257, 101] = false;
+            cg[258, 101] = false;
+            cg[259, 101] = false;
+            cg[260, 101] = false;
+            cg[261, 101] = false;
+            cg[262, 101] = false;
+
+            cg[256, 102] = false;
+            cg[257, 102] = false;
+            cg[258, 102] = false;
+            cg[259, 102] = false;
+            cg[260, 102] = false;
+            cg[261, 102] = false;
+            cg[262, 102] = false;
+            
+            cg[256, 103] = false;
+            cg[257, 103] = false;
+            cg[258, 103] = false;
+            cg[259, 103] = false;
+            cg[260, 103] = false;
+            cg[261, 103] = false;
+            cg[262, 103] = false;
+
+            cg[216, 100] = false;
+            cg[217, 100] = false;
+            cg[218, 100] = false;
+            cg[219, 100] = false;
+            cg[220, 100] = false;
+            cg[221, 100] = false;
+            cg[222, 100] = false;
+            cg[223, 100] = false;
+
+            cg[216, 101] = false;
+            cg[217, 101] = false;
+            cg[218, 101] = false;
+            cg[219, 101] = false;
+            cg[220, 101] = false;
+            cg[221, 101] = false;
+            cg[222, 101] = false;
+            cg[223, 101] = false;
 
             cg[216, 102] = false;
             cg[217, 102] = false;
@@ -1267,6 +1551,105 @@ public class MapAreaStruc
             cg[223, 103] = false;
 
             //map id 21 TC Lvl 2
+
+            cg[216, 61] = false;
+            cg[217, 61] = false;
+            cg[218, 61] = false;
+            cg[219, 61] = false;
+            cg[220, 61] = false;
+            cg[221, 61] = false;
+            cg[222, 61] = false;
+            cg[223, 61] = false;
+
+            cg[216, 62] = false;
+            cg[217, 62] = false;
+            cg[218, 62] = false;
+            cg[219, 62] = false;
+            cg[220, 62] = false;
+            cg[221, 62] = false;
+            cg[222, 62] = false;
+            cg[223, 62] = false;
+
+            cg[216, 63] = false;
+            cg[217, 63] = false;
+            cg[218, 63] = false;
+            cg[219, 63] = false;
+            cg[220, 63] = false;
+            cg[221, 63] = false;
+            cg[222, 63] = false;
+            cg[223, 63] = false;
+
+            cg[256, 61] = false;
+            cg[257, 61] = false;
+            cg[258, 61] = false;
+            cg[259, 61] = false;
+            cg[260, 61] = false;
+            cg[261, 61] = false;
+            cg[262, 61] = false;
+            cg[263, 61] = false;
+
+            cg[256, 62] = false;
+            cg[257, 62] = false;
+            cg[258, 62] = false;
+            cg[259, 62] = false;
+            cg[250, 62] = false;
+            cg[251, 62] = false;
+            cg[252, 62] = false;
+            cg[253, 62] = false;
+
+            cg[256, 63] = false;
+            cg[257, 63] = false;
+            cg[258, 63] = false;
+            cg[259, 63] = false;
+            cg[250, 63] = false;
+            cg[251, 63] = false;
+            cg[252, 63] = false;
+            cg[253, 63] = false;
+
+            cg[216, 141] = false;
+            cg[217, 141] = false;
+            cg[218, 141] = false;
+            cg[219, 141] = false;
+            cg[220, 141] = false;
+            cg[221, 141] = false;
+            cg[222, 141] = false;
+
+            cg[216, 142] = false;
+            cg[217, 142] = false;
+            cg[218, 142] = false;
+            cg[219, 142] = false;
+            cg[220, 142] = false;
+            cg[221, 142] = false;
+            cg[222, 142] = false;
+            
+            cg[216, 143] = false;
+            cg[217, 143] = false;
+            cg[218, 143] = false;
+            cg[219, 143] = false;
+            cg[220, 143] = false;
+            cg[221, 143] = false;
+            cg[222, 143] = false;
+
+            cg[135, 180] = false;
+            cg[136, 180] = false;
+            cg[137, 180] = false;
+            cg[138, 180] = false;
+            cg[139, 180] = false;
+            cg[140, 180] = false;
+            cg[141, 180] = false;
+            cg[142, 180] = false;
+            cg[143, 180] = false;
+
+            cg[135, 181] = false;
+            cg[136, 181] = false;
+            cg[137, 181] = false;
+            cg[138, 181] = false;
+            cg[139, 181] = false;
+            cg[140, 181] = false;
+            cg[141, 181] = false;
+            cg[142, 181] = false;
+            cg[143, 181] = false;
+
             cg[135, 182] = false;
             cg[136, 182] = false;
             cg[137, 182] = false;
@@ -1296,6 +1679,15 @@ public class MapAreaStruc
             cg[141, 184] = false;
             cg[142, 184] = false;
             cg[143, 184] = false;
+           
+            cg[96, 141] = false;
+            cg[97, 141] = false;
+            cg[98, 141] = false;
+            cg[99, 141] = false;
+            cg[100, 141] = false;
+            cg[101, 141] = false;
+            cg[102, 141] = false;
+            cg[103, 141] = false;
 
             cg[96, 142] = false;
             cg[97, 142] = false;
@@ -1316,6 +1708,16 @@ public class MapAreaStruc
             cg[103, 143] = false;
 
             //map id 21 TC Lvl 3
+
+            cg[176, 61] = false;
+            cg[177, 61] = false;
+            cg[178, 61] = false;
+            cg[179, 61] = false;
+            cg[180, 61] = false;
+            cg[181, 61] = false;
+            cg[182, 61] = false;
+            cg[183, 61] = false;
+
             cg[176, 62] = false;
             cg[177, 62] = false;
             cg[178, 62] = false;
@@ -1334,6 +1736,184 @@ public class MapAreaStruc
             cg[182, 63] = false;
             cg[183, 63] = false;
 
+            cg[96, 301] = false;
+            cg[97, 301] = false;
+            cg[98, 301] = false;
+            cg[99, 301] = false;
+            cg[100, 301] = false;
+            cg[101, 301] = false;
+            cg[102, 301] = false;
+
+            cg[96, 302] = false;
+            cg[97, 302] = false;
+            cg[98, 302] = false;
+            cg[99, 302] = false;
+            cg[100, 302] = false;
+            cg[101, 302] = false;
+            cg[102, 302] = false;
+
+            cg[96, 303] = false;
+            cg[97, 303] = false;
+            cg[98, 303] = false;
+            cg[99, 303] = false;
+            cg[100, 303] = false;
+            cg[101, 303] = false;
+            cg[102, 303] = false;
+
+            cg[280, 140] = false;
+            cg[280, 141] = false;
+            cg[280, 142] = false;
+            cg[280, 143] = false;
+            cg[280, 144] = false;
+            cg[280, 145] = false;
+            cg[280, 146] = false;
+            cg[280, 147] = false;
+            cg[280, 148] = false;
+            cg[280, 149] = false;
+
+            cg[279, 140] = false;
+            cg[279, 141] = false;
+            cg[279, 142] = false;
+            cg[279, 143] = false;
+            cg[279, 144] = false;
+            cg[279, 145] = false;
+            cg[279, 146] = false;
+            cg[279, 147] = false;
+            cg[279, 148] = false;
+            cg[279, 149] = false;
+
+            cg[278, 140] = false;
+            cg[278, 141] = false;
+            cg[278, 143] = false;
+            cg[278, 144] = false;
+            cg[278, 145] = false;
+            cg[278, 146] = false;
+            cg[278, 147] = false;
+            cg[278, 148] = false;
+            cg[278, 142] = false;
+            cg[278, 149] = false;
+
+            cg[277, 140] = false;
+            cg[277, 141] = false;
+            cg[277, 142] = false;
+            cg[277, 143] = false;
+            cg[277, 144] = false;
+            cg[277, 145] = false;
+            cg[277, 146] = false;
+            cg[277, 147] = false;
+            cg[277, 148] = false;
+            cg[277, 149] = false;
+
+            cg[276, 140] = false;
+            cg[276, 141] = false;
+            cg[276, 142] = false;
+            cg[276, 143] = false;
+            cg[276, 144] = false;
+            cg[276, 145] = false;
+            cg[276, 146] = false;
+            cg[276, 147] = false;
+            cg[276, 148] = false;
+            cg[276, 149] = false;
+
+            cg[275, 140] = false;
+            cg[275, 141] = false;
+            cg[275, 143] = false;
+            cg[275, 144] = false;
+            cg[275, 145] = false;
+            cg[275, 146] = false;
+            cg[275, 147] = false;
+            cg[275, 148] = false;
+            cg[275, 142] = false;
+            cg[275, 149] = false;
+
+            cg[274, 140] = false;
+            cg[274, 141] = false;
+            cg[274, 142] = false;
+            cg[274, 143] = false;
+            cg[274, 144] = false;
+            cg[274, 145] = false;
+            cg[274, 146] = false;
+            cg[274, 147] = false;
+            cg[274, 148] = false;
+            cg[274, 149] = false;
+
+            cg[280, 148] = false;
+            cg[279, 148] = false;
+            cg[278, 148] = false;
+            cg[277, 148] = false;
+            cg[276, 148] = false;
+            cg[275, 148] = false;
+            cg[274, 148] = false;
+            cg[273, 148] = false;
+            cg[272, 148] = false;
+            
+            cg[280, 147] = false;
+            cg[279, 147] = false;
+            cg[278, 147] = false;
+            cg[277, 147] = false;
+            cg[276, 147] = false;
+            cg[275, 147] = false;
+            cg[274, 147] = false;
+            cg[273, 147] = false;
+            cg[272, 147] = false;
+            
+            cg[280, 146] = false;
+            cg[279, 146] = false;
+            cg[278, 146] = false;
+            cg[277, 146] = false;
+            cg[276, 146] = false;
+            cg[275, 146] = false;
+            cg[274, 146] = false;
+            cg[273, 146] = false;
+            cg[272, 146] = false;
+            
+            cg[280, 145] = false;
+            cg[279, 145] = false;
+            cg[278, 145] = false;
+            cg[277, 145] = false;
+            cg[276, 145] = false;
+            cg[275, 145] = false;
+            cg[274, 145] = false;
+            cg[273, 145] = false;
+            cg[272, 145] = false;
+            
+            cg[280, 144] = false;
+            cg[279, 144] = false;
+            cg[278, 144] = false;
+            cg[277, 144] = false;
+            cg[276, 144] = false;
+            cg[275, 144] = false;
+            cg[274, 144] = false;
+            cg[273, 144] = false;
+            cg[272, 144] = false;
+            
+            cg[280, 143] = false;
+            cg[279, 143] = false;
+            cg[278, 143] = false;
+            cg[277, 143] = false;
+            cg[276, 143] = false;
+            cg[275, 143] = false;
+            cg[274, 143] = false;
+            cg[273, 143] = false;
+            cg[272, 143] = false;
+            
+            cg[280, 142] = false;
+            cg[279, 142] = false;
+            cg[278, 142] = false;
+            cg[277, 142] = false;
+            cg[276, 142] = false;
+            cg[275, 142] = false;
+            cg[274, 142] = false;
+            cg[273, 142] = false;
+            cg[272, 142] = false;
+            
+            cg[179, 141] = false;
+            cg[180, 141] = false;
+            cg[181, 141] = false;
+            cg[182, 141] = false;
+            cg[183, 141] = false;
+            cg[184, 141] = false;
+
             cg[179, 143] = false;
             cg[180, 143] = false;
             cg[181, 143] = false;
@@ -1347,6 +1927,15 @@ public class MapAreaStruc
             cg[181, 142] = false;
             cg[182, 142] = false;
             cg[183, 142] = false;
+
+            cg[136, 221] = false;
+            cg[137, 221] = false;
+            cg[138, 221] = false;
+            cg[139, 221] = false;
+            cg[140, 221] = false;
+            cg[141, 221] = false;
+            cg[142, 221] = false;
+            cg[143, 221] = false;
 
             cg[136, 222] = false;
             cg[137, 222] = false;
@@ -1367,6 +1956,63 @@ public class MapAreaStruc
             cg[143, 223] = false;
 
             //map id 24 FT Lvl 4
+            cg[136, 61] = false;
+            cg[137, 61] = false;
+            cg[138, 61] = false;
+            cg[139, 61] = false;
+            cg[140, 61] = false;
+            cg[141, 61] = false;
+            cg[142, 61] = false;
+
+            cg[136, 62] = false;
+            cg[137, 62] = false;
+            cg[138, 62] = false;
+            cg[139, 62] = false;
+            cg[140, 62] = false;
+            cg[141, 62] = false;
+            cg[142, 62] = false;
+            
+            cg[136, 63] = false;
+            cg[137, 63] = false;
+            cg[138, 63] = false;
+            cg[139, 63] = false;
+            cg[140, 63] = false;
+            cg[141, 63] = false;
+            cg[142, 63] = false;
+
+            cg[96, 61] = false;
+            cg[97, 61] = false;
+            cg[98, 61] = false;
+            cg[99, 61] = false;
+            cg[100, 61] = false;
+            cg[101, 61] = false;
+            cg[102, 61] = false;
+
+            cg[96, 62] = false;
+            cg[97, 62] = false;
+            cg[98, 62] = false;
+            cg[99, 62] = false;
+            cg[100, 62] = false;
+            cg[101, 62] = false;
+            cg[102, 62] = false;
+
+            cg[96, 63] = false;
+            cg[97, 63] = false;
+            cg[98, 63] = false;
+            cg[99, 63] = false;
+            cg[100, 63] = false;
+            cg[101, 63] = false;
+            cg[102, 63] = false;
+
+            cg[176, 221] = false;
+            cg[177, 221] = false;
+            cg[178, 221] = false;
+            cg[179, 221] = false;
+            cg[180, 221] = false;
+            cg[181, 221] = false;
+            cg[182, 221] = false;
+            cg[183, 221] = false;
+
             cg[176, 222] = false;
             cg[177, 222] = false;
             cg[178, 222] = false;
@@ -1385,6 +2031,15 @@ public class MapAreaStruc
             cg[182, 223] = false;
             cg[183, 223] = false;
 
+            cg[216, 143] = false;
+            cg[217, 143] = false;
+            cg[218, 143] = false;
+            cg[219, 143] = false;
+            cg[220, 143] = false;
+            cg[221, 143] = false;
+            cg[222, 143] = false;
+            cg[223, 143] = false;
+
             cg[216, 144] = false;
             cg[217, 144] = false;
             cg[218, 144] = false;
@@ -1402,6 +2057,15 @@ public class MapAreaStruc
             cg[221, 145] = false;
             cg[222, 145] = false;
             cg[223, 145] = false;
+
+            cg[176, 101] = false;
+            cg[177, 101] = false;
+            cg[178, 101] = false;
+            cg[179, 101] = false;
+            cg[180, 101] = false;
+            cg[181, 101] = false;
+            cg[182, 101] = false;
+            cg[183, 101] = false;
 
             cg[176, 102] = false;
             cg[177, 102] = false;

@@ -220,7 +220,8 @@ public class BeltStruc
                 if (ThisItemName.Contains("Healing")) IsItemHPPotion = true;
                 if (ThisItemName.Contains("Mana")) IsItemManaPotion = true;
                 if (ThisItemName.Contains("Rejuvenation")) IsItemRVPotion = true;
-                if (ThisItemName.Contains("FullRejuvenation")) IsItemFullRVPotion = true;
+                if (ThisItemName.Contains("FullRejuvenation || FullRejuvenationPotion || Full Rejuvenation || Full Rejuvenation Potion")) IsItemFullRVPotion = true;
+                
             }
         }
 
@@ -245,7 +246,7 @@ public class BeltStruc
         {
             return 2;
         }
-        if (Form1_0.ItemsStruc_0.ItemNAAME == "Full Rejuvenation Potion")
+        if (Form1_0.ItemsStruc_0.ItemNAAME == "Full Rejuvenation Potion || FullRejuvenation || FullRejuvenation Potion || FullRejuvenationPotion")
         {
             return 3;
         }

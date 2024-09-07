@@ -33,6 +33,8 @@ public class Summoner
 
     public void RunScript()
     {
+        Form1_0.SetGameStatus("Summoner Script");
+
         Form1_0.Town_0.ScriptTownAct = 2; //set to town act 5 when running this script
         
         //if (TerrorZonesAreas.Count == 0) TerrorZonesAreas = Form1_0.GameStruc_0.GetTerrorZones();
@@ -45,7 +47,7 @@ public class Summoner
 
         if (Form1_0.Town_0.GetInTown())
         {
-            Form1_0.SetGameStatus("GO TO WP");
+            //Form1_0.SetGameStatus("GO TO WP");
             CurrentStep = 0;
 
             Form1_0.Town_0.GoToWPArea(2, 7);
