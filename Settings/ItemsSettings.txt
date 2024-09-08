@@ -125,59 +125,45 @@
 //##### Gold
 [Name] == Gold && [Quality] == normal && [GoldInPlayer] >= 5000 // Gold
 
-﻿//##### Helms 
-[Name] == WarHat && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == Sallet && [Quality] ==  normal && [Sockets] == 3 // Variable
-[Name] == Casque && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == Basinet && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == WingedHelm && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == GrandCrown && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == DeathMask && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == GrimHelm && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == Shako && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == Hydraskull && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == Armet && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == GiantConch && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == SpiredHelm && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == Corona && [Quality] == normal [Sockets] == 3 // Variable
-[Name] == Demonhead && [Quality] == normal && [Sockets] == 3 // Variable
-[Name] == BoneVisage && [Quality] == normal && [Sockets] == 3 // Variable
+﻿//##### Helms
+//[Name] == GreatHelm && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Crown && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Mask && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == WingedHelm && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == GrandCrown && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == DeathMask && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == SpiredHelm && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Corona && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Demonhead && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == BoneVisage && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Tiara && [Quality] == normal && [Sockets] == 3 // Variable
+//[Name] == Diadem && [Quality] == normal && [Sockets] == 3 // Variable
+
+//[Name] == GreatHelm && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == Crown && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == Mask && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == WingedHelm && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == GrandCrown && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == DeathMask && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == SpiredHelm && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == Corona && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == Demonhead && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == BoneVisage && [Quality] == superior && [Sockets] == 3 // Variable
+//[Name] == Tiara && [Quality] == Superior && [Sockets] == 3 // Variable
+//[Name] == Diadem && [Quality] == Superior && [Sockets] == 3 // Variable
 
 ﻿//##### Helms (Exceptional)
-//[Name] == WarHat && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-//[Name] == Sallet && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-//[Name] == Casque && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-//[Name] == Basinet && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == WingedHelm && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == GrandCrown && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == DeathMask && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == GrimHelm && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-[Name] == WarHat && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == Sallet && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == Casque && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == Basinet && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == WingedHelm && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == GrandCrown && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == DeathMask && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == GrimHelm && [Quality] == superior && [Sockets] == 3 // Variable
+
 
 ﻿//##### Helms (Elite)
-//[Name] == Shako && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 // Delirium or Dream
-//[Name] == Hydraskull && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-//[Name] == Armet && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-//[Name] == GiantConch && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == SpiredHelm && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == Corona && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == Demonhead && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
 //[Name] == BoneVisage && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Delirium or Dream
-[Name] == Shako && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == Hydraskull && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == Armet && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == GiantConch && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == SpiredHelm && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == Corona && [Quality] == superior [Sockets] == 3 // Variable
-[Name] == Demonhead && [Quality] == superior && [Sockets] == 3 // Variable
-[Name] == BoneVisage && [Quality] == superior && [Sockets] == 3 // Variable
 
 //##### Armor
 //[Name] == MagePlate && [Quality] == superior && [Flag] != ethereal && [Sockets] == 3 && [EnhancedDefense] >= 10 // Enigma
@@ -202,7 +188,8 @@
 //[Name] == LacqueredPlate && [Quality] == superior && [Flag] != ethereal && [Sockets] >= 3 && [EnhancedDefense] >= 10 // Variable
 //[Name] == ShadowPlate && [Quality] == superior && [Flag] != ethereal && [Sockets] >= 3 && [EnhancedDefense] >= 10 // Variable
 //[Name] == SacredArmor && [Quality] == superior && [Flag] != ethereal && [Sockets] >= 3 && [EnhancedDefense] >= 10 // Variable
-//[Name] == ArchonPlate && [Flag] != ethereal && [Sockets] >= 3 && [EnhancedDefense] >= 10 // Variable
+//[Name] == ArchonPlate && [Quality] == superior && [Flag] != ethereal && [Sockets] >= 3 && [EnhancedDefense] >= 10 // Variable
+//[Name] == ArchonPlate && [Quality] == superior && [Flag] == ethereal && [Sockets] >= 3 // Variable
 //[Name] == DuskShroud && [Quality] == superior && [Flag] != ethereal //Larzuk
 //[Name] == ScarabHusk && [Quality] == superior && [Flag] != ethereal //Larzuk
 //[Name] == WireFleece && [Quality] == superior && [Flag] != ethereal //Larzuk
@@ -1555,6 +1542,7 @@
 //[Name] == SmallCharm && [Quality] == magic && [LightningResist] >= 4
 //[Name] == SmallCharm && [Quality] == magic && [PoisonResist] >= 4
 //[Name] == SmallCharm && [Quality] == magic && [ColdResist] >= 4
+//[Name] == SmallCharm && [Quality] == magic && [Strength] >= 1
 
 //##### Large Charms
 //[Name] == LargeCharm && [Quality] == magic && [LifeMax] >= 34
